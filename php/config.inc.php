@@ -15,7 +15,7 @@ require_once('config.class.php');
  * Write settings to the config
  */
 Config::write('hostname', 'localhost');
-Config::write('database', 'parking');
+Config::write('database', 'pms');
 Config::write('username', 'root');
 Config::write('password', 'root');
 Config::write('drivers', array(PDO::ATTR_PERSISTENT => true));

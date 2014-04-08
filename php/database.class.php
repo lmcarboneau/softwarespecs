@@ -29,6 +29,9 @@
  * @version    0.3.0
  * @since      File available since Release 0.3.0
  */ 
+
+require_once("config.inc.php");
+
 class database {
 	/**
 	 * @var $pdo A reference to the PDO instance;
