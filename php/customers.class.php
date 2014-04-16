@@ -15,7 +15,7 @@ class customers {
 	
 
 	// Attempts to add a new customer to database
-	// Returns true or false based on successd
+	// Returns true or false based on success
 	public function addCustomer($name, $firstname, $lastname, $address1, $address2, $city, $state, $zip, $phonenumber, $gardenerID, $monthlycharge, $averagehours, $quantityTableID, $active){
 		global $database;
 		$query = "INSERT INTO customers (customer_name, contact_first_name, contact_last_name, address_line_one, 
