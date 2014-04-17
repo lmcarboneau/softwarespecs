@@ -27,7 +27,7 @@
 	
     <div class="container">
 
-      <form class="form-signin" role="form">
+      <form class="form-signin" role="form" action="login.php" method="post">
 	  
 		<div class="row">
 			<!-- Next line is for layout, because heaven forbid anything just be centered naturally -->
@@ -38,13 +38,13 @@
 		</div>	
 		
 			
-        <input type="email" class="form-control" placeholder="Email address" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" required>
+        <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
 		
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>
-        <button class="btn btn-lg btn-success btn-block" type="submit"><a href="dashboard.html">Log in</a></button>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Log in</button>
 		<!-- Temporary link to dash, just to pretend to log in -->
 		
       </form>
