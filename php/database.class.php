@@ -119,6 +119,12 @@ class database {
 			$result = $this->statement->fetchAll(PDO::FETCH_NUM); 	
 		} elseif($fetch == 'fetchAll') {
 			$result = $this->statement->fetchAll();
+		} elseif($fetch == 'FETCH_ASSOC_ALL') {
+			$result = array();
+			$this->statement->setFetchMode(PDO::FETCH_ASSOC);
+    		while($row = $this->statement->fetch()){
+    			array_push($result, $row);
+    		}
 		}
 		return $result;
 	}

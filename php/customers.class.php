@@ -58,7 +58,7 @@ class customers {
 	// Returns MySQL results table of all customers and customer data
 	public function getCustomerList(){
 		global $database;
-		$result = $database->query("SELECT * FROM customers", null, 'fetchAll');
+		$result = $database->query("SELECT * FROM customers", null, 'FETCH_ASSOC_ALL');
 		return $result;
 	}
 
