@@ -1,4 +1,35 @@
+<?php
+error_reporting(-1);
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
 
+require_once("php/database.class.php");
+$database = new database();
+require_once("php/customers.class.php");
+
+$customers = new customers($database);
+$customerList = $customers->getCustomerList();
+
+$tableRows = "";
+
+foreach($customerList as $customerRow){
+	$tableRows .= "<tr>\n";
+
+	$tableRows .= "\t<td class='customerID' style='display:none;'>";
+	$tableRows .= $customerRow['customerID']."</td>\n";
+
+	$tableRows .= "\t<td class='customer_name'>";
+	$tableRows .= $customerRow['customer_name']."</td>\n";
+
+	$tableRows .= "\t<td class='technician_name'>";
+	$tableRows .= $customerRow['gardenerID']."</td>\n";
+
+	$tableRows .= "\t<td class='city'>";
+	$tableRows .= $customerRow['city']."</td>\n";
+
+	$tableRows .= "</tr>\n";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,7 +56,7 @@
 		// Set up List.js table on load
 		$(document).ready ( function(){
 			var options = {
-	  			valueNames: [ 'customerID', 'customer_name', 'technician_name', 'stats_curr_rep' ]
+	  			valueNames: [ 'customerID', 'customer_name', 'technician_name', 'city' ]
 			};
 
 			// Init list
@@ -64,7 +95,7 @@
 	<div class="row" >  
 		<div id="customers" style="margin:20px">
 			<input type="text" class="search form-control" placeholder="Search Customers" />
-			<table class="table table-striped table-hover">
+			<table class="table table-striped table-hover table-responsive">
 				<thead>
 					<tr>
 						<th>
@@ -80,32 +111,15 @@
 							</button>
 						</th>
 						<th>
-							<button class="sort btn btn-default" data-sort="stats_curr_rep" style="width:100%">
+							<button class="sort btn btn-default" data-sort="city" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Current Replacements
+								City
 							</button>
 						</th>
 					</tr>
 				</thead>
 				<tbody class="list">
-					<tr>
-						<td class="customerID" style="display:none;">1</td>
-						<td class="customer_name">Bobs Automotive</td>
-						<td class="technician_name">John</td>
-						<td class="stats_curr_rep">40%</td>
-					</tr>
-					<tr>
-						<td class="customerID" style="display:none;">2</td>
-						<td class="customer_name">FGCU</td>
-						<td class="technician_name">John</td>
-						<td class="stats_curr_rep">20%</td>
-					</tr>
-					<tr>
-						<td class="customerID" style="display:none;">3</td>
-						<td class="customer_name">Dunkin Donuts</td>
-						<td class="technician_name">Steve</td>
-						<td class="stats_curr_rep">80%</td>
-					</tr>
+					<?php echo $tableRows; ?>
 				</tbody>
 			</table>
 		</div>
