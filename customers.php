@@ -76,9 +76,62 @@ foreach($customerList as $customerRow){
 			};
 
 			// Init list
-			var contactList = new List('customers', options);
+			var customerList = new List('customers', options);
+
+			// Sort by customer name
+   			//customerList.sort('customer_name', { order: "asc" });
+
+   			var sort = "";
+	   		var direction = "asc";
+	   		var btn_customer = $("#sort-customer-name");
+	   		var btn_technician = $("#sort-technician-name");
+	   		var btn_city = $("#sort-city");
+
+	   		btn_customer.click(function(){
+	   			if (sort == "customer_name"){
+	   				direction = (direction == "asc") ? "desc" : "asc";
+	   			} else {
+	   				direction = "asc";
+	   			}
+	     		sort = "customer_name";
+	   			customerList.sort(sort, { order: direction});
+
+	   			btn_customer.addClass("btn-primary");
+	   			btn_technician.removeClass("btn-primary");
+	   			btn_city.removeClass("btn-primary");
+	   		});
+
+	   		btn_technician.click(function(){
+	   			if (sort == "technician_name"){
+	   				direction = (direction == "asc") ? "desc" : "asc";
+	   			} else {
+	   				direction = "asc";
+	   			}
+	     		sort = "technician_name";
+	   			customerList.sort(sort, { order: direction});
+
+	   			btn_customer.removeClass("btn-primary");
+	   			btn_technician.addClass("btn-primary");
+	   			btn_city.removeClass("btn-primary");
+	   		});
+
+	   		btn_city.click(function(){
+	   			if (sort == "city"){
+	   				direction = (direction == "asc") ? "desc" : "asc";
+	   			} else {
+	   				direction = "asc";
+	   			}
+	     		sort = "city";
+	   			customerList.sort(sort, { order: direction});
+
+	   			btn_customer.removeClass("btn-primary");
+	   			btn_technician.removeClass("btn-primary");
+	   			btn_city.addClass("btn-primary");
+	   		});
+
+	   		btn_customer.trigger("click");
    		});
-	</script>
+   	</script>
 
   </head>
 
@@ -115,19 +168,19 @@ foreach($customerList as $customerRow){
 				<thead>
 					<tr>
 						<th>
-							<button class="sort btn btn-default" data-sort="customer_name" style="width:100%">
+							<button id="sort-customer-name" class="btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Customer
 							</button>
 						</th>
 						<th>
-							<button class="sort btn btn-default" data-sort="technician_name" style="width:100%">
+							<button id="sort-technician-name" class="sort btn btn-default" data-sort="technician_name" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Technician
 							</button>
 						</th>
 						<th>
-							<button class="sort btn btn-default" data-sort="city" style="width:100%">
+							<button id="sort-city" class="sort btn btn-default" data-sort="city" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								City
 							</button>
