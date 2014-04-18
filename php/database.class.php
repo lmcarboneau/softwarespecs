@@ -73,6 +73,7 @@ class database {
 	 * @return return the executed string
 	 */
 	public function query($query, $bind = null, $fetch = 'FETCH_ASSOC') {
+		$result = true;
 		/* Prepare the query statement */
 		$this->statement = $this->pdo->prepare($query);
 		/* Bind each value supplied from $bind */
@@ -98,11 +99,7 @@ class database {
 		}
 		/* Execute Query & check for any errors */
 		if(!$this->statement->execute()){
-			$result = array(
-				1 => 'false',
-				2 => '<b>[DATABASE] Error - Query:</b> There was an error in sql syntax',
-			);
-			return $result;
+			return false;
 		}
 		/* Return all content */
 		if($fetch == 'FETCH_ASSOC') {

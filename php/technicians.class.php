@@ -37,7 +37,7 @@ class technicians {
 		
 
 		$result = $database->query($query, $bind);
-		return $this->successOf($result)
+		return $this->successOf($result);
 	}
 
 	public function removeTechnician($id){
@@ -54,7 +54,8 @@ class technicians {
 
 	public function getTechnician($id){
 		global $database;
-		$result = $database->query("SELECT * FROM gardeners WHERE id = ".$id);
+		$query = "SELECT * FROM gardeners WHERE gardenerID = ".$id;
+		$result = $database->query($query);
 		return $result;
 	}
 

@@ -6,8 +6,11 @@ ini_set('display_startup_errors',1);
 require_once("php/database.class.php");
 $database = new database();
 require_once("php/customers.class.php");
+require_once("php/technicians.class.php");
 
 $customers = new customers($database);
+$technicians = new technicians($database);
+
 $customerList = $customers->getCustomerList();
 
 $tableRows = "";
@@ -21,8 +24,15 @@ foreach($customerList as $customerRow){
 	$tableRows .= "\t<td class='customer_name'>";
 	$tableRows .= $customerRow['customer_name']."</td>\n";
 
+	$techID = $customerRow['gardenerID'];
+	$tech = $technicians->getTechnician($techID);
+	if ($tech){
+		$techName = $tech['first_name']." ".$tech['last_name'];
+	} else {
+		$techName = $techID;
+	}
 	$tableRows .= "\t<td class='technician_name'>";
-	$tableRows .= $customerRow['gardenerID']."</td>\n";
+	$tableRows .= $techName."</td>\n";
 
 	$tableRows .= "\t<td class='city'>";
 	$tableRows .= $customerRow['city']."</td>\n";
@@ -85,7 +95,7 @@ foreach($customerList as $customerRow){
 		<ul class="nav nav-justified">
           <li><a href="#">Dashboard</a></li>
           <li class="active"><a href="#">Customers</a></li>
-          <li><a href="#">Technicians</a></li>
+          <li><a href="dashboard.php">Technicians</a></li>
           <li><a href="#">Replacements</a></li>
         </ul>
 		
@@ -101,13 +111,13 @@ foreach($customerList as $customerRow){
 						<th>
 							<button class="sort btn btn-default" data-sort="customer_name" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Customer Name
+								Customer
 							</button>
 						</th>
 						<th>
 							<button class="sort btn btn-default" data-sort="technician_name" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Technician Name
+								Technician
 							</button>
 						</th>
 						<th>
