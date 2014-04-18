@@ -12,6 +12,7 @@ $customers = new customers($database);
 $technicians = new technicians($database);
 
 $customerList = $customers->getCustomerList();
+$technicanList = array();
 
 $tableRows = "";
 
@@ -24,8 +25,13 @@ foreach($customerList as $customerRow){
 	$tableRows .= "\t<td class='customer_name'>";
 	$tableRows .= $customerRow['customer_name']."</td>\n";
 
+	// Only query for technician data if the
+	// technician is not already in technicianList
 	$techID = $customerRow['gardenerID'];
-	$tech = $technicians->getTechnician($techID);
+	if (!isset($technicianList[$techID])){
+		$technicianList[$techID] = $technicians->getTechnician($techID);
+	}
+	$tech = $technicianList[$techID];
 	if ($tech){
 		$techName = $tech['first_name']." ".$tech['last_name'];
 	} else {
