@@ -17,9 +17,9 @@ $technicanList = array();
 $tableRows = "";
 
 foreach($customerList as $customerRow){
-	$tableRows .= "<tr>\n";
+	$tableRows .= "<tr class='table-select'>\n";
 
-	$tableRows .= "\t<td class='customerID' style='display:none;'>";
+	$tableRows .= "\t<td class='id' style='display:none;'>";
 	$tableRows .= $customerRow['customerID']."</td>\n";
 
 	$tableRows .= "\t<td class='customer_name'>";
@@ -130,6 +130,12 @@ foreach($customerList as $customerRow){
 	   		});
 
 	   		btn_customer.trigger("click");
+
+	   		$(".table-select").click(function (){
+	   			var id = $(this).find('.id').text();
+	   			$("#selectID").val(id);
+	   			$("#selectForm").submit();
+	   		});
    		});
    	</script>
 
@@ -191,6 +197,12 @@ foreach($customerList as $customerRow){
 					<?php echo $tableRows; ?>
 				</tbody>
 			</table>
+		</div>
+		<!-- Hidden form to submit which customer was clicked -->
+		<div style="display:none;">
+			<form id="selectForm" action="customerForm.php" method="post">
+				<input id="selectID" type="text" name="id" value="5"/>
+			</form>
 		</div>
 	</div> <!-- ends panel 'row' div -->
 
