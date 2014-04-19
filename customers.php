@@ -6,18 +6,14 @@ ini_set('display_startup_errors',1);
 require_once("php/database.class.php");
 $database = new database();
 require_once("php/customers.class.php");
-require_once("php/technicians.class.php");
 
 $customers = new customers($database);
-$technicians = new technicians($database);
-
-$customerList = $customers->getCustomerList();
-$technicanList = array();
-
+$customerList = $customers->getCustomerData();
 $tableRows = "";
+$month = date('M');
 
 foreach($customerList as $customerRow){
-	$tableRows .= "<tr class='table-select'>\n";
+	$tableRows .= "<tr class='table-select' style='cursor:pointer;'>\n";
 
 	$tableRows .= "\t<td class='id' style='display:none;'>";
 	$tableRows .= $customerRow['customerID']."</td>\n";
@@ -25,23 +21,30 @@ foreach($customerList as $customerRow){
 	$tableRows .= "\t<td class='customer_name'>";
 	$tableRows .= $customerRow['customer_name']."</td>\n";
 
-	// Only query for technician data if the
-	// technician is not already in technicianList
-	$techID = $customerRow['gardenerID'];
-	if (!isset($technicianList[$techID])){
-		$technicianList[$techID] = $technicians->getTechnician($techID);
-	}
-	$tech = $technicianList[$techID];
-	if ($tech){
-		$techName = $tech['first_name']." ".$tech['last_name'];
-	} else {
-		$techName = $techID;
-	}
+	$tableRows .= "\t<td class='city'>";
+	$tableRows .= $customerRow['city']."</td>\n";
+
+	$techName = $customerRow['first_name']." ".$customerRow['last_name'];
 	$tableRows .= "\t<td class='technician_name'>";
 	$tableRows .= $techName."</td>\n";
 
-	$tableRows .= "\t<td class='city'>";
-	$tableRows .= $customerRow['city']."</td>\n";
+	if ($customerRow['amount_billed'] > 0 && $customerRow['cost_of_replacements'] > 0){
+		$profit = $customerRow['amount_billed'] - $customerRow['cost_of_replacements'];
+	}else{
+		$profit = "-";
+	}
+	$tableRows .= "\t<td class='curr_profit'>";
+	$tableRows .= "$".$profit."</td>\n";
+
+	if ($customerRow['number_of_replacements'] > 0 && $customerRow['quantity'] > 0){
+		$replacements = $customerRow['number_of_replacements'] / $customerRow['quantity'] * 100;
+		$replacements = round($replacements);
+	}else{
+		$replacements = "-";
+	}
+	$tableRows .= "\t<td class='curr_replacements'>";
+	$tableRows .= $replacements."%</td>\n";
+	//$tableRows .= $customerRow['number_of_replacements']."/".$customerRow['quantity']."%</td>\n";
 
 	$tableRows .= "</tr>\n";
 }
@@ -72,65 +75,38 @@ foreach($customerList as $customerRow){
 		// Set up List.js table on load
 		$(document).ready ( function(){
 			var options = {
-	  			valueNames: [ 'customerID', 'customer_name', 'technician_name', 'city' ]
+	  			valueNames: [ 'customerID', 'customer_name', 'city', 'technician_name', 'curr_profit', 'curr_replacements' ]
 			};
 
 			// Init list
 			var customerList = new List('customers', options);
 
-			// Sort by customer name
-   			//customerList.sort('customer_name', { order: "asc" });
 
    			var sort = "";
 	   		var direction = "asc";
-	   		var btn_customer = $("#sort-customer-name");
-	   		var btn_technician = $("#sort-technician-name");
-	   		var btn_city = $("#sort-city");
+	   		var sort_btns = $(".sortbtn");
 
-	   		btn_customer.click(function(){
-	   			if (sort == "customer_name"){
+	   		sort_btns.click(function(){
+	   			var clicked = $(this);
+	   			var sortid = clicked.attr("data-sort");
+	   			if (sort == sortid){
 	   				direction = (direction == "asc") ? "desc" : "asc";
 	   			} else {
 	   				direction = "asc";
 	   			}
-	     		sort = "customer_name";
+	     		sort = sortid;
 	   			customerList.sort(sort, { order: direction});
 
-	   			btn_customer.addClass("btn-primary");
-	   			btn_technician.removeClass("btn-primary");
-	   			btn_city.removeClass("btn-primary");
+	   			sort_btns.removeClass("btn-primary");
+	   			clicked.addClass("btn-primary");
 	   		});
 
-	   		btn_technician.click(function(){
-	   			if (sort == "technician_name"){
-	   				direction = (direction == "asc") ? "desc" : "asc";
-	   			} else {
-	   				direction = "asc";
-	   			}
-	     		sort = "technician_name";
-	   			customerList.sort(sort, { order: direction});
+	   		// We "click" the sort-by-customer button on page load
+	   		// so that the list starts out sorted
+	   		$(".sort-default").trigger("click");
 
-	   			btn_customer.removeClass("btn-primary");
-	   			btn_technician.addClass("btn-primary");
-	   			btn_city.removeClass("btn-primary");
-	   		});
-
-	   		btn_city.click(function(){
-	   			if (sort == "city"){
-	   				direction = (direction == "asc") ? "desc" : "asc";
-	   			} else {
-	   				direction = "asc";
-	   			}
-	     		sort = "city";
-	   			customerList.sort(sort, { order: direction});
-
-	   			btn_customer.removeClass("btn-primary");
-	   			btn_technician.removeClass("btn-primary");
-	   			btn_city.addClass("btn-primary");
-	   		});
-
-	   		btn_customer.trigger("click");
-
+	   		// This section detects a click in the customer table
+	   		// and submits the customer ID to customerForm.php
 	   		$(".table-select").click(function (){
 	   			var id = $(this).find('.id').text();
 	   			$("#selectID").val(id);
@@ -166,31 +142,47 @@ foreach($customerList as $customerRow){
 		
       </div>
 
-    <br>
+    <div class="page-header">  
+	  <h1></h1>
+	</div>  
 	<div class="row" >  
 		<div id="customers" style="margin:20px">
-			<input type="text" class="search form-control" placeholder="Search Customers" />
+			<input type="text" class="search form-control" placeholder="Search Customers" style="max-width:20%"/>
+			<button class="btn btn-success" style="float:right">Add New Customer</button>
 			<table class="table table-striped table-hover table-responsive">
 				<thead>
 					<tr>
 						<th>
-							<button id="sort-customer-name" class="btn btn-default" style="width:100%">
+							<button data-sort="customer_name" class="sortbtn sort-default btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Customer
 							</button>
 						</th>
 						<th>
-							<button id="sort-technician-name" class="sort btn btn-default" data-sort="technician_name" style="width:100%">
+							<button data-sort="city" class="sortbtn btn btn-default" style="width:100%">
+								<span class="glyphicon glyphicon-sort"></span>
+								City
+							</button>
+						</th>
+						<th>
+							<button data-sort="technician_name" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Technician
 							</button>
 						</th>
 						<th>
-							<button id="sort-city" class="sort btn btn-default" data-sort="city" style="width:100%">
+							<button data-sort="curr_profit" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								City
+								Profit
 							</button>
 						</th>
+						<th>
+							<button data-sort="curr_replacements" class="sortbtn btn btn-default" style="width:100%">
+								<span class="glyphicon glyphicon-sort"></span>
+								Replacements
+							</button>
+						</th>
+
 					</tr>
 				</thead>
 				<tbody class="list">

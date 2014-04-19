@@ -55,12 +55,34 @@ class customers {
 		return $this->successOf($result);
 	}
 
-	// Returns MySQL results table of all customers and customer data
+	// Returns array of all customers and customer fields
 	public function getCustomerList(){
 		global $database;
 		$result = $database->query("SELECT * FROM customers", null, 'FETCH_ASSOC_ALL');
 		return $result;
 	}
+
+	// Returns array of all customers and customer fields
+	// plus fields from associated Gardener
+	// plus fields from MonthlyData for current month if they exist
+	// plus total quantity of plants from Quantity
+	public function getCustomerData(){
+		global $database;
+		$query = "SELECT * FROM\n"
+		    . "Customers c LEFT OUTER JOIN Gardeners g\n"
+		    . "ON c.gardenerID = g.gardenerID\n"
+		    . "LEFT OUTER JOIN MonthlyData m\n"
+		    . "ON c.customerID = m.customerID and MONTH(m.date) = MONTH(NOW())\n"
+		    . "LEFT OUTER JOIN (\n"
+		    . " SELECT customerID, SUM(quantity) quantity \n"
+		    . " FROM Quantity\n"
+		    . " GROUP BY customerID\n"
+		    . ") q\n"
+		    . "ON c.customerID = q.customerID";
+		$result = $database->query($query, null, 'FETCH_ASSOC_ALL');
+		return $result;
+	}
+
 
 	public function getCustomer($id){
 		global $database;
