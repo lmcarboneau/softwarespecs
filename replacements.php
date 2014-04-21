@@ -5,46 +5,30 @@ ini_set('display_startup_errors',1);
 
 require_once("php/database.class.php");
 $database = new database();
-require_once("php/customers.class.php");
+require_once("php/replacements.class.php");
 
-$customers = new customers($database);
-$customerList = $customers->getCustomerData();
+$replacements = new replacements($database);
+$replacementList = $replacements->getReplacementList();
 $tableRows = "";
 $month = date('M');
 
-foreach($customerList as $customerRow){
+foreach($replacementList as $replacementRow){
 	$tableRows .= "<tr class='table-select' style='cursor:pointer;'>\n";
 
 	$tableRows .= "\t<td class='id' style='display:none;'>";
-	$tableRows .= $customerRow['customerID']."</td>\n";
+	$tableRows .= $replacementRow['replacementID']."</td>\n";
 
-	$tableRows .= "\t<td class='customer_name'>";
-	$tableRows .= $customerRow['customer_name']."</td>\n";
+	$tableRows .= "\t<td class='customerID'>";
+	$tableRows .= $replacementRow['customerID']."</td>\n";
 
-	$tableRows .= "\t<td class='city'>";
-	$tableRows .= $customerRow['city']."</td>\n";
-
-	$techName = $customerRow['first_name']." ".$customerRow['last_name'];
-	$tableRows .= "\t<td class='technician_name'>";
-	$tableRows .= $techName."</td>\n";
-
-	if ($customerRow['amount_billed'] > 0 && $customerRow['cost_of_replacements'] > 0){
-		$profit = ($customerRow['amount_billed'] - $customerRow['cost_of_replacements'])."$";
-	}else{
-		$profit = "-";
-	}
-	$tableRows .= "\t<td class='curr_profit'>";
-	$tableRows .= $profit."</td>\n";
-
-	if ($customerRow['number_of_replacements'] > 0 && $customerRow['quantity'] > 0){
-		$replacements = $customerRow['number_of_replacements'] / $customerRow['quantity'] * 100;
-		$replacements = round($replacements)."%";
-	}else{
-		$replacements = "-";
-	}
-	$tableRows .= "\t<td class='curr_replacements'>";
-	$tableRows .= $replacements."</td>\n";
-	//$tableRows .= $customerRow['number_of_replacements']."/".$customerRow['quantity']."%</td>\n";
+	$tableRows .= "\t<td class='gardenerID'>";
+	$tableRows .= $replacementRow['gardenerID']."</td>\n";
+	
+	$tableRows .= "\t<td class='location'>";
+	$tableRows .= $replacementRow['location']."</td>\n";
+	
+	$tableRows .= "\t<td class='comments'>";
+	$tableRows .= $replacementRow['comments']."</td>\n";
 
 	$tableRows .= "</tr>\n";
 }
@@ -55,12 +39,12 @@ foreach($customerList as $customerRow){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="App Dashboard">
+    <meta name="description" content="Replacements List">
     <meta name="designer" content="Stetson Gafford">
     <meta name="author" content="Lindsey Carboneau">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Plant Replacement Manager Customers</title>
+    <title>Plant Replacement Manager Replacements</title>
 
     <!-- Bootstrap core CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -75,12 +59,11 @@ foreach($customerList as $customerRow){
 		// Set up List.js table on load
 		$(document).ready ( function(){
 			var options = {
-	  			valueNames: [ 'customerID', 'customer_name', 'city', 'technician_name', 'curr_profit', 'curr_replacements' ]
+	  			valueNames: [ 'gardenerID', 'customerID', 'gardenerID', 'location', 'comments' ]
 			};
 
 			// Init list
-			var customerList = new List('customers', options);
-
+			var replacementList = new List('replacements', options);
 
    			var sort = "";
 	   		var direction = "asc";
@@ -95,7 +78,7 @@ foreach($customerList as $customerRow){
 	   				direction = "asc";
 	   			}
 	     		sort = sortid;
-	   			customerList.sort(sort, { order: direction});
+	   			replacementList.sort(sort, { order: direction});
 
 	   			sort_btns.removeClass("btn-primary");
 	   			clicked.addClass("btn-primary");
@@ -123,7 +106,6 @@ foreach($customerList as $customerRow){
 	
 	<!-- Menu buttons -->
       <div class="masthead">
-	  <h1>THIS IS JUST CUSTOMERS.php RENAMED TO TEST NAVIGATION AND SUCH</h1>
         <p class="navbar-text navbar-right">
 		<span class="glyphicon glyphicon-user"></span>
 		&nbsp;User Name <br>
@@ -135,7 +117,7 @@ foreach($customerList as $customerRow){
         
 		<ul class="nav nav-justified">
           <li><a href="dashboard.php">Dashboard</a></li>
-          <li><a href="customers.php">Customers</a></li>
+          <li><a href="replacements.php">replacements</a></li>
           <li><a href="technicians.php">Technicians</a></li>
           <li class="active"><a href="replacements.php">Replacements</a></li>        </ul>
       </div>
@@ -144,43 +126,37 @@ foreach($customerList as $customerRow){
 	  <h1></h1>
 	</div>  
 	<div class="row" >  
-		<div id="customers" style="margin:20px">
+		<div id="replacements" style="margin:20px">
 			<a href="customerForm.php" class="btn btn-success" style="float:right">
 				Add New Customer
 				<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
-			<input type="text" class="search form-control" placeholder="Search Customers" style="max-width:20%"/>
+			<input type="text" class="search form-control" placeholder="Search replacements" style="max-width:20%"/>
 			<table class="table table-striped table-hover table-responsive">
 				<thead>
 					<tr>
 						<th>
-							<button data-sort="customer_name" class="sortbtn sort-default btn btn-default" style="width:100%">
+							<button data-sort="customerID" class="sortbtn sort-default btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Customer
+								CustomerID
 							</button>
 						</th>
 						<th>
-							<button data-sort="city" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="gardenerID" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								City
+								Technician ID
 							</button>
 						</th>
 						<th>
-							<button data-sort="technician_name" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="location" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Technician
+								Location
 							</button>
 						</th>
 						<th>
-							<button data-sort="curr_profit" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="comments" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Profit
-							</button>
-						</th>
-						<th>
-							<button data-sort="curr_replacements" class="sortbtn btn btn-default" style="width:100%">
-								<span class="glyphicon glyphicon-sort"></span>
-								Replacements
+								Technician Comments
 							</button>
 						</th>
 
