@@ -28,22 +28,36 @@ foreach($customerList as $customerRow){
 	$tableRows .= "\t<td class='technician_name'>";
 	$tableRows .= $techName."</td>\n";
 
-	if ($customerRow['amount_billed'] > 0 && $customerRow['cost_of_replacements'] > 0){
-		$profit = ($customerRow['amount_billed'] - $customerRow['cost_of_replacements'])."$";
+	if ($customerRow['amount_billed'] > 0){
+		if ($customerRow['cost_of_replacements'] > 0){
+			$profit = ($customerRow['amount_billed'] - $customerRow['cost_of_replacements']);
+		} else {
+			$profit = $customerRow['amount_billed'];
+		}
 	}else{
-		$profit = "-";
+		$profit = 0;
 	}
 	$tableRows .= "\t<td class='curr_profit'>";
-	$tableRows .= $profit."</td>\n";
+	$tableRows .= $profit."$</td>\n";
 
 	if ($customerRow['number_of_replacements'] > 0 && $customerRow['quantity'] > 0){
 		$replacements = $customerRow['number_of_replacements'] / $customerRow['quantity'] * 100;
-		$replacements = round($replacements)."%";
+		$replacements = round($replacements);
 	}else{
-		$replacements = "-";
+		$replacements = 0;
 	}
 	$tableRows .= "\t<td class='curr_replacements'>";
-	$tableRows .= $replacements."</td>\n";
+	$tableRows .= $replacements."%</td>\n";
+
+	// Trying out a customer rating number based on profits and weighted replacement %
+	$rating = "";
+	if ($profit!=0){
+		$rating = ($replacements > 0) ? round(log($profit/($replacements/6))) : log($profit);
+	} else {
+		$rating = 0;
+	}
+	$tableRows .= "\t<td class='rating'>";
+	$tableRows .= $rating."</td>\n";
 	//$tableRows .= $customerRow['number_of_replacements']."/".$customerRow['quantity']."%</td>\n";
 
 	$tableRows .= "</tr>\n";
@@ -75,7 +89,7 @@ foreach($customerList as $customerRow){
 		// Set up List.js table on load
 		$(document).ready ( function(){
 			var options = {
-	  			valueNames: [ 'customerID', 'customer_name', 'city', 'technician_name', 'curr_profit', 'curr_replacements' ]
+	  			valueNames: [ 'customerID', 'customer_name', 'city', 'technician_name', 'curr_profit', 'curr_replacements', 'rating' ]
 			};
 
 			// Init list
@@ -183,7 +197,12 @@ foreach($customerList as $customerRow){
 								Replacements
 							</button>
 						</th>
-
+						<th>
+							<button data-sort="rating" class="sortbtn btn btn-default" style="width:100%">
+								<span class="glyphicon glyphicon-sort"></span>
+								Rating
+							</button>
+						</th>
 					</tr>
 				</thead>
 				<tbody class="list">
