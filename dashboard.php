@@ -1,7 +1,20 @@
 <?php
 session_start(); // initialize the session
 include("passwords.php");
-check_logged(); // if not logged in, user redirected to login page
+//check_logged(); // if not logged in, user redirected to login page
+
+require_once("php/database.class.php");
+$database = new database();
+require_once("php/replacements.class.php");
+$replacements = new replacements($database);
+
+$rCounts = $replacements->getReplacementCounts();
+
+$needsApproval = isset($rCounts[0]) ? $rCounts[0] : 0;
+$approved = isset($rCounts[1]) ? $rCounts[1] : 0;
+$completed = isset($rCounts[2]) ? $rCounts[2] : 0;
+$cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,23 +84,23 @@ check_logged(); // if not logged in, user redirected to login page
 		</div>
 		<div class="col-sm-3">
           <div class="list-group">
-            <a href="#" class="list-group-item">
-			<span class="badge pull-left">#</span>
+            <a href="replacements.php?status=0" class="list-group-item">
+			<span class="badge pull-left"><?php echo $needsApproval;?></span>
 			&nbsp;&nbsp;Needs Approval
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
-            <a href="#" class="list-group-item">
-			<span class="badge pull-left">#</span>
+            <a href="replacements.php?status=1" class="list-group-item">
+			<span class="badge pull-left"><?php echo $approved;?></span>
 			&nbsp;&nbsp;Approved
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
-            <a href="#" class="list-group-item">
-			<span class="badge pull-left">#</span>
+            <a href="replacements.php?status=2" class="list-group-item">
+			<span class="badge pull-left"><?php echo $completed;?></span>
 			&nbsp;&nbsp;Completed
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
-            <a href="#" class="list-group-item">
-			<span class="badge pull-left">#</span>
+            <a href="replacements.php?status=3" class="list-group-item">
+			<span class="badge pull-left"><?php echo $cancelled;?></span>
 			&nbsp;&nbsp;Cancelled
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>

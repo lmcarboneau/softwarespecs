@@ -7,6 +7,8 @@
  
 class customers {
 
+	private $database;
+
 	// Pass an existing database object on creation
 	public function __construct($db){
 		$database = $db;

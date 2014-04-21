@@ -9,7 +9,15 @@ $database = new database();
  
 class replacements {
 
+	private $database;
+
+	// Pass an existing database object on creation
+	public function __construct($db){
+		$database = $db;
+	}
+
 	public function addReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $approved, $completed, $date_submitted, $date_completed){
+		global $database;
 		$query = "INSERT INTO replacements (customerID, gardenerID, plantID, light_level, 
 			emergency, location, comments, approved, completed, date_submitted, date_complted) 
 			VALUES (?,?,?,?,?,?,?,?,?,?,?)";
@@ -26,6 +34,7 @@ class replacements {
 	}
 
 	public function editReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $approved, $completed, $date_submitted, $date_completed){
+		global $database;
 		$query = "UPDATE replacements (customerID, gardenerID, plantID, light_level, 
 			emergency, location, comments, approved, completed, date_submitted, date_complted) 
 			SET (?,?,?,?,?,?,?,?,?,?,?)
@@ -50,9 +59,25 @@ class replacements {
 
 	public function getReplacementList(){
 		global $database;
-		$result = $database->query("SELECT * FROM replacements", null, 'fetchAll');
+		$result = $database->query("SELECT * FROM replacements", null, 'FETCH_ASSOC_ALL');
 		return $result;
 	}
+
+	public function getReplacementCounts(){
+		global $database;
+		$query = "SELECT status, count(*) num FROM Replacements GROUP BY status";
+		$result = $database->query($query, null, 'FETCH_ASSOC_ALL');
+		if ($result) {
+			$counts = array();
+			foreach($result as $row){
+				$counts[$row["status"]] = $row["num"];
+			}
+			return $counts;
+		}
+
+		return $result;
+	}
+
 
 	public function getReplacement($id){
 		global $database;
