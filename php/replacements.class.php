@@ -59,7 +59,13 @@ class replacements {
 
 	public function getReplacementList(){
 		global $database;
-		$result = $database->query("SELECT * FROM replacements", null, 'FETCH_ASSOC_ALL');
+		$query = "SELECT c.customer_name, g.first_name, g.last_name, r.*\n"
+		    . "FROM Replacements r\n"
+		    . "LEFT OUTER JOIN Customers c\n"
+		    . "ON r.customerID = c.customerID\n"
+		    . "LEFT OUTER JOIN Gardeners g\n"
+		    . "ON r.gardenerID = g.gardenerID";
+		$result = $database->query($query, null, 'FETCH_ASSOC_ALL');
 		return $result;
 	}
 
