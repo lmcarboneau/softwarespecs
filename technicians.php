@@ -132,13 +132,13 @@ foreach($techniciansList as $technicianRow){
 				<thead>
 					<tr>
 						<th>
-							<button data-sort="customer_name" class="sortbtn sort-default btn btn-default" style="width:100%">
+							<button data-sort="first_name" class="sortbtn sort-default btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								First Name
 							</button>
 						</th>
 						<th>
-							<button data-sort="city" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="last_name" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Last Name
 							</button>
