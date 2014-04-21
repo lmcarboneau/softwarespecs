@@ -51,6 +51,24 @@ class technicians {
 		$result = $database->query("SELECT * FROM gardeners", null, 'fetchAll');
 		return $result;
 	}
+	
+	// Modified version of getCustomerData()
+	public function getTechnicianData(){
+		global $database;
+		$query = "SELECT * FROM\n"
+		    . "Gardeners g LEFT OUTER JOIN Customers c\n"
+		    . "ON g.gardenerID = c.gardenerID\n"
+		    . "LEFT OUTER JOIN MonthlyData m\n"
+		    . "ON g.gardenerID = m.gardenerID and MONTH(m.date) = MONTH(NOW())\n"
+		    . "LEFT OUTER JOIN (\n"
+		    . " SELECT customerID, SUM(quantity) quantity \n"
+		    . " FROM Quantity\n"
+		    . " GROUP BY customerID\n"
+		    . ") q\n"
+		    . "ON c.customerID = q.customerID";
+		$result = $database->query($query, null, 'FETCH_ASSOC_ALL');
+		return $result;
+	}
 
 	public function getTechnician($id){
 		global $database;

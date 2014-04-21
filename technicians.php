@@ -8,7 +8,7 @@ $database = new database();
 require_once("php/technicians.class.php");
 
 $technicians = new technicians($database);
-$techniciansList = $technicians->getTechnicianList();
+$techniciansList = $technicians->getTechnicianData();
 $tableRows = "";
 $month = date('M');
 
@@ -23,6 +23,33 @@ foreach($techniciansList as $technicianRow){
 
 	$tableRows .= "\t<td class='last_name'>";
 	$tableRows .= $technicianRow['last_name']."</td>\n";
+	
+	// CUSTOMERS IS HARDCODED 0 AT THE MOMENT
+	$total_customers = 0;
+
+	$tableRows .= "\t<td class='num_cust'>";
+	$tableRows .= $total_customers."</td>\n";
+	
+	if ($technicianRow['number_of_replacements'] > 0 && $technicianRow['quantity'] > 0){
+	$replacements = $technicianRow['number_of_replacements'] / $technicianRow['quantity'] * 100;
+	$replacements = round($replacements);
+	}else{
+		$replacements = 0;
+	}
+	$tableRows .= "\t<td class='curr_replacements'>";
+	$tableRows .= $replacements."%</td>\n";
+	
+	// RATING IS HARDCODED 0 AT THE MOMENT
+	$rating = 0;
+
+	$tableRows .= "\t<td class='rating'>";
+	$tableRows .= $rating."</td>\n";
+	
+	// TOTAL IS HARDCODED 0 AT THE MOMENT
+	$total_replacements = 0;
+
+	$tableRows .= "\t<td class='total_replacements'>";
+	$tableRows .= $total_replacements."</td>\n";
 
 	$tableRows .= "</tr>\n";
 }
@@ -53,7 +80,7 @@ foreach($techniciansList as $technicianRow){
 		// Set up List.js table on load
 		$(document).ready ( function(){
 			var options = {
-	  			valueNames: [ 'id', 'first_name', 'last_name' ]
+	  			valueNames: [ 'id', 'first_name', 'last_name', 'num_cust', 'curr_replacements', 'total_replacements', 'rating' ]
 			};
 
 			// Init list
@@ -102,6 +129,7 @@ foreach($techniciansList as $technicianRow){
 	<!-- Menu buttons -->
       <div class="masthead">
 	  
+	  <h3> This page has hardcoded values! Change these before going live! </h3>
         <p class="navbar-text navbar-right">
 		<span class="glyphicon glyphicon-user"></span>
 		&nbsp;User Name <br>
@@ -144,27 +172,27 @@ foreach($techniciansList as $technicianRow){
 							</button>
 						</th>
 						<th>
-							<button data-sort="last_name" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="num_cust" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Number of Customers
 							</button>
 						</th>
 						<th>
-							<button data-sort="last_name" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="curr_replacements" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Total Replacement Percentage
+								Current Replacement Percentage
 							</button>
 						</th>
 						<th>
-							<button data-sort="last_name" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="total_replacements" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								This Month's Replacements
+								Total Replacements
 							</button>
 						</th>
 						<th>
-							<button data-sort="last_name" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="rating" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Plant Points(TM) (R) (C) (SM)
+								Points
 							</button>
 						</th>
 					</tr>
