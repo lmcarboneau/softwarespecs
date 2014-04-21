@@ -12,6 +12,18 @@ $replacementList = $replacements->getReplacementList();
 $tableRows = "";
 $month = date('M');
 
+$yesNo = array(
+	0=>"No",
+	1=>"Yes"
+);
+
+$statusString = array(
+	0=>"Needs Approval",
+	1=>"Approved",
+	2=>"Completed",
+	3=>"Cancelled"
+);
+
 foreach($replacementList as $replacementRow){
 	$tableRows .= "<tr class='table-select' style='cursor:pointer;'>\n";
 
@@ -25,10 +37,10 @@ foreach($replacementList as $replacementRow){
 	$tableRows .= $replacementRow['first_name']." ".$replacementRow['last_name']."</td>\n";
 	
 	$tableRows .= "\t<td class='emergency'>";
-	$tableRows .= $replacementRow['emergency']."</td>\n";
+	$tableRows .= $yesNo[$replacementRow['emergency']]."</td>\n";
 	
 	$tableRows .= "\t<td class='status'>";
-	$tableRows .= $replacementRow['status']."</td>\n";
+	$tableRows .= $statusString[$replacementRow['status']]."</td>\n";
 	
 	$tableRows .= "\t<td class='date_submitted'>";
 	$tableRows .= $replacementRow['date_submitted']."</td>\n";
