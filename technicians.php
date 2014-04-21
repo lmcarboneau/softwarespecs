@@ -134,34 +134,15 @@ foreach($techniciansList as $technicianRow){
 						<th>
 							<button data-sort="customer_name" class="sortbtn sort-default btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Customer
+								First Name
 							</button>
 						</th>
 						<th>
 							<button data-sort="city" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								City
+								Last Name
 							</button>
 						</th>
-						<th>
-							<button data-sort="technician_name" class="sortbtn btn btn-default" style="width:100%">
-								<span class="glyphicon glyphicon-sort"></span>
-								Technician
-							</button>
-						</th>
-						<th>
-							<button data-sort="curr_profit" class="sortbtn btn btn-default" style="width:100%">
-								<span class="glyphicon glyphicon-sort"></span>
-								Profit
-							</button>
-						</th>
-						<th>
-							<button data-sort="curr_replacements" class="sortbtn btn btn-default" style="width:100%">
-								<span class="glyphicon glyphicon-sort"></span>
-								Replacements
-							</button>
-						</th>
-
 					</tr>
 				</thead>
 				<tbody class="list">
