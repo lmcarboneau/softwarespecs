@@ -134,12 +134,10 @@ foreach($customerList as $customerRow){
 		<h3><img src="img/ipslogosmall.jpg"></h3>
         
 		<ul class="nav nav-justified">
-          <li><a href="#">Dashboard</a></li>
-          <li class="active"><a href="#">Customers</a></li>
-          <li><a href="dashboard.php">Technicians</a></li>
-          <li><a href="#">Replacements</a></li>
-        </ul>
-		
+          <li><a href="dashboard.php">Dashboard</a></li>
+          <li class="active"><a href="customers.php">Customers</a></li>
+          <li><a href="technicians.php">Technicians</a></li>
+          <li><a href="replacements.php">Replacements</a></li>        </ul>
       </div>
 
     <div class="page-header">  
@@ -147,8 +145,11 @@ foreach($customerList as $customerRow){
 	</div>  
 	<div class="row" >  
 		<div id="customers" style="margin:20px">
+			<a href="customerForm.php" class="btn btn-success" style="float:right">
+				Add New Customer
+				<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+			</a>
 			<input type="text" class="search form-control" placeholder="Search Customers" style="max-width:20%"/>
-			<button class="btn btn-success" style="float:right">Add New Customer</button>
 			<table class="table table-striped table-hover table-responsive">
 				<thead>
 					<tr>

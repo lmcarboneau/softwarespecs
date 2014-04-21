@@ -54,10 +54,10 @@ $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
 		<h3><img src="img/ipslogosmall.jpg"></h3>
         
 		<ul class="nav nav-justified">
-          <li class="active"><a href="#">Dashboard</a></li>
-          <li><a href="#">Customers</a></li>
-          <li><a href="#">Technicians</a></li>
-          <li><a href="#">Replacements</a></li>
+          <li class="active"><a href="dashboard.php">Dashboard</a></li>
+          <li><a href="customers.php">Customers</a></li>
+          <li><a href="technicians.php">Technicians</a></li>
+          <li><a href="replacements.php">Replacements</a></li>
         </ul>
 		
       </div>
@@ -106,6 +106,10 @@ $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
           </div>
+          <a class="btn btn-success" href="replacementForm.php" style="width:100%;">
+          	New Replacement
+          	<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+          </a>
         </div>
     
 	</div> <!-- ends panel 'row' div -->
