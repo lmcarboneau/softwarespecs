@@ -18,11 +18,11 @@ foreach($replacementList as $replacementRow){
 	$tableRows .= "\t<td class='id' style='display:none;'>";
 	$tableRows .= $replacementRow['replacementID']."</td>\n";
 
-	$tableRows .= "\t<td class='customerID'>";
-	$tableRows .= $replacementRow['customerID']."</td>\n";
+	$tableRows .= "\t<td class='customer_name'>";
+	$tableRows .= $replacementRow['customer_name']."</td>\n";
 
-	$tableRows .= "\t<td class='gardenerID'>";
-	$tableRows .= $replacementRow['gardenerID']."</td>\n";
+	$tableRows .= "\t<td class='gardener_name'>";
+	$tableRows .= $replacementRow['first_name']." ".$replacementRow['last_name']."</td>\n";
 	
 	$tableRows .= "\t<td class='emergency'>";
 	$tableRows .= $replacementRow['emergency']."</td>\n";
@@ -62,7 +62,7 @@ foreach($replacementList as $replacementRow){
 		// Set up List.js table on load
 		$(document).ready ( function(){
 			var options = {
-	  			valueNames: [ 'gardenerID', 'customerID', 'emergency', 'status', 'date_submitted' ]
+	  			valueNames: [ 'gardener_name', 'customer_name', 'emergency', 'status', 'date_submitted' ]
 			};
 
 			// Init list
@@ -139,13 +139,13 @@ foreach($replacementList as $replacementRow){
 				<thead>
 					<tr>
 						<th>
-							<button data-sort="customerID" class="sortbtn sort-default btn btn-default" style="width:100%">
+							<button data-sort="customer_name" class="sortbtn sort-default btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Customer
 							</button>
 						</th>
 						<th>
-							<button data-sort="gardenerID" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="gardener_name" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Technician
 							</button>
