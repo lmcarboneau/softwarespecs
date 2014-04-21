@@ -13,10 +13,14 @@
     <title>Customer Detail Tracking</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">   
 
     <!-- Custom styles for this template -->
-    <link href="css/justified-nav.css" rel="stylesheet">
+    <link href="css/justified-nav.css" rel="stylesheet">  
+	
+	<!-- This is Foundation, and their stylesheets. It's an open relationship -->
+	<link rel="stylesheet" href="css/foundation.css" />
+    
 
   </head>
 
@@ -54,9 +58,37 @@
 
 	<!-- Main body, with graphs and such -->
 	<div class="row">
-		<div class="large-5 medium-5 columns">
+		<div class="large-6 medium-6 columns">
 			<h1>Bob's Automotive </h1>
-			<p><a href="#"><button type="button" class="btn btn-success">Edit Customer Info</button></a></p>
+			<p><a href="#"><button type="button" class="btn btn-success">Edit Customer Info</button></a></p><br>
+			
+			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.325554342321!2d-80.28965199999999!3d26.186086000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d90f4d3bd145b1%3A0xd7b4999fbe8f4e41!2sBob&#39;s+Automotive+Services+Inc!5e0!3m2!1sen!2sus!4v1398106750012" width="450" height="350" frameborder="0" style="border:0"></iframe>
+			
+			<h4>Assigned Technician</h4>
+		<!-- INSERT PHP HERE -->
+			<h6><a href="#">John</a></h6><br>
+		<!-- INSERT PHP HERE -->
+			
+			
+			<h4>Contact Information</h4>
+		<!-- INSERT PHP HERE -->
+			<h6>Bob Roberts</h6>
+			<h6>1234 Main St</h6>
+			<h6>Ft. Myers, FL  33912</h6><br>
+			<h6>(239) 555-5555</h6>
+			<h6><a href="mailto:#">bob@gmail.com</a></h6><br>
+		<!-- INSERT PHP HERE -->
+			
+		</div>
+		
+		<div class="large-6 medium-6 columns">
+			<h3>Replacement History</h3>
+		<!-- INSERT PHP HERE -->	
+			<div class="panel"><br><br><br><br><br><br><br><br><br><br><br><br></div>
+			
+			<h3>Generate Report</h3>
+		<!-- INSERT PHP HERE -->
+			<div class="panel"><br><br><br><br><br><br><br><br><br><br><br></div>
 		
 		</div>
 		
@@ -73,5 +105,10 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
   </body>
 </html>
