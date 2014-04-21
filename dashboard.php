@@ -42,9 +42,10 @@ check_logged(); // if not logged in, user redirected to login page
         
 		<ul class="nav nav-justified">
           <li class="active"><a href="#">Dashboard</a></li>
-          <li><a href="#">Customers</a></li>
-          <li><a href="#">Technicians</a></li>
-          <li><a href="#">Replacements</a></li>
+          <li class="active"><a href="#">Customers</a></li>
+          <li class="active"><a href="#">Technicians</a></li>
+          <li class="active"><a href="#">Replacements</a></li>
+		  <!-- Fairly certain the # need to be replaced with the page locations -->
         </ul>
 		
       </div>
