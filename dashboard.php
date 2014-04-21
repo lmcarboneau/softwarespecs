@@ -84,23 +84,24 @@ $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
 		</div>
 		<div class="col-sm-3">
           <div class="list-group">
+          	<a class="list-group-item list-group-item-success"><b>Replacements</b></a>
             <a href="replacements.php?status=0" class="list-group-item">
-			<span class="badge pull-left"><?php echo $needsApproval;?></span>
+			<span class="badge pull-left alert-warning"><?php echo $needsApproval;?></span>
 			&nbsp;&nbsp;Needs Approval
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
             <a href="replacements.php?status=1" class="list-group-item">
-			<span class="badge pull-left"><?php echo $approved;?></span>
+			<span class="badge pull-left alert-info"><?php echo $approved;?></span>
 			&nbsp;&nbsp;Approved
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
             <a href="replacements.php?status=2" class="list-group-item">
-			<span class="badge pull-left"><?php echo $completed;?></span>
+			<span class="badge pull-left alert-success"><?php echo $completed;?></span>
 			&nbsp;&nbsp;Completed
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
             <a href="replacements.php?status=3" class="list-group-item">
-			<span class="badge pull-left"><?php echo $cancelled;?></span>
+			<span class="badge pull-left alert-danger"><?php echo $cancelled;?></span>
 			&nbsp;&nbsp;Cancelled
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
