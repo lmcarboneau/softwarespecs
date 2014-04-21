@@ -123,8 +123,8 @@ foreach($techniciansList as $technicianRow){
 	</div>  
 	<div class="row" >  
 		<div id="technicians" style="margin:20px">
-			<a href="customerForm.php" class="btn btn-success" style="float:right">
-				Add New Customer
+			<a href="technicianForm.php" class="btn btn-success" style="float:right">
+				Add New Technician
 				<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
 			<input type="text" class="search form-control" placeholder="Search Customers" style="max-width:20%"/>
@@ -141,6 +141,30 @@ foreach($techniciansList as $technicianRow){
 							<button data-sort="last_name" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Last Name
+							</button>
+						</th>
+						<th>
+							<button data-sort="last_name" class="sortbtn btn btn-default" style="width:100%">
+								<span class="glyphicon glyphicon-sort"></span>
+								Number of Customers
+							</button>
+						</th>
+						<th>
+							<button data-sort="last_name" class="sortbtn btn btn-default" style="width:100%">
+								<span class="glyphicon glyphicon-sort"></span>
+								Total Replacement Percentage
+							</button>
+						</th>
+						<th>
+							<button data-sort="last_name" class="sortbtn btn btn-default" style="width:100%">
+								<span class="glyphicon glyphicon-sort"></span>
+								This Month's Replacements
+							</button>
+						</th>
+						<th>
+							<button data-sort="last_name" class="sortbtn btn btn-default" style="width:100%">
+								<span class="glyphicon glyphicon-sort"></span>
+								Plant Points(TM) (R) (C) (SM)
 							</button>
 						</th>
 					</tr>

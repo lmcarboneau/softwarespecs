@@ -24,11 +24,14 @@ foreach($replacementList as $replacementRow){
 	$tableRows .= "\t<td class='gardenerID'>";
 	$tableRows .= $replacementRow['gardenerID']."</td>\n";
 	
-	$tableRows .= "\t<td class='location'>";
-	$tableRows .= $replacementRow['location']."</td>\n";
+	$tableRows .= "\t<td class='emergency'>";
+	$tableRows .= $replacementRow['emergency']."</td>\n";
 	
-	$tableRows .= "\t<td class='comments'>";
-	$tableRows .= $replacementRow['comments']."</td>\n";
+	$tableRows .= "\t<td class='status'>";
+	$tableRows .= $replacementRow['status']."</td>\n";
+	
+	$tableRows .= "\t<td class='date_submitted'>";
+	$tableRows .= $replacementRow['date_submitted']."</td>\n";
 
 	$tableRows .= "</tr>\n";
 }
@@ -59,7 +62,7 @@ foreach($replacementList as $replacementRow){
 		// Set up List.js table on load
 		$(document).ready ( function(){
 			var options = {
-	  			valueNames: [ 'gardenerID', 'customerID', 'gardenerID', 'location', 'comments' ]
+	  			valueNames: [ 'gardenerID', 'customerID', 'emergency', 'status', 'date_submitted' ]
 			};
 
 			// Init list
@@ -127,8 +130,8 @@ foreach($replacementList as $replacementRow){
 	</div>  
 	<div class="row" >  
 		<div id="replacements" style="margin:20px">
-			<a href="customerForm.php" class="btn btn-success" style="float:right">
-				Add New Customer
+			<a href="replacementForm.php" class="btn btn-success" style="float:right">
+				Add New Replacement
 				<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
 			<input type="text" class="search form-control" placeholder="Search replacements" style="max-width:20%"/>
@@ -138,25 +141,31 @@ foreach($replacementList as $replacementRow){
 						<th>
 							<button data-sort="customerID" class="sortbtn sort-default btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								CustomerID
+								Customer
 							</button>
 						</th>
 						<th>
 							<button data-sort="gardenerID" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Technician ID
+								Technician
 							</button>
 						</th>
 						<th>
-							<button data-sort="location" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="emergency" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Location
+								Emergency
 							</button>
 						</th>
 						<th>
-							<button data-sort="comments" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="status" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Technician Comments
+								Status
+							</button>
+						</th>
+						<th>
+							<button data-sort="date_submitted" class="sortbtn btn btn-default" style="width:100%">
+								<span class="glyphicon glyphicon-sort"></span>
+								Date Submitted
 							</button>
 						</th>
 
@@ -169,7 +178,7 @@ foreach($replacementList as $replacementRow){
 		</div>
 		<!-- Hidden form to submit which customer was clicked -->
 		<div style="display:none;">
-			<form id="selectForm" action="customerForm.php" method="post">
+			<form id="selectForm" action="replacementForm.php" method="post">
 				<input id="selectID" type="text" name="id" value="5"/>
 			</form>
 		</div>

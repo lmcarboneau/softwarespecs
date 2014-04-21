@@ -16,11 +16,11 @@ class replacements {
 		$database = $db;
 	}
 
-	public function addReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $approved, $completed, $date_submitted, $date_completed){
+	public function addReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $status, $date_submitted, $date_completed){
 		global $database;
 		$query = "INSERT INTO replacements (customerID, gardenerID, plantID, light_level, 
-			emergency, location, comments, approved, completed, date_submitted, date_complted) 
-			VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			emergency, location, comments, status, date_submitted, date_complted) 
+			VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		// We turn the list of parameters into a array starting at index 1
 		// $database->query will insert these parameters into the '?'s in the query
@@ -33,11 +33,11 @@ class replacements {
 		return $this->successOf($result);
 	}
 
-	public function editReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $approved, $completed, $date_submitted, $date_completed){
+	public function editReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $status, $date_submitted, $date_completed){
 		global $database;
 		$query = "UPDATE replacements (customerID, gardenerID, plantID, light_level, 
-			emergency, location, comments, approved, completed, date_submitted, date_complted) 
-			SET (?,?,?,?,?,?,?,?,?,?,?)
+			emergency, location, comments, status, date_submitted, date_complted) 
+			SET (?,?,?,?,?,?,?,?,?,?)
 			WHERE id = ".$customerID;
 
 		// We turn the list of parameters into a array starting at index 1
