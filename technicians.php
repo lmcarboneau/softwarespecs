@@ -53,11 +53,11 @@ foreach($techniciansList as $technicianRow){
 		// Set up List.js table on load
 		$(document).ready ( function(){
 			var options = {
-	  			valueNames: [ 'gardenerID', 'first_name', 'last_name' ]
+	  			valueNames: [ 'id', 'first_name', 'last_name' ]
 			};
 
 			// Init list
-			var technicianList = new List('technicans', options);
+			var list = new List('technicians', options);
 
 
    			var sort = "";
@@ -73,7 +73,7 @@ foreach($techniciansList as $technicianRow){
 	   				direction = "asc";
 	   			}
 	     		sort = sortid;
-	   			customerList.sort(sort, { order: direction});
+	   			list.sort(sort, { order: direction});
 
 	   			sort_btns.removeClass("btn-primary");
 	   			clicked.addClass("btn-primary");
@@ -122,7 +122,7 @@ foreach($techniciansList as $technicianRow){
 	  <h1></h1>
 	</div>  
 	<div class="row" >  
-		<div id="customers" style="margin:20px">
+		<div id="technicians" style="margin:20px">
 			<a href="customerForm.php" class="btn btn-success" style="float:right">
 				Add New Customer
 				<span class="glyphicon glyphicon-chevron-right pull-right"></span>
@@ -132,13 +132,13 @@ foreach($techniciansList as $technicianRow){
 				<thead>
 					<tr>
 						<th>
-							<button data-sort="customer_name" class="sortbtn sort-default btn btn-default" style="width:100%">
+							<button data-sort="first_name" class="sortbtn sort-default btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								First Name
 							</button>
 						</th>
 						<th>
-							<button data-sort="city" class="sortbtn btn btn-default" style="width:100%">
+							<button data-sort="last_name" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Last Name
 							</button>
@@ -152,7 +152,7 @@ foreach($techniciansList as $technicianRow){
 		</div>
 		<!-- Hidden form to submit which customer was clicked -->
 		<div style="display:none;">
-			<form id="selectForm" action="customerForm.php" method="post">
+			<form id="selectForm" action="technicianDetail.php" method="post">
 				<input id="selectID" type="text" name="id" value="5"/>
 			</form>
 		</div>
