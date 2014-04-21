@@ -16,11 +16,11 @@ class replacements {
 		$database = $db;
 	}
 
-	public function addReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $approved, $completed, $date_submitted, $date_completed){
+	public function addReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $status, $date_submitted, $date_completed){
 		global $database;
 		$query = "INSERT INTO replacements (customerID, gardenerID, plantID, light_level, 
-			emergency, location, comments, approved, completed, date_submitted, date_complted) 
-			VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			emergency, location, comments, status, date_submitted, date_complted) 
+			VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		// We turn the list of parameters into a array starting at index 1
 		// $database->query will insert these parameters into the '?'s in the query
@@ -33,11 +33,11 @@ class replacements {
 		return $this->successOf($result);
 	}
 
-	public function editReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $approved, $completed, $date_submitted, $date_completed){
+	public function editReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $status, $date_submitted, $date_completed){
 		global $database;
 		$query = "UPDATE replacements (customerID, gardenerID, plantID, light_level, 
-			emergency, location, comments, approved, completed, date_submitted, date_complted) 
-			SET (?,?,?,?,?,?,?,?,?,?,?)
+			emergency, location, comments, status, date_submitted, date_complted) 
+			SET (?,?,?,?,?,?,?,?,?,?)
 			WHERE id = ".$customerID;
 
 		// We turn the list of parameters into a array starting at index 1
@@ -59,7 +59,13 @@ class replacements {
 
 	public function getReplacementList(){
 		global $database;
-		$result = $database->query("SELECT * FROM replacements", null, 'FETCH_ASSOC_ALL');
+		$query = "SELECT c.customer_name, g.first_name, g.last_name, r.*\n"
+		    . "FROM Replacements r\n"
+		    . "LEFT OUTER JOIN Customers c\n"
+		    . "ON r.customerID = c.customerID\n"
+		    . "LEFT OUTER JOIN Gardeners g\n"
+		    . "ON r.gardenerID = g.gardenerID";
+		$result = $database->query($query, null, 'FETCH_ASSOC_ALL');
 		return $result;
 	}
 
