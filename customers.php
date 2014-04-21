@@ -29,21 +29,21 @@ foreach($customerList as $customerRow){
 	$tableRows .= $techName."</td>\n";
 
 	if ($customerRow['amount_billed'] > 0 && $customerRow['cost_of_replacements'] > 0){
-		$profit = $customerRow['amount_billed'] - $customerRow['cost_of_replacements'];
+		$profit = ($customerRow['amount_billed'] - $customerRow['cost_of_replacements'])."$";
 	}else{
 		$profit = "-";
 	}
 	$tableRows .= "\t<td class='curr_profit'>";
-	$tableRows .= "$".$profit."</td>\n";
+	$tableRows .= $profit."</td>\n";
 
 	if ($customerRow['number_of_replacements'] > 0 && $customerRow['quantity'] > 0){
 		$replacements = $customerRow['number_of_replacements'] / $customerRow['quantity'] * 100;
-		$replacements = round($replacements);
+		$replacements = round($replacements)."%";
 	}else{
 		$replacements = "-";
 	}
 	$tableRows .= "\t<td class='curr_replacements'>";
-	$tableRows .= $replacements."%</td>\n";
+	$tableRows .= $replacements."</td>\n";
 	//$tableRows .= $customerRow['number_of_replacements']."/".$customerRow['quantity']."%</td>\n";
 
 	$tableRows .= "</tr>\n";
