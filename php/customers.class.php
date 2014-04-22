@@ -74,13 +74,7 @@ class customers {
 		    . "Customers c LEFT OUTER JOIN Gardeners g\n"
 		    . "ON c.gardenerID = g.gardenerID\n"
 		    . "LEFT OUTER JOIN MonthlyData m\n"
-		    . "ON c.customerID = m.customerID and MONTH(m.date) = MONTH(NOW())\n"
-		    . "LEFT OUTER JOIN (\n"
-		    . " SELECT customerID, SUM(quantity) quantity \n"
-		    . " FROM Quantity\n"
-		    . " GROUP BY customerID\n"
-		    . ") q\n"
-		    . "ON c.customerID = q.customerID";
+		    . "ON c.customerID = m.customerID and MONTH(m.date) = MONTH(NOW())\n";
 		$result = $database->query($query, null, 'FETCH_ASSOC_ALL');
 		return $result;
 	}

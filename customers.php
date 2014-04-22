@@ -40,8 +40,8 @@ foreach($customerList as $customerRow){
 	$tableRows .= "\t<td class='curr_profit'>";
 	$tableRows .= $profit."$</td>\n";
 
-	if ($customerRow['number_of_replacements'] > 0 && $customerRow['quantity'] > 0){
-		$replacements = $customerRow['number_of_replacements'] / $customerRow['quantity'] * 100;
+	if ($customerRow['number_of_replacements'] > 0 && $customerRow['num_plants'] > 0){
+		$replacements = $customerRow['number_of_replacements'] / $customerRow['num_plants'] * 100;
 		$replacements = round($replacements);
 	}else{
 		$replacements = 0;
@@ -200,7 +200,7 @@ foreach($customerList as $customerRow){
 						<th>
 							<button data-sort="rating" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Rating
+								Points
 							</button>
 						</th>
 					</tr>
