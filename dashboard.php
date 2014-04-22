@@ -30,10 +30,12 @@ $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
     <title>Plant Replacement Manager Dashboard</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">   
 
     <!-- Custom styles for this template -->
-    <link href="css/justified-nav.css" rel="stylesheet">
+    <link href="css/justified-nav.css" rel="stylesheet">  
+	
+    
 
   </head>
 
@@ -46,7 +48,7 @@ $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
 	  
         <p class="navbar-text navbar-right">
 		<span class="glyphicon glyphicon-user"></span>
-		&nbsp;User Name <br>
+		&nbsp;Admin<br>
 		<button type="button" class="btn btn-xs btn-success pull-right">
 		Log Out</button>
 		</p>
@@ -62,26 +64,51 @@ $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
 		
       </div>
 
-	<div class="page-header">  
-	  <h1></h1>
-	</div>  
-	<div class="row">  
+	<br><br>
+	
+
+	<!-- Main body, with graphs and such -->
+	<div class="row">
 		
-		  <div class="col-md-6">
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<h3 class="panel-title">Technician Efficiency<h3>
-				</div>	
-				<div class="panel-body"> 
-				
-				Placeholder Text
-				
-				</div>
-				
+		<div class="col-md-8">
+			<div class="list-group">
+				<a class="list-group-item list-group-item-success"><b>Statistics</b></a>
+				<table class="table table-striped table-hover table-bordered">   
+					<tr>
+						<td>Most Profitable Customer </td>
+						<td>Bob's Automotive </td>
+						<td>$400 </td>
+					</tr>
+					<tr>
+						<td>Least Profitable Customer </td>
+						<td>Furniture by Bill </td>
+						<td>$150 </td>
+					</tr>
+					
+					<tr>
+						<td>Technician with Most Replacements </td>
+						<td>John Smith</td>
+						<td>15 </td>
+					</tr>
+					
+					<tr>
+						<td>Technician with Least Replacements </td>
+						<td> Bob Smith </td>
+						<td>2 </td>
+					</tr>
+					<tr>
+						<td>Technician with Most Points </td>
+						<td> Jeff Smith </td>
+						<td>5 </td>
+					</tr>
+
+					
+				 </table>
 			</div>
-		  </div>
-		<div class="col-sm-2">
 		</div>
+				
+		<div class="col-md-1"></div>
+		
 		<div class="col-sm-3">
           <div class="list-group">
           	<a class="list-group-item list-group-item-success"><b>Replacements</b></a>
@@ -111,27 +138,25 @@ $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
           	<span class="glyphicon glyphicon-chevron-right pull-right"></span>
           </a>
         </div>
-    
-	</div> <!-- ends panel 'row' div -->
-	<div class="row">  
 		
-		  <div class="col-md-6">
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<h3 class="panel-title">Customer Profitability<h3>
-				</div>	
-				<div class="panel-body"> 
-				
-				Placeholder Text
-				
-				</div>
-				
+		
+	</div>
+	<br><br>
+	<div class="row">
+	
+		<div class="col-md-0"></div>
+	
+		<div class="col-md-12">
+			<div class="list-group">
+				<a class="list-group-item list-group-item-success"><b>Approved Replacements Map</b></a>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.325554342321!2d-80.28965199999999!3d26.186086000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d90f4d3bd145b1%3A0xd7b4999fbe8f4e41!2sBob&#39;s+Automotive+Services+Inc!5e0!3m2!1sen!2sus!4v1398106750012" width="100%" height="300" frameborder="0" style="border:0"></iframe>
 			</div>
-		  </div>
-
-    
-	</div> <!-- ends panel 'row' div -->
-
+		</div>	
+			
+			
+			
+	</div>
+	
 	  <!-- Site footer -->
       <div class="footer">
         <p>&copy; Multitrack Engineering 2014</p>
@@ -143,5 +168,6 @@ $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+	
   </body>
 </html>

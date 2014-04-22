@@ -31,7 +31,7 @@
 	  
         <p class="navbar-text navbar-right">
 		<span class="glyphicon glyphicon-user"></span>
-		&nbsp;User Name <br>
+		&nbsp;Admin<br>
 		<button type="button" class="btn btn-xs btn-success pull-right">
 		Log Out</button>
 		</p>
@@ -47,83 +47,98 @@
 		
       </div>
 
-	<div class="page-header">  
-	  <h1></h1>
-	</div>  
+	<br><br>
 	
 
 	<!-- Main body, with graphs and such -->
 	<div class="row">
 		
-		<div class="col-md-6">
-		
-		<table class="table table-striped">   
-			
-			<tr>
-				<td>Most Profitable Customer </td>
-				<td>Bob's Automotive </td>
-				<td>$400 </td>
-			</tr>
-			
-			<tr>
-				<td>Least Profitable Customer </td>
-				<td>Furniture by Bill </td>
-				<td>$150 </td>
-			</tr>
-			
-			<tr>
-				<td>Technician with Most Replacements </td>
-				<td>John Smith</td>
-				<td>15 </td>
-			</tr>
-			
-			<tr>
-				<td>Technician with Least Replacements </td>
-				<td> Bob Smith </td>
-				<td>2 </td>
-			</tr>
-			
-		 </table>
+		<div class="col-md-8">
+		<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">Statistics<h3>
+				</div>	
+				<div class="panel-body"> 
+					<table class="table table-striped">   
+						
+						<tr>
+							<td>Most Profitable Customer </td>
+							<td>Bob's Automotive </td>
+							<td>$400 </td>
+						</tr>
+						
+						<tr>
+							<td>Least Profitable Customer </td>
+							<td>Furniture by Bill </td>
+							<td>$150 </td>
+						</tr>
+						
+						<tr>
+							<td>Technician with Most Replacements </td>
+							<td>John Smith</td>
+							<td>15 </td>
+						</tr>
+						
+						<tr>
+							<td>Technician with Least Replacements </td>
+							<td> Bob Smith </td>
+							<td>2 </td>
+						</tr>
+						
+					 </table>
+				</div>
+		</div>
 		
 		</div>
 		
-		<div class="col-md-2"></div>
+		<div class="col-md-1"></div>
 		
-		<div class="col-md-3">
-		<div class="list-group">
-            <a href="#" class="list-group-item">
-			<span class="badge pull-left">#</span>
+		<div class="col-sm-3">
+          <div class="list-group">
+          	<a class="list-group-item list-group-item-success"><b>Replacements</b></a>
+            <a href="replacements.php?status=0" class="list-group-item">
+			<span class="badge pull-left alert-warning">2</span>
 			&nbsp;&nbsp;Needs Approval
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
-            <a href="#" class="list-group-item">
-			<span class="badge pull-left">#</span>
+            <a href="replacements.php?status=1" class="list-group-item">
+			<span class="badge pull-left alert-info">1</span>
 			&nbsp;&nbsp;Approved
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
-            <a href="#" class="list-group-item">
-			<span class="badge pull-left">#</span>
+            <a href="replacements.php?status=2" class="list-group-item">
+			<span class="badge pull-left alert-success">1</span>
 			&nbsp;&nbsp;Completed
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
-            <a href="#" class="list-group-item">
-			<span class="badge pull-left">#</span>
+            <a href="replacements.php?status=3" class="list-group-item">
+			<span class="badge pull-left alert-danger">0</span>
 			&nbsp;&nbsp;Cancelled
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
           </div>
-		</div>
+          <a class="btn btn-success" href="replacementForm.php" style="width:100%;">
+          	New Replacement
+          	<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+          </a>
+        </div>
 		
 		
 	</div>
-	
+	<br>
 	<div class="row">
 	
-		<div class="col-md-2"></div>
+		<div class="col-md-1"></div>
 	
-		<div class="col-md-8">
-			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.325554342321!2d-80.28965199999999!3d26.186086000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d90f4d3bd145b1%3A0xd7b4999fbe8f4e41!2sBob&#39;s+Automotive+Services+Inc!5e0!3m2!1sen!2sus!4v1398106750012" width="700" height="600" frameborder="0" style="border:0"></iframe>
-			
+		<div class="col-md-10">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">Approved Replacements Map</h3>
+				</div>	
+				<div class="panel-body"> 
+					<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.325554342321!2d-80.28965199999999!3d26.186086000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d90f4d3bd145b1%3A0xd7b4999fbe8f4e41!2sBob&#39;s+Automotive+Services+Inc!5e0!3m2!1sen!2sus!4v1398106750012" width="740" height="300" frameborder="0" style="border:0"></iframe>
+				</div>
+			</div>
 		</div>	
 			
 			
