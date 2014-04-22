@@ -183,28 +183,18 @@ foreach($replacementList as $replacementRow){
 			<div class="navbar navbar-default">
 				<form class="navbar-form" role="form">
 					<input type="text" class="search form-control" placeholder="Search Replacements" style="max-width:20%"/>
-					<div class="form-group">
-						&nbsp;
-						<label class="checkbox-inline">
-							<input data-filter=0 class='filter' type="checkbox" <?php echo ($statusFilter[0]) ? "checked": ""; ?>/> 
-							Needs Approval
-						</label>
-						&nbsp;
-						<label class="checkbox-inline">
-							<input data-filter=0 class='filter' type="checkbox" <?php echo ($statusFilter[1]) ? "checked": ""; ?>/> 
-							Approved
-						</label>
-						&nbsp;
-						<label class="checkbox-inline">
-							<input data-filter=0 class='filter' type="checkbox" <?php echo ($statusFilter[2]) ? "checked": ""; ?>/> 
-							Completed
-						</label>
-						&nbsp;
-						<label class="checkbox-inline">
-							<input data-filter=0 class='filter' type="checkbox" <?php echo ($statusFilter[3]) ? "checked": ""; ?>/> 
-							Cancelled
-						</label>
-					</div>
+					&nbsp;&nbsp;
+					<input data-filter=0 class='filter' type="checkbox" <?php echo ($statusFilter[0]) ? "checked": ""; ?>/> 
+					Needs Approval
+					&nbsp;&nbsp;
+					<input data-filter=1 class='filter' type="checkbox" <?php echo ($statusFilter[1]) ? "checked": ""; ?>/> 
+					Approved
+					&nbsp;&nbsp;
+					<input data-filter=2 class='filter' type="checkbox" <?php echo ($statusFilter[2]) ? "checked": ""; ?>/> 
+					Completed
+					&nbsp;&nbsp;
+					<input data-filter=3 class='filter' type="checkbox" <?php echo ($statusFilter[3]) ? "checked": ""; ?>/> 
+					Cancelled
 					<a href="replacementForm.php" class="btn btn-success" style="float:right">
 					New Replacement
 					</a>
