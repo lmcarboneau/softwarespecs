@@ -53,19 +53,28 @@ class technicians {
 	}
 	
 	// Modified version of getCustomerData()
+	// Combine replacement and profit stats for all customers
+	// for this
 	public function getTechnicianData(){
 		global $database;
 		$query = "SELECT * FROM\n"
-		    . "Gardeners g LEFT OUTER JOIN Customers c\n"
+		    . "Gardeners g LEFT OUTER JOIN (\n"
+		    . "	SELECT gardenerID, COUNT(*) num_customers FROM\n"
+		    . " Customers\n"
+		    . " GROUP BY gardenerID\n"
+		    . "	) AS c\n"
 		    . "ON g.gardenerID = c.gardenerID\n"
-		    . "LEFT OUTER JOIN MonthlyData m\n"
-		    . "ON g.gardenerID = m.gardenerID and MONTH(m.date) = MONTH(NOW())\n"
 		    . "LEFT OUTER JOIN (\n"
-		    . " SELECT customerID, SUM(quantity) quantity \n"
-		    . " FROM Quantity\n"
-		    . " GROUP BY customerID\n"
-		    . ") q\n"
-		    . "ON c.customerID = q.customerID";
+		    . "	SELECT gardenerID,\n" 
+			. "    	SUM(number_of_replacements) number_of_replacements,\n"
+			. "    	SUM(num_plants) num_plants,\n"
+			. "    	SUM(amount_billed) amount_billed,\n"
+			. "    	SUM(cost_of_replacements) cost_of_replacements\n"
+			. "  FROM MonthlyData\n"
+			. "  WHERE MONTH(date) = MONTH(NOW())\n"
+			. "  GROUP BY gardenerID\n"
+		    . ") AS m\n"
+		    . "ON g.gardenerID = m.gardenerID\n";
 		$result = $database->query($query, null, 'FETCH_ASSOC_ALL');
 		return $result;
 	}

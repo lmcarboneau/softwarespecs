@@ -24,33 +24,42 @@ foreach($techniciansList as $technicianRow){
 	$tableRows .= "\t<td class='last_name'>";
 	$tableRows .= $technicianRow['last_name']."</td>\n";
 	
-	// CUSTOMERS IS HARDCODED 0 AT THE MOMENT
-	$total_customers = 0;
+	$total_customers = $technicianRow['num_customers'];
 
 	$tableRows .= "\t<td class='num_cust'>";
 	$tableRows .= $total_customers."</td>\n";
 	
-	if ($technicianRow['number_of_replacements'] > 0 && $technicianRow['quantity'] > 0){
-	$replacements = $technicianRow['number_of_replacements'] / $technicianRow['quantity'] * 100;
-	$replacements = round($replacements);
+	if ($technicianRow['amount_billed'] > 0){
+		if ($technicianRow['cost_of_replacements'] > 0){
+			$profit = ($technicianRow['amount_billed'] - $technicianRow['cost_of_replacements']);
+		} else {
+			$profit = $technicianRow['amount_billed'];
+		}
+	}else{
+		$profit = 0;
+	}
+	$tableRows .= "\t<td class='curr_profit'>";
+	$tableRows .= $profit."$</td>\n";
+
+	if ($technicianRow['number_of_replacements'] > 0 && $technicianRow['num_plants'] > 0){
+		$replacements = $technicianRow['number_of_replacements'] / $technicianRow['num_plants'] * 100;
+		$replacements = round($replacements);
 	}else{
 		$replacements = 0;
 	}
 	$tableRows .= "\t<td class='curr_replacements'>";
-	$tableRows .= $replacements."%</td>\n";
+	$tableRows .= $replacements."%</td>\n";	
 	
-	// RATING IS HARDCODED 0 AT THE MOMENT
-	$rating = 0;
+	$rating = "";
+	if ($profit!=0){
+		$rating = ($replacements > 0) ? round(log($profit/($replacements/6))) : log($profit);
+	} else {
+		$rating = 0;
+	}
 
 	$tableRows .= "\t<td class='rating'>";
 	$tableRows .= $rating."</td>\n";
 	
-	// TOTAL IS HARDCODED 0 AT THE MOMENT
-	$total_replacements = 0;
-
-	$tableRows .= "\t<td class='total_replacements'>";
-	$tableRows .= $total_replacements."</td>\n";
-
 	$tableRows .= "</tr>\n";
 }
 ?>
@@ -80,7 +89,7 @@ foreach($techniciansList as $technicianRow){
 		// Set up List.js table on load
 		$(document).ready ( function(){
 			var options = {
-	  			valueNames: [ 'id', 'first_name', 'last_name', 'num_cust', 'curr_replacements', 'total_replacements', 'rating' ]
+	  			valueNames: [ 'id', 'first_name', 'last_name', 'num_cust', 'curr_profit', 'curr_replacements', 'rating' ]
 			};
 
 			// Init list
@@ -129,7 +138,6 @@ foreach($techniciansList as $technicianRow){
 	<!-- Menu buttons -->
       <div class="masthead">
 	  
-	  <h3> This page has hardcoded values! Change these before going live! </h3>
         <p class="navbar-text navbar-right">
 		<span class="glyphicon glyphicon-user"></span>
 		&nbsp;User Name <br>
@@ -174,19 +182,19 @@ foreach($techniciansList as $technicianRow){
 						<th>
 							<button data-sort="num_cust" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Number of Customers
+								Customers
+							</button>
+						</th>
+						<th>
+							<button data-sort="curr_profit" class="sortbtn btn btn-default" style="width:100%">
+								<span class="glyphicon glyphicon-sort"></span>
+								Profit
 							</button>
 						</th>
 						<th>
 							<button data-sort="curr_replacements" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
-								Current Replacement Percentage
-							</button>
-						</th>
-						<th>
-							<button data-sort="total_replacements" class="sortbtn btn btn-default" style="width:100%">
-								<span class="glyphicon glyphicon-sort"></span>
-								Total Replacements
+								Replacements
 							</button>
 						</th>
 						<th>
