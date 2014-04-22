@@ -38,6 +38,9 @@ foreach($replacementList as $replacementRow){
 	
 	$tableRows .= "\t<td class='emergency'>";
 	$tableRows .= $yesNo[$replacementRow['emergency']]."</td>\n";
+
+	$tableRows .= "\t<td class='status_id' style='display:none;'>";
+	$tableRows .= $replacementRow['status']."</td>\n";
 	
 	$tableRows .= "\t<td class='status'>";
 	$tableRows .= $statusString[$replacementRow['status']]."</td>\n";
@@ -74,7 +77,7 @@ foreach($replacementList as $replacementRow){
 		// Set up List.js table on load
 		$(document).ready ( function(){
 			var options = {
-	  			valueNames: [ 'gardener_name', 'customer_name', 'emergency', 'status', 'date_submitted' ]
+	  			valueNames: [ 'gardener_name', 'customer_name', 'emergency', 'status_id', 'status', 'date_submitted' ]
 			};
 
 			// Init list
@@ -83,6 +86,8 @@ foreach($replacementList as $replacementRow){
    			var sort = "";
 	   		var direction = "asc";
 	   		var sort_btns = $(".sortbtn");
+	   		var filter_checks = $(".filter");
+	   		var filter = [true, true, true, true];
 
 	   		sort_btns.click(function(){
 	   			var clicked = $(this);
@@ -97,6 +102,18 @@ foreach($replacementList as $replacementRow){
 
 	   			sort_btns.removeClass("btn-primary");
 	   			clicked.addClass("btn-primary");
+	   		});
+
+	   		filter_checks.change(function(){
+	   			var clicked = $(this);
+	   			var filterID = clicked.attr("data-filter");
+	   			filter[filterID] = this.checked;
+
+	   			replacementList.filter(function(item) {
+				   var id =item.values().status_id;
+				   return filter[id];
+				});
+				replacementList.update();
 	   		});
 
 	   		// We "click" the sort-by-customer button on page load
@@ -146,7 +163,13 @@ foreach($replacementList as $replacementRow){
 				Add New Replacement
 				<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
-			<input type="text" class="search form-control" placeholder="Search replacements" style="max-width:20%"/>
+			<form class="form-inline" role="form">
+				<input type="text" class="search form-control" placeholder="Search replacements" style="max-width:20%"/>
+				&nbsp;<input data-filter=0 class='filter' type="checkbox" checked="true"/> Needs Approval&nbsp;
+				&nbsp;<input data-filter=1 class='filter' type="checkbox" checked="true"/> Approved&nbsp;
+				&nbsp;<input data-filter=2 class='filter' type="checkbox" checked="true"/> Completed&nbsp;
+				&nbsp;<input data-filter=3 class='filter' type="checkbox" checked="true"/> Cancelled&nbsp;
+			</form>
 			<table class="table table-striped table-hover table-responsive">
 				<thead>
 					<tr>
