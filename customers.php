@@ -157,13 +157,15 @@ foreach($customerList as $customerRow){
     <br>  
 	<div class="row" >  
 		<div id="customers" style="margin:20px">
-			<a href="customerForm.php" class="btn btn-success" style="float:right">
-				Add New Customer
-				<span class="glyphicon glyphicon-chevron-right pull-right"></span>
-			</a>
-			<input type="text" class="search form-control" placeholder="Search Customers" style="max-width:20%"/>
-			<br>
-			<table class="table table-striped table-hover table-responsive">
+			<div class="navbar navbar-default">
+				<form class="navbar-form" role="form">
+					<input type="text" class="search form-control" placeholder="Search Customers" style="max-width:20%"/>
+					<a href="customerForm.php" class="btn btn-success" style="float:right">
+						New Customer
+					</a>
+				</form>
+			</div>
+			<table class="table table-striped table-hover table-responsive panel panel-default">
 				<thead>
 					<tr>
 						<th>
@@ -211,7 +213,7 @@ foreach($customerList as $customerRow){
 		</div>
 		<!-- Hidden form to submit which customer was clicked -->
 		<div style="display:none;">
-			<form id="selectForm" action="customerForm.php" method="post">
+			<form id="selectForm" action="customerDetail.php" method="post">
 				<input id="selectID" type="text" name="id" value="5"/>
 			</form>
 		</div>

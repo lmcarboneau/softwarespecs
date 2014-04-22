@@ -12,6 +12,26 @@ $replacementList = $replacements->getReplacementList();
 $tableRows = "";
 $month = date('M');
 
+$statusFilter = array(
+	0=>false,
+	1=>false,
+	2=>false,
+	3=>false
+);
+
+if(isset($_GET['status'])){
+	$statusFilter[$_GET['status']] = true;
+} elseif (isset($_POST['status'])){
+	$statusFilter[$_POST['status']] = true;
+} else {
+	$statusFilter = array(
+		0=>true,
+		1=>true,
+		2=>true,
+		3=>true
+	);
+}
+
 $yesNo = array(
 	0=>"No",
 	1=>"Yes"
@@ -23,6 +43,7 @@ $statusString = array(
 	2=>"Completed",
 	3=>"Cancelled"
 );
+
 
 foreach($replacementList as $replacementRow){
 	$tableRows .= "<tr class='table-select' style='cursor:pointer;'>\n";
@@ -120,6 +141,8 @@ foreach($replacementList as $replacementRow){
 	   		// so that the list starts out sorted
 	   		$(".sort-default").trigger("click");
 
+	   		filter_checks.trigger("change");
+
 	   		// This section detects a click in the customer table
 	   		// and submits the customer ID to customerForm.php
 	   		$(".table-select").click(function (){
@@ -157,19 +180,37 @@ foreach($replacementList as $replacementRow){
     <br>
 	<div class="row" >  
 		<div id="replacements" style="margin:20px">
-			<a href="replacementForm.php" class="btn btn-success" style="float:right">
-				Add New Replacement
-				<span class="glyphicon glyphicon-chevron-right pull-right"></span>
-			</a>
-			<form class="form-inline" role="form">
-				<input type="text" class="search form-control" placeholder="Search Replacements" style="max-width:20%"/>
-				&nbsp;<input data-filter=0 class='filter' type="checkbox" checked="true"/> Needs Approval&nbsp;
-				&nbsp;<input data-filter=1 class='filter' type="checkbox" checked="true"/> Approved&nbsp;
-				&nbsp;<input data-filter=2 class='filter' type="checkbox" checked="true"/> Completed&nbsp;
-				&nbsp;<input data-filter=3 class='filter' type="checkbox" checked="true"/> Cancelled&nbsp;
-			</form>
-			<br>
-			<table class="table table-striped table-hover table-responsive">
+			<div class="navbar navbar-default">
+				<form class="navbar-form" role="form">
+					<input type="text" class="search form-control" placeholder="Search Replacements" style="max-width:20%"/>
+					<div class="form-group">
+						&nbsp;
+						<label class="checkbox-inline">
+							<input data-filter=0 class='filter' type="checkbox" <?php echo ($statusFilter[0]) ? "checked": ""; ?>/> 
+							Needs Approval
+						</label>
+						&nbsp;
+						<label class="checkbox-inline">
+							<input data-filter=0 class='filter' type="checkbox" <?php echo ($statusFilter[1]) ? "checked": ""; ?>/> 
+							Approved
+						</label>
+						&nbsp;
+						<label class="checkbox-inline">
+							<input data-filter=0 class='filter' type="checkbox" <?php echo ($statusFilter[2]) ? "checked": ""; ?>/> 
+							Completed
+						</label>
+						&nbsp;
+						<label class="checkbox-inline">
+							<input data-filter=0 class='filter' type="checkbox" <?php echo ($statusFilter[3]) ? "checked": ""; ?>/> 
+							Cancelled
+						</label>
+					</div>
+					<a href="replacementForm.php" class="btn btn-success" style="float:right">
+					New Replacement
+					</a>
+				</form>
+			</div>
+			<table class="table table-striped table-hover table-responsive panel panel-default">
 				<thead>
 					<tr>
 						<th>

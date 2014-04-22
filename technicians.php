@@ -157,13 +157,15 @@ foreach($techniciansList as $technicianRow){
     <br> 
 	<div class="row" >  
 		<div id="technicians" style="margin:20px">
-			<a href="technicianForm.php" class="btn btn-success" style="float:right">
-				Add New Technician
-				<span class="glyphicon glyphicon-chevron-right pull-right"></span>
-			</a>
-			<input type="text" class="search form-control" placeholder="Search Technicians" style="max-width:20%"/>
-			<br>
-			<table class="table table-striped table-hover table-responsive">
+			<div class="navbar navbar-default">
+				<form class="navbar-form" role="form">
+					<input type="text" class="search form-control" placeholder="Search Technicians" style="max-width:20%"/>
+					<a href="technicianForm.php" class="btn btn-success" style="float:right">
+						New Technician
+					</a>
+				</form>
+			</div>
+			<table class="table table-striped table-hover table-responsive panel panel-default">
 				<thead>
 					<tr>
 						<th>
