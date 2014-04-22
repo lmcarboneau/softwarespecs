@@ -154,9 +154,7 @@ foreach($replacementList as $replacementRow){
           <li class="active"><a href="replacements.php">Replacements</a></li>        </ul>
       </div>
 
-    <div class="page-header">  
-	  <h1></h1>
-	</div>  
+    <br>
 	<div class="row" >  
 		<div id="replacements" style="margin:20px">
 			<a href="replacementForm.php" class="btn btn-success" style="float:right">
@@ -164,12 +162,13 @@ foreach($replacementList as $replacementRow){
 				<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
 			<form class="form-inline" role="form">
-				<input type="text" class="search form-control" placeholder="Search replacements" style="max-width:20%"/>
+				<input type="text" class="search form-control" placeholder="Search Replacements" style="max-width:20%"/>
 				&nbsp;<input data-filter=0 class='filter' type="checkbox" checked="true"/> Needs Approval&nbsp;
 				&nbsp;<input data-filter=1 class='filter' type="checkbox" checked="true"/> Approved&nbsp;
 				&nbsp;<input data-filter=2 class='filter' type="checkbox" checked="true"/> Completed&nbsp;
 				&nbsp;<input data-filter=3 class='filter' type="checkbox" checked="true"/> Cancelled&nbsp;
 			</form>
+			<br>
 			<table class="table table-striped table-hover table-responsive">
 				<thead>
 					<tr>

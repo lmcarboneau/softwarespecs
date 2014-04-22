@@ -52,7 +52,7 @@ foreach($customerList as $customerRow){
 	// Trying out a customer rating number based on profits and weighted replacement %
 	$rating = "";
 	if ($profit!=0){
-		$rating = ($replacements > 0) ? round(log($profit/($replacements/6))) : log($profit);
+		$rating = ($replacements > 0) ? round(log($profit/($replacements/6))) : round(log($profit));
 	} else {
 		$rating = 0;
 	}
@@ -154,9 +154,7 @@ foreach($customerList as $customerRow){
           <li><a href="replacements.php">Replacements</a></li>        </ul>
       </div>
 
-    <div class="page-header">  
-	  <h1></h1>
-	</div>  
+    <br>  
 	<div class="row" >  
 		<div id="customers" style="margin:20px">
 			<a href="customerForm.php" class="btn btn-success" style="float:right">
@@ -164,6 +162,7 @@ foreach($customerList as $customerRow){
 				<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
 			<input type="text" class="search form-control" placeholder="Search Customers" style="max-width:20%"/>
+			<br>
 			<table class="table table-striped table-hover table-responsive">
 				<thead>
 					<tr>
