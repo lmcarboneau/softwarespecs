@@ -140,7 +140,7 @@ foreach($customerList as $customerRow){
 	  
         <p class="navbar-text navbar-right">
 		<span class="glyphicon glyphicon-user"></span>
-		&nbsp;User Name <br>
+		&nbsp;Admin <br>
 		<button type="button" class="btn btn-xs btn-success pull-right">
 		Log Out</button>
 		</p>
