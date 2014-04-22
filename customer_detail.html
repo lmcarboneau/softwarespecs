@@ -18,8 +18,6 @@
     <!-- Custom styles for this template -->
     <link href="css/justified-nav.css" rel="stylesheet">  
 	
-	<!-- This is Foundation, and their stylesheets. It's an open relationship -->
-	<link rel="stylesheet" href="css/foundation.css" />
     
 
   </head>
@@ -42,15 +40,13 @@
         
 		<ul class="nav nav-justified">
           <li><a href="#">Dashboard</a></li>
-          <li class="active"><a href="#">Customers</a></li>
+          <li><a href="#">Customers</a></li>
           <li><a href="#">Technicians</a></li>
-          <li><a href="#">Replacements</a></li>
-		  <!-- Fairly certain the # need to be replaced with the page locations -->
+          <li class="active"><a href="#">Replacements</a></li>
         </ul>
 		
       </div>
 
-	  <!-- Page header, mostly just that grey line beneath the buttons -->
 	<div class="page-header">  
 	  <h1></h1>
 	</div>  
@@ -58,8 +54,8 @@
 
 	<!-- Main body, with graphs and such -->
 	<div class="row">
-		<div class="large-6 medium-6 columns">
-			<h1>Bob's Automotive </h1>
+		<div class="col-md-6">
+			<h2>Bob's Automotive </h2>
 			<p><a href="#"><button type="button" class="btn btn-success">Edit Customer Info</button></a></p><br>
 			
 			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.325554342321!2d-80.28965199999999!3d26.186086000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d90f4d3bd145b1%3A0xd7b4999fbe8f4e41!2sBob&#39;s+Automotive+Services+Inc!5e0!3m2!1sen!2sus!4v1398106750012" width="450" height="350" frameborder="0" style="border:0"></iframe>
@@ -81,14 +77,39 @@
 			
 		</div>
 		
-		<div class="large-6 medium-6 columns">
-			<h3>Replacement History</h3>
-		<!-- INSERT PHP HERE -->	
-			<div class="panel"><br><br><br><br><br><br><br><br><br><br><br><br></div>
+		<div class="col-md-6">
+			<h3>Placeholder Text</h3>
+		
+			<ul class="nav nav-justified">
+			<li><a href="#">Charts</a></li>
+			<li class="active"><a href="#"> Replacements</a></li>
+			<li><a href="#"> Monthly Data</a></li>
+        </ul>
+		
+		
+		 <table class="table table-bordered table-striped">   
+			<tr>
+				<th>Date </th>
+				<th>Technician </th>
+				<th>Emergency </th>
+				<th>Status </th>
+			</tr>
 			
-			<h3>Generate Report</h3>
-		<!-- INSERT PHP HERE -->
-			<div class="panel"><br><br><br><br><br><br><br><br><br><br><br></div>
+			<tr>
+				<th>4/1/2014 </th>
+				<th>John </th>
+				<th>No </th>
+				<th>Approved </th>
+			</tr>
+			
+			<tr>
+				<th>3/15/2014 </th>
+				<th>John </th>
+				<th>No </th>
+				<th>Completed </th>
+			</tr>
+			
+		 </table>
 		
 		</div>
 		
