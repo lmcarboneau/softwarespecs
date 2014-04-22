@@ -13,10 +13,12 @@
     <title>Plant Replacement Manager Dashboard</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">   
 
     <!-- Custom styles for this template -->
-    <link href="css/justified-nav.css" rel="stylesheet">
+    <link href="css/justified-nav.css" rel="stylesheet">  
+	
+    
 
   </head>
 
@@ -48,25 +50,49 @@
 	<div class="page-header">  
 	  <h1></h1>
 	</div>  
-	<div class="row">  
+	
+
+	<!-- Main body, with graphs and such -->
+	<div class="row">
 		
-		  <div class="col-md-6">
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<h3 class="panel-title">Technician Efficiency<h3>
-				</div>	
-				<div class="panel-body"> 
-				
-				Placeholder Text
-				
-				</div>
-				
-			</div>
-		  </div>
-		<div class="col-sm-2">
+		<div class="col-md-5">
+		
+		<table class="table table-striped">   
+			
+			<tr>
+				<td>Most Profitable Customer </td>
+				<td>Bob's Automotive </td>
+				<td>$400 </td>
+			</tr>
+			
+			<tr>
+				<td>Least Profitable Customer </td>
+				<td>Furniture by Bill </td>
+				<td>$150 </td>
+			</tr>
+			
+			<tr>
+				<td>Technician with Most Replacements </td>
+				<td>John Smith</td>
+				<td>15 </td>
+			</tr>
+			
+			<tr>
+				<td>Technician with Least Replacements </td>
+				<td> Bob Smith </td>
+				<td>2 </td>
+			</tr>
+			
+		 </table>
+		
 		</div>
-		<div class="col-sm-3">
-          <div class="list-group">
+		
+		<div class="col-md-4">
+			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.325554342321!2d-80.28965199999999!3d26.186086000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d90f4d3bd145b1%3A0xd7b4999fbe8f4e41!2sBob&#39;s+Automotive+Services+Inc!5e0!3m2!1sen!2sus!4v1398106750012" width="350" height="250" frameborder="0" style="border:0"></iframe>
+		</div>
+		
+		<div class="col-md-3">
+		<div class="list-group">
             <a href="#" class="list-group-item">
 			<span class="badge pull-left">#</span>
 			&nbsp;&nbsp;Needs Approval
@@ -88,28 +114,11 @@
 			<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 			</a>
           </div>
-        </div>
-    
-	</div> <!-- ends panel 'row' div -->
-	<div class="row">  
+		</div>
 		
-		  <div class="col-md-6">
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<h3 class="panel-title">Customer Profitability<h3>
-				</div>	
-				<div class="panel-body"> 
-				
-				Placeholder Text
-				
-				</div>
-				
-			</div>
-		  </div>
-
-    
-	</div> <!-- ends panel 'row' div -->
-
+		
+	</div>
+	
 	  <!-- Site footer -->
       <div class="footer">
         <p>&copy; Multitrack Engineering 2014</p>
@@ -121,5 +130,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+	
   </body>
 </html>
