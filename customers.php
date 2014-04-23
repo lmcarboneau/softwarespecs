@@ -13,6 +13,14 @@ $customerList = $customers->getCustomerData();
 $tableRows = "";
 $month = date('M');
 
+$search = null;
+if(isset($_GET['search'])){
+	$search = $_GET['search'];
+} elseif (isset($_POST['search'])){
+	$search = $_POST['search'];
+}
+
+
 foreach($customerList as $customerRow){
 	$tableRows .= "<tr class='table-select' style='cursor:pointer;'>\n";
 
@@ -127,6 +135,9 @@ foreach($customerList as $customerRow){
 	   			$("#selectID").val(id);
 	   			$("#selectForm").submit();
 	   		});
+
+	   		// Filter the list with the php search value from get/post
+	   		<?php echo (empty($search)) ? '' : 'customerList.search("'.$search.'");';?>
    		});
    	</script>
 
@@ -160,7 +171,7 @@ foreach($customerList as $customerRow){
 		<div id="customers" style="margin:20px">
 			<div class="navbar navbar-default">
 				<form class="navbar-form" role="form">
-					<input type="text" class="search form-control" placeholder="Search Customers" style="max-width:20%"/>
+					<input type="text" class="search form-control" placeholder="<?php echo (empty($search)) ? "Search Customers":$search;?>" Customers" style="max-width:20%"/>
 					<a href="customerForm.php" class="btn btn-success" style="float:right">
 						New Customer
 					</a>
