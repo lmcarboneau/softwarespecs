@@ -106,7 +106,7 @@ foreach($replacementList as $replacementRow){
 			var replacementList = new List('replacements', options);
 
    			var sort = "";
-	   		var direction = "desc";
+	   		var direction = "asc";
 	   		var sort_btns = $(".sortbtn");
 	   		var filter_checks = $(".filter");
 	   		var filter = [true, true, true, true];
@@ -115,9 +115,9 @@ foreach($replacementList as $replacementRow){
 	   			var clicked = $(this);
 	   			var sortid = clicked.attr("data-sort");
 	   			if (sort == sortid){
-	   				direction = (direction == "desc") ? "asc" : "desc";
+	   				direction = (direction == "asc") ? "desc" : "asc";
 	   			} else {
-	   				direction = "desc";
+	   				direction = "asc";
 	   			}
 	     		sort = sortid;
 	   			replacementList.sort(sort, { order: direction});
@@ -141,6 +141,7 @@ foreach($replacementList as $replacementRow){
 	   		// We "click" the sort-by-customer button on page load
 	   		// so that the list starts out sorted
 	   		$(".sort-default").trigger("click");
+	   		$(".sort-default-desc").trigger("click").trigger("click");
 
 	   		filter_checks.trigger("change");
 
@@ -229,7 +230,7 @@ foreach($replacementList as $replacementRow){
 							</button>
 						</th>
 						<th>
-							<button data-sort="date_submitted" class="sortbtn sort-default btn btn-default" style="width:100%">
+							<button data-sort="date_submitted" class="sortbtn sort-default-desc btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Date Submitted
 							</button>
