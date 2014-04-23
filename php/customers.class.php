@@ -70,7 +70,7 @@ class customers {
 	// plus total quantity of plants from Quantity
 	public function getCustomerData(){
 		global $database;
-		$query = "SELECT * FROM\n"
+		$query = "SELECT c.*, g.first_name, g.last_name, m.amount_billed, m.number_of_replacements, m.cost_of_replacements, m.date, m.num_plants FROM\n"
 		    . "Customers c LEFT OUTER JOIN Gardeners g\n"
 		    . "ON c.gardenerID = g.gardenerID\n"
 		    . "LEFT OUTER JOIN MonthlyData m\n"
@@ -81,7 +81,7 @@ class customers {
 
 	public function getCustomer($id){
 		global $database;
-		$query = "SELECT * FROM\n"
+		$query = "SELECT c.*, g.first_name, g.last_name, m.amount_billed, m.number_of_replacements, m.cost_of_replacements, m.date, m.num_plants FROM\n"
 		    . "Customers c\n"
 		    . "LEFT OUTER JOIN Gardeners g\n"
 		    . "ON c.gardenerID = g.gardenerID\n"

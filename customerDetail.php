@@ -16,15 +16,15 @@ if (isset($_GET['id'])){
 }else if (isset($_POST['id'])){
 	$customerID = $_POST['id'];
 }
-if (is_null($customerID)){
+if (is_null($customerID) || empty($customerID)){
    header('Location: ' . "customers.php", true, 303);
    die();
 }
 
 $thisCustomer = $customers->getCustomer($customerID);
-
+// Uncomment this to view raw customer data for debugging
+//echo "<pre>"; print_r($thisCustomer); echo "</pre>";
 $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one'].",".$thisCustomer['zip'];
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +84,7 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 		<div class="col-md-6">
 			<iframe
 			  width="100%"
-			  height="450"
+			  height="250"
 			  frameborder="0" style="border:0"
 			  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyABVQ1AFYdGjKXmHiSsSHhup_Xo5LqM3Gc&q='<?php echo $mapQuery?>'">
 			</iframe>

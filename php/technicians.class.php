@@ -57,7 +57,7 @@ class technicians {
 	// for this
 	public function getTechnicianData(){
 		global $database;
-		$query = "SELECT * FROM\n"
+		$query = "SELECT g.*, c.*, m.amount_billed, m.number_of_replacements, m.cost_of_replacements, m.num_plants FROM\n"
 		    . "Gardeners g LEFT OUTER JOIN (\n"
 		    . "	SELECT gardenerID, COUNT(*) num_customers FROM\n"
 		    . " Customers\n"
