@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('America/New_York');
+
 session_start(); // initialize the session
 include("passwords.php");
 //check_logged(); // if not logged in, user redirected to login page

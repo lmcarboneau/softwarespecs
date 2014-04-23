@@ -79,12 +79,19 @@ class customers {
 		return $result;
 	}
 
-
 	public function getCustomer($id){
 		global $database;
-		$result = $database->query("SELECT * FROM customers WHERE id = ".$id);
+		$query = "SELECT * FROM\n"
+		    . "Customers c\n"
+		    . "LEFT OUTER JOIN Gardeners g\n"
+		    . "ON c.gardenerID = g.gardenerID\n"
+		    . "LEFT OUTER JOIN MonthlyData m\n"
+		    . "ON c.customerID = m.customerID and MONTH(m.date) = MONTH(NOW())\n"
+		    . "WHERE c.customerID='".$id."'\n";
+		$result = $database->query($query, null, 'FETCH_ASSOC');
 		return $result;
 	}
+
 
 	// Returns true or false based on a MySQL result table
 	public function successOf($result){

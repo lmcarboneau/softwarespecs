@@ -1,4 +1,29 @@
+<?php
+date_default_timezone_set('America/New_York');
+session_start(); // initialize the session
+//check_logged(); // if not logged in, user redirected to login page
 
+require_once("php/database.class.php");
+$database = new database();
+require_once("php/customers.class.php");
+$customers = new customers($database);
+require_once("php/replacements.class.php");
+$replacements = new replacements($database);
+
+$customerID = null;
+if (isset($_GET['id'])){
+	$customerID = $_GET['id'];
+}else if (isset($_POST['id'])){
+	$customerID = $_POST['id'];
+}
+if (is_null($customerID)){
+   header('Location: ' . "customers.php", true, 303);
+   die();
+}
+
+$thisCustomer = $customers->getCustomer($customerID);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -49,7 +74,7 @@
 
 	<div class="page-header">  
 	  <p style="float:right;"><a href="#"><button type="button" class="btn btn-success">Edit Customer Info</button></a></p>
-	  <h2>Bob's Automotive </h2>
+	  <h2><?php echo $thisCustomer['customer_name']?></h2>
 	</div>  
 
 	<!-- Main body, with graphs and such -->
@@ -60,18 +85,22 @@
 			<div class="col-md-6">
 				<h4>Contact Information</h4>
 			<!-- INSERT PHP HERE -->
-				<h6>Bob Roberts</h6>
-				<h6>1234 Main St</h6>
-				<h6>Ft. Myers, FL  33912</h6><br>
-				<h6>(239) 555-5555</h6>
-				<h6><a href="mailto:#">bob@gmail.com</a></h6><br>
+				<h6><?php echo $thisCustomer['contact_first_name']." ".$thisCustomer['contact_last_name'];?></h6>
+				<h6><?php echo $thisCustomer['address_line_one'];?></h6>
+				<h6><?php echo $thisCustomer['address_line_two'];?></h6>
+				<h6><?php echo $thisCustomer['city'].", ".$thisCustomer['state']." ".$thisCustomer['zip'];?></h6><br>
+				<h6><?php echo $thisCustomer['phonenumber'];?></h6>
 			<!-- INSERT PHP HERE -->
 			</div>
 
 			<div class="col-md-6">
 				<h4>Assigned Technician</h4>
 				<!-- INSERT PHP HERE -->
-				<h6><a href="#">Jeff Smith</a></h6>
+				<h6>
+					<a href="technicianDetail.php?id=<?php echo $thisCustomer['gardenerID'];?>">
+					<?php echo $thisCustomer['first_name']." ".$thisCustomer['last_name']
+					</a>
+				</h6>
 			</div>
 			
 		</div>
