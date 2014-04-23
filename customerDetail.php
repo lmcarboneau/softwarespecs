@@ -23,6 +23,8 @@ if (is_null($customerID)){
 
 $thisCustomer = $customers->getCustomer($customerID);
 
+$mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one'].",".$thisCustomer['zip'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,8 +82,12 @@ $thisCustomer = $customers->getCustomer($customerID);
 	<!-- Main body, with graphs and such -->
 	<div class="row">
 		<div class="col-md-6">
-			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.325554342321!2d-80.28965199999999!3d26.186086000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d90f4d3bd145b1%3A0xd7b4999fbe8f4e41!2sBob&#39;s+Automotive+Services+Inc!5e0!3m2!1sen!2sus!4v1398106750012" width="100%" height="350" frameborder="0" style="border:0"></iframe>
-
+			<iframe
+			  width="100%"
+			  height="450"
+			  frameborder="0" style="border:0"
+			  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyABVQ1AFYdGjKXmHiSsSHhup_Xo5LqM3Gc&q='<?php echo $mapQuery?>'">
+			</iframe>
 			<div class="col-md-6">
 				<h4>Contact Information</h4>
 			<!-- INSERT PHP HERE -->
@@ -98,7 +104,7 @@ $thisCustomer = $customers->getCustomer($customerID);
 				<!-- INSERT PHP HERE -->
 				<h6>
 					<a href="technicianDetail.php?id=<?php echo $thisCustomer['gardenerID'];?>">
-					<?php echo $thisCustomer['first_name']." ".$thisCustomer['last_name']
+					<?php echo $thisCustomer['first_name']." ".$thisCustomer['last_name'];?>
 					</a>
 				</h6>
 			</div>
