@@ -1,31 +1,3 @@
-<?php
-date_default_timezone_set('America/New_York');
-session_start(); // initialize the session
-//check_logged(); // if not logged in, user redirected to login page
-
-require_once("php/database.class.php");
-$database = new database();
-require_once("php/customers.class.php");
-$customers = new customers($database);
-require_once("php/replacements.class.php");
-$replacements = new replacements($database);
-
-$customerID = null;
-if (isset($_GET['id'])){
-	$customerID = $_GET['id'];
-}else if (isset($_POST['id'])){
-	$customerID = $_POST['id'];
-}
-if (is_null($customerID) || empty($customerID)){
-   header('Location: ' . "customers.php", true, 303);
-   die();
-}
-
-$thisCustomer = $customers->getCustomer($customerID);
-// Uncomment this to view raw customer data for debugging
-//echo "<pre>"; print_r($thisCustomer); echo "</pre>";
-$mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one'].",".$thisCustomer['zip'];
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,7 +9,7 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
     <meta name="author" content="Lindsey Carboneau">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Customer Detail Tracking</title>
+    <title>Technician Detail Information</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">   
@@ -75,22 +47,23 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
       </div>
 
 	<div class="page-header">  
-	  <p style="float:right;"><a href="#"><button type="button" class="btn btn-success">Edit Customer Info</button></a></p>
-	  <h2><?php echo $thisCustomer['customer_name']?></h2>
+	  <p style="float:right;"><a href="#"><button type="button" class="btn btn-success">Edit Technician Info</button></a></p>
+	  <!-- PHP GOES HERE -->
+	  <h2>Jeff Smith</h2>
 	</div>  
 
 	<!-- Main body, with graphs and such -->
 	<div class="row">
 		<div class="col-md-6">
-			<iframe
-			  width="100%"
+			<img
+			  width="50%"
 			  height="250"
 			  frameborder="0" style="border:0"
-			  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyABVQ1AFYdGjKXmHiSsSHhup_Xo5LqM3Gc&q='<?php echo $mapQuery?>'">
-			</iframe>
+			  src="sample_tech.jpg">
+			</img>
 			<div class="col-md-6">
 				<h4>Contact Information</h4>
-			<!-- INSERT PHP HERE -->
+			<!-- INSERT PHP HERE - This is straight from the customer detail page, in case it makes it easier to edit -->
 				<h6><?php echo $thisCustomer['contact_first_name']." ".$thisCustomer['contact_last_name'];?></h6>
 				<h6><?php echo $thisCustomer['address_line_one'];?></h6>
 				<h6><?php echo $thisCustomer['address_line_two'];?></h6>
@@ -99,14 +72,9 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 			<!-- INSERT PHP HERE -->
 			</div>
 
-			<div class="col-md-6">
-				<h4>Assigned Technician</h4>
-				<!-- INSERT PHP HERE -->
-				<h6>
-					<a href="technicianDetail.php?id=<?php echo $thisCustomer['gardenerID'];?>">
-					<?php echo $thisCustomer['first_name']." ".$thisCustomer['last_name'];?>
-					</a>
-				</h6>
+			<div class="col-md-4">
+				<p style="float:right;"><a href="#"><button type="button" class="btn btn-success">View Assigned Customers</button></a></p>
+				<!-- PHP GOES HERE - bring up technicians chart pre-sorted by $thisTechnician or $id -->
 			</div>
 			
 		</div>
@@ -122,21 +90,21 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 		 <table class="table table-bordered table-striped table-hover">   
 			<tr>
 				<th>Date </th>
-				<th>Technician </th>
+				<th>Customer </th>
 				<th>Emergency </th>
 				<th>Status </th>
 			</tr>
 			
 			<tr>
 				<td>2014-03-05 </td>
-				<td>Jeff Smith </td>
+				<td>Bob's Automotive </td>
 				<td>No </td>
 				<td>Approved </td>
 			</tr>
 			
 			<tr>
 				<td>2014-04-21 </td>
-				<td>Jeff Smith</td>
+				<td>Bob's Automotive </td>
 				<td>No </td>
 				<td>Completed </td>
 			</tr>
