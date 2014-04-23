@@ -69,8 +69,8 @@ $thisTechnician = $technicians->getTechnician($technicianID);
         
 		<ul class="nav nav-justified">
           <li><a href="dashboard.php">Dashboard</a></li>
-          <li class="active"><a href="customers.php">Customers</a></li>
-          <li><a href="technicians.php">Technicians</a></li>
+          <li><a href="customers.php">Customers</a></li>
+          <li class="active"><a href="technicians.php">Technicians</a></li>
           <li><a href="replacements.php">Replacements</a></li>
         </ul>
 		
