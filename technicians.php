@@ -53,14 +53,13 @@ foreach($techniciansList as $technicianRow){
 	
 	$rating = "";
 	if ($profit!=0){
-		$rating = ($replacements > 0) ? round(log($profit/($replacements/6))) : log($profit);
+		$rating = ($replacements > 0) ? log($profit/($replacements/6)) : log($profit);
 	} else {
 		$rating = 0;
 	}
 
 	$tableRows .= "\t<td class='rating'>";
-	$tableRows .= $rating."</td>\n";
-	
+	$tableRows .= number_format((float)$rating, 2, '.', '')."</td>\n";	
 	$tableRows .= "</tr>\n";
 }
 ?>

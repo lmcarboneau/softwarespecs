@@ -61,12 +61,12 @@ foreach($customerList as $customerRow){
 	// Trying out a customer rating number based on profits and weighted replacement %
 	$rating = "";
 	if ($profit!=0){
-		$rating = ($replacements > 0) ? round(log($profit/($replacements/6))) : round(log($profit));
+		$rating = ($replacements > 0) ? log($profit/($replacements/6)) : log($profit);
 	} else {
 		$rating = 0;
 	}
 	$tableRows .= "\t<td class='rating'>";
-	$tableRows .= $rating."</td>\n";
+	$tableRows .= number_format((float)$rating, 2, '.', '')."</td>\n";
 	//$tableRows .= $customerRow['number_of_replacements']."/".$customerRow['quantity']."%</td>\n";
 
 	$tableRows .= "</tr>\n";
