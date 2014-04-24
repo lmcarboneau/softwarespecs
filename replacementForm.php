@@ -165,8 +165,10 @@ if ($action === "edit"){
 	<input type="hidden" name="submit" value="true"/>
 
 	<div class="page-header">    <!-- MORE PHP GOES HERE. Haven't gotten to it yet. -->
-	  <p style="float:right;"><button type="submit" class="btn btn-success">Submit Replacement</button></p>
-	  <h2>Replacement Form </h2>
+	  <p style="float:right;"><button type="submit" class="btn btn-success">
+	  <?php echo ($action === "new") ? "Submit New Replacement" : "Save Changes"?>
+	  </button></p>
+	  <h2><?php echo ($action === "new") ? "New " : "Edit "?>Replacement Form </h2>
 	</div>
 
 	<!-- Main body, with graphs and such -->

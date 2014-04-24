@@ -65,8 +65,8 @@ require_once("php/technicians.class.php");
       </div>
 
     <div class="page-header">    <!-- MORE PHP GOES HERE. Haven't gotten to it yet. -->
-	  <p style="float:right;"><a href="customers.php"><button type="button" class="btn btn-success">Save Changes</button></a></p>
-	  <h2>Customer Form </h2>  <!-- Should say something like "new customer" or their name if it's an edit -->
+	  <p style="float:right;"><a href="customers.php"><button type="button" class="btn btn-success">Submit New Customer</button></a></p>
+	  <h2>New Customer Form </h2>  <!-- Should say something like "new customer" or their name if it's an edit -->
 	  <!-- also, most of this probably shouldn't show if the PHP throws the "no customer selected" thing -->
 	</div> 
 	<div class="row" >  
