@@ -1,8 +1,16 @@
 <?php
+
+require_once("php/database.class.php");
+require_once("php/util.class.php");
+$database = new database();
+
+
 if(Login()) {
 	redirect("dashboard.php");
 }
-else {redirect("login.html")};
+else {
+    redirect("login.html");
+}
 
 function redirect($url, $statusCode = 303)
 {
@@ -12,40 +20,33 @@ function redirect($url, $statusCode = 303)
 
 function Login()
 {
+    global $database;
     if(empty($_POST['username']))
     {
-        $this->HandleError("Username is empty!");
         return false;
     }
      
     if(empty($_POST['password']))
     {
-        $this->HandleError("Password is empty!");
         return false;
     }
      
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
      
- /*    if(!$this->CheckLoginInDB($username,$password))
+    $user = util::checkUser($database, $username, $password);
+    if(!$user)
     {
         return false;
-    } */
+    } 
     
 	session_start(); 
-	include("passwords.php"); 
-	if ($_POST["ac"]=="log") { /// do after login form is submitted  
-		if ($USERS[$_POST["username"]]==$_POST["password"]) { /// check if submitted 
-			$_SESSION["logged"]=$_POST["username"]; 
-		} else { 
-			echo 'Incorrect username/password. Please, try again.'; 
-		}; 
-	}; 
-	
- /*    session_start();
-     
-    $_SESSION[$this->GetLoginSessionVar()] = $username;
-     
-    return true; */
+    $_SESSION["username"]=$username; 
+    $_SESSION["uid"]=$user['idusers'];
+    $_SESSION["displayname"]= $user['displayname'];
+
+    return true;
 }
+
+
 ?>
