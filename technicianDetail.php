@@ -1,7 +1,6 @@
 <?php
 date_default_timezone_set('America/New_York');
 session_start(); // initialize the session
-session_start(); // initialize the session
 require_once("php/util.class.php");
 if(!util::checkLogged()){
 	$_SESSION = array();
@@ -28,9 +27,11 @@ if (is_null($technicianID)){
 }
 
 $thisTechnician = $technicians->getTechnician($technicianID);
+$replacementsList = $replacements->getReplacementsForTechnician($technicianID, 5);
+$monthlyData = $technicians->getMonthlyData($technicianID, 5);
 
 // Uncomment this to view raw customer data for debugging
-// echo "<pre>"; print_r($thisTechnician); echo "</pre>";
+ //echo "<pre>"; print_r($replacementsList); echo "</pre>";
 
 ?>
 
@@ -53,6 +54,134 @@ $thisTechnician = $technicians->getTechnician($technicianID);
     <!-- Custom styles for this template -->
     <link href="css/justified-nav.css" rel="stylesheet">  
 	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/modules/data.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+    <script language="JavaScript">
+		// Set up monthly data chart on load
+		$(document).ready ( function(){
+		    $('#monthly_graph').highcharts({
+		    	chart:{
+		    		// Edit chart spacing
+			        spacingBottom: 10,
+			        spacingTop: 10,
+			        spacingLeft: 10,
+			        spacingRight: 10,
+		    	},
+		    	title: {
+		            text: ""
+		        },
+		        legend:{
+				     align: 'center',
+				     verticalAlign: 'top',
+				     floating: false        
+				},
+		        xAxis: {
+		        	labels:{
+		        		enabled:true
+		        	},
+                	categories: [<?php
+		        		 	if (count($monthlyData) > 0){
+								foreach($monthlyData as $data){
+									echo "'".date("F", strtotime($data['date']))."',";
+								}
+							}
+		        		 	?>]
+	            },
+			    yAxis: [{ // Primary yAxis
+		            labels: {
+		            	enabled:true,
+		                format: '{value}$',
+
+		            },
+		            title: {
+		            	enabled:false,
+		                text: 'Profit',
+
+		            },
+		            
+
+		        }, { // Secondary yAxis
+		            gridLineWidth: 0,
+		            floor:0,
+		            title: {
+		            	enabled:false,
+		                text: 'Replacements',
+		                style: {
+		                    color: Highcharts.getOptions().colors[0]
+		                }
+		            },
+		            labels: {
+		            	enabled:true,
+		                format: '{value}%',
+		                style: {
+		                    color: Highcharts.getOptions().colors[0]
+		                }
+		            },
+		            opposite: true
+		        }],
+		        series: [{
+		        	name:'Profit',
+		        	lineWidth:2,
+		        	data: [<?php
+		        		 	if (count($monthlyData) > 0){
+								foreach($monthlyData as $data){
+									$profit = 0;
+									if ($data['amount_billed'] > 0){
+										if ($data['cost_of_replacements'] > 0){
+											$profit = ($data['amount_billed'] - $data['cost_of_replacements']);
+										} else {
+											$profit = $data['amount_billed'];
+										}
+									}
+									echo $profit.",";
+								}
+							}
+		        		 	?>],
+		        	yAxis: 0,
+		        	tooltip: {
+                		valueSuffix: '$'
+            		},
+            		color: '#000000',
+            		shadow: {
+					    color: 'black',
+					    width: 2,
+					    offsetX: 1,
+					    offsetY: 2
+					}
+		        },
+		        {
+		        	name:'Replacements',
+		        	lineWidth:2,
+		        	data: [<?php
+		        		 	if (count($monthlyData) > 0){
+								foreach($monthlyData as $data){
+									$replacements = 0;
+									if ($data['number_of_replacements'] > 0 && $data['num_plants'] > 0){
+										$replacements = $data['number_of_replacements'] / $data['num_plants'] * 100;
+										$replacements = round($replacements);
+									}
+									echo $replacements.",";
+								}
+							}
+		        		 	?>],
+		        	yAxis: 1,
+		        	tooltip: {
+                		valueSuffix: '%'
+            		},
+            		color: Highcharts.getOptions().colors[0],
+            		shadow: {
+					    color: 'black',
+					    width: 2,
+					    offsetX: 1,
+					    offsetY: 2
+					}
+		        }]
+		    });
+		});
+	</script>
     
 
   </head>
@@ -95,49 +224,63 @@ $thisTechnician = $technicians->getTechnician($technicianID);
 			  width="50%"
 			  height="250"
 			  frameborder="0" style="border:0"
-			  src="sample_tech.jpg">
-			</img>
-			<div class="col-md-6">
-			<p style="float:right;"><a href="customers.php?search=<?php echo urlencode($thisTechnician['first_name']." ".$thisTechnician['last_name']);?>"><button type="button" class="btn btn-success">View Assigned Customers</button></a></p>
-				<!-- PHP GOES HERE - bring up technicians chart pre-sorted by $thisTechnician or $id -->
-			</div>
-
-			<div class="col-md-4">
+			  src="sample_tech.jpg"/>
+			<br>
+			<div class="row" style="width:100%">
+				<div class="col-md-6">
+				<a style="width:100%" href="customers.php?search=<?php echo urlencode($thisTechnician['first_name']." ".$thisTechnician['last_name']);?>"class="btn btn-success">View Assigned Customers</a>
 				</div>
-			
+			</div>
 		</div>
 		
 		<div class="col-md-6">
-			<ul class="nav nav-justified">
-			<li><a href="#">Charts</a></li>
-			<li class="active"><a href="#"> Replacements</a></li>
-			<li><a href="#"> Monthly Data</a></li>
-        </ul>
-		
-		
-		 <table class="table table-bordered table-striped table-hover">   
-			<tr>
-				<th>Date </th>
-				<th>Customer </th>
-				<th>Emergency </th>
-				<th>Status </th>
-			</tr>
-			
-			<tr>
-				<td>2014-03-05 </td>
-				<td>Bob's Automotive </td>
-				<td>No </td>
-				<td>Approved </td>
-			</tr>
-			
-			<tr>
-				<td>2014-04-21 </td>
-				<td>Bob's Automotive </td>
-				<td>No </td>
-				<td>Completed </td>
-			</tr>
-			
-		 </table>
+			<div id="stats-monthly" class="list-group" >
+          		<a class="list-group-item list-group-item-success"><b>Monthly Stats</b></a>
+				<div class="list-group-item" id="monthly_graph" style="width:100%; height: 300px; margin: 0 auto"></div>
+			</div>
+			<div id="stats-replacements" class="list-group">
+				<a class="list-group-item list-group-item-success"><b>Recent Replacements</b></a>
+				<table class="table table-bordered table-striped table-hover">   
+					<thead>
+						<tr>
+							<th>Date </th>
+							<th>Customer </th>
+							<th>Emergency </th>
+							<th>Status </th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$yesNo = array(
+							0=>"No",
+							1=>"Yes"
+						);
+
+						$statusString = array(
+							0=>"Needs Approval",
+							1=>"Approved",
+							2=>"Completed",
+							3=>"Cancelled"
+						);
+						if (count($replacementsList) > 0){
+							foreach($replacementsList as $replacement){
+								echo "<tr>\n";
+								echo "<td>".$replacement['date_submitted']."</td>\n";
+								echo "<td>".$replacement['customer_name']."</td>\n";
+								echo "<td>".$yesNo[$replacement['emergency']]."</td>\n";
+								echo "<td>".$statusString[$replacement['status']]."</td>\n";
+								echo "</tr>";
+							}
+						}
+						?>
+						<tr>
+						 <td colspan="4" align="center">
+						   <a class="btn btn-success" href="replacements.php?search=<?php echo urlencode($thisTechnician['first_name']." ".$thisTechnician['last_name']);?>">View All Replacements</a>
+						 </td>
+						</tr>
+					<tbody>
+				 </table>
+			</div>
 		
 		</div>
 		

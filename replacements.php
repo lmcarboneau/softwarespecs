@@ -66,6 +66,9 @@ $statusString = array(
 foreach($replacementList as $replacementRow){
 	$tableRows .= "<tr class='table-select' style='cursor:pointer;'>\n";
 
+	$tableRows .= "\t<td class='date_submitted'>";
+	$tableRows .= $replacementRow['date_submitted']."</td>\n";
+
 	$tableRows .= "\t<td class='id' style='display:none;'>";
 	$tableRows .= $replacementRow['replacementID']."</td>\n";
 
@@ -83,9 +86,7 @@ foreach($replacementList as $replacementRow){
 	
 	$tableRows .= "\t<td class='status'>";
 	$tableRows .= $statusString[$replacementRow['status']]."</td>\n";
-	
-	$tableRows .= "\t<td class='date_submitted'>";
-	$tableRows .= $replacementRow['date_submitted']."</td>\n";
+
 
 	$tableRows .= "</tr>\n";
 }
@@ -227,6 +228,12 @@ foreach($replacementList as $replacementRow){
 				<thead>
 					<tr>
 						<th>
+							<button data-sort="date_submitted" class="sortbtn sort-default-desc btn btn-default" style="width:100%">
+								<span class="glyphicon glyphicon-sort"></span>
+								Date
+							</button>
+						</th>
+						<th>
 							<button data-sort="customer_name" class="sortbtn btn btn-default" style="width:100%">
 								<span class="glyphicon glyphicon-sort"></span>
 								Customer
@@ -250,12 +257,7 @@ foreach($replacementList as $replacementRow){
 								Status
 							</button>
 						</th>
-						<th>
-							<button data-sort="date_submitted" class="sortbtn sort-default-desc btn btn-default" style="width:100%">
-								<span class="glyphicon glyphicon-sort"></span>
-								Date Submitted
-							</button>
-						</th>
+						
 
 					</tr>
 				</thead>

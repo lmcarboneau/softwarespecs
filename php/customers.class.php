@@ -96,7 +96,7 @@ class customers {
 		global $database;
 		$query = "SELECT * FROM monthlydata\n"
 				. "WHERE customerID = ?\n"
-				. "ORDER BY date DESC\n"
+				. "ORDER BY date ASC\n"
 				. "LIMIT ?\n";
 		$result = $database->query($query, [1=>$id, 2=>$num], 'FETCH_ASSOC_ALL');
 		return $result;

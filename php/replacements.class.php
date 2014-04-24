@@ -83,6 +83,19 @@ class replacements {
 		return $result;
 	}
 
+	public function getReplacementsForTechnician($id, $num){
+		global $database;
+		$query = "SELECT c.customer_name, r.*\n"
+		    . "FROM Replacements r\n"
+		    . "LEFT OUTER JOIN Customers c\n"
+		    . "ON c.customerID = r.customerID\n"
+		    . "WHERE r.gardenerID = ?\n"
+		    . "ORDER BY r.date_submitted DESC\n"
+		    . "LIMIT ?\n";
+		    
+		$result = $database->query($query, [1=>$id, 2=>$num], 'FETCH_ASSOC_ALL');
+		return $result;
+	}
 
 	public function getReplacementCounts(){
 		global $database;
