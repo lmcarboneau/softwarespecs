@@ -89,7 +89,7 @@ class technicians {
 			. "  FROM MonthlyData\n"
 			. "  WHERE gardenerID=?\n"
 			. "  GROUP BY MONTH(date)\n"
-		    . "  ORDER BY MONTH(date) DESC\n"
+		    . "  ORDER BY MONTH(date) ASC\n"
 		    . "  LIMIT ?\n";
 		$result = $database->query($query, [1=>$id, 2=>$num], 'FETCH_ASSOC_ALL');
 		return $result;
