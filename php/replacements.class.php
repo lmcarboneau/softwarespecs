@@ -19,7 +19,7 @@ class replacements {
 	public function addReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $status, $date_submitted, $date_completed){
 		global $database;
 		$query = "INSERT INTO replacements (customerID, gardenerID, plantID, light_level, 
-			emergency, location, comments, status, date_submitted, date_complted) 
+			emergency, location, comments, status, date_submitted, date_completed) 
 			VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		// We turn the list of parameters into a array starting at index 1
@@ -28,33 +28,32 @@ class replacements {
 		$parameters = func_get_args();
 		$bind = array_combine(range(1, count($parameters)), array_values($parameters));
 		
-
+		echo "<pre>"; print_r($result); echo "</pre>";
 		$result = $database->query($query, $bind);
-		return $this->successOf($result);
+		return $result;
 	}
 
-	public function editReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $status, $date_submitted, $date_completed){
+	public function editReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $status, $date_submitted, $date_completed, $replacementID){
 		global $database;
-		$query = "UPDATE replacements (customerID, gardenerID, plantID, light_level, 
-			emergency, location, comments, status, date_submitted, date_complted) 
-			SET (?,?,?,?,?,?,?,?,?,?)
-			WHERE id = ".$customerID;
+		$query = "UPDATE replacements SET customerID=?, gardenerID=?, plantID=?, light_level=?,"
+			."emergency=?, location=?, comments=?, status=?, date_submitted=?, date_completed=?"
+			."WHERE replacementID = ?";
 
 		// We turn the list of parameters into a array starting at index 1
 		// $database->query will insert these parameters into the '?'s in the query
 		// This sanitizes the data, removes errors with ', etc.
 		$parameters = func_get_args();
 		$bind = array_combine(range(1, count($parameters)), array_values($parameters));
-		
 
 		$result = $database->query($query, $bind);
-		return $this->successOf($result);
+		//echo "<pre>"; print_r($result); echo "</pre>";
+		return $result;
 	}
 
 	public function removeReplacement($id){
 		global $database;
 		$result = $database->query("DELETE FROM replacements WHERE id = ".$id);
-		return $this->successOf($result);
+		return $result;
 	}
 
 	public function getReplacementList(){
@@ -115,7 +114,7 @@ class replacements {
 
 	public function getReplacement($id){
 		global $database;
-		$result = $database->query("SELECT * FROM replacements WHERE id = ".$id);
+		$result = $database->query("SELECT * FROM replacements WHERE replacementID = ".$id);
 		return $result;
 	}
 

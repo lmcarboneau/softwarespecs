@@ -48,7 +48,7 @@ class technicians {
 
 	public function getTechnicianList(){
 		global $database;
-		$result = $database->query("SELECT * FROM gardeners", null, 'fetchAll');
+		$result = $database->query("SELECT * FROM gardeners", null, 'FETCH_ASSOC_ALL');
 		return $result;
 	}
 	

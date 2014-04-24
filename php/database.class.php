@@ -97,6 +97,7 @@ class database {
 				}
 			}
 		}
+
 		/* Execute Query & check for any errors */
 		if(!$this->statement->execute()){
 			return false;
