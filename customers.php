@@ -16,8 +16,10 @@ if(!util::checkLogged()){
 require_once("php/database.class.php");
 $database = new database();
 require_once("php/customers.class.php");
+require_once("php/replacements.class.php");
 
 $customers = new customers($database);
+$replacements = new replacements($database);
 $customerList = $customers->getCustomerData();
 $tableRows = "";
 $month = date('M');
@@ -180,7 +182,7 @@ foreach($customerList as $customerRow){
 		<div id="customers" style="margin:20px">
 			<div class="navbar navbar-default">
 				<form class="navbar-form" role="form">
-					<input type="text" class="search form-control" placeholder="<?php echo (empty($search)) ? "Search Customers":$search;?>" Customers" style="max-width:20%"/>
+					<input type="text" class="search form-control" placeholder="<?php echo (empty($search)) ? "Search Customers":$search;?>"" Customers" style="max-width:20%"/>
 					<a href="customerForm.php" class="btn btn-success" style="float:right">
 						New Customer
 					</a>

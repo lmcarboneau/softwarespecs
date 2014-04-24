@@ -28,8 +28,12 @@ if (is_null($customerID) || empty($customerID)){
 }
 
 $thisCustomer = $customers->getCustomer($customerID);
+$replacementsList = $replacements->getReplacementsForCustomer($thisCustomer['customerID'], 5);
+
 // Uncomment this to view raw customer data for debugging
 //echo "<pre>"; print_r($thisCustomer); echo "</pre>";
+//echo "<pre>"; print_r($replacementsList); echo "</pre>";
+
 $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one'].",".$thisCustomer['zip'];
 ?>
 <!DOCTYPE html>
@@ -123,32 +127,57 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 			<li><a href="#">Charts</a></li>
 			<li class="active"><a href="#"> Replacements</a></li>
 			<li><a href="#"> Monthly Data</a></li>
-        </ul>
+        	</ul>
 		
+			<div id="stats-replacements">
+				<table class="table table-bordered table-striped table-hover">   
+					<thead>
+						<tr>
+							<td colspan="4" align="center">
+								Most Recent Replacements
+							</td>
+						</tr>
+						<tr>
+							<th>Date </th>
+							<th>Technician </th>
+							<th>Emergency </th>
+							<th>Status </th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$yesNo = array(
+							0=>"No",
+							1=>"Yes"
+						);
+
+						$statusString = array(
+							0=>"Needs Approval",
+							1=>"Approved",
+							2=>"Completed",
+							3=>"Cancelled"
+						);
+						if (count($replacementsList) > 0){
+							foreach($replacementsList as $replacement){
+								echo "<tr>\n";
+								echo "<td>".$replacement['date_submitted']."</td>\n";
+								echo "<td>".$replacement['first_name']." ".$replacement['last_name']."</td>\n";
+								echo "<td>".$yesNo[$replacement['emergency']]."</td>\n";
+								echo "<td>".$statusString[$replacement['status']]."</td>\n";
+								echo "</tr>";
+							}
+						}
+						?>
+						<tr>
+						 <td colspan="4" align="center">
+						   <a class="btn btn-success" href="replacements.php?search=<?php echo urlencode($thisCustomer['customer_name']);?>">View All Replacements</a>
+						 </td>
+						</tr>
+					<tbody>
+				 </table>
+			</div>
 		
-		 <table class="table table-bordered table-striped table-hover">   
-			<tr>
-				<th>Date </th>
-				<th>Technician </th>
-				<th>Emergency </th>
-				<th>Status </th>
-			</tr>
-			
-			<tr>
-				<td>2014-03-05 </td>
-				<td>Jeff Smith </td>
-				<td>No </td>
-				<td>Approved </td>
-			</tr>
-			
-			<tr>
-				<td>2014-04-21 </td>
-				<td>Jeff Smith</td>
-				<td>No </td>
-				<td>Completed </td>
-			</tr>
-			
-		 </table>
+		 
 		
 		</div>
 		

@@ -42,6 +42,14 @@ if(isset($_GET['status'])){
 	);
 }
 
+$search = null;
+if(isset($_GET['search'])){
+	$search = $_GET['search'];
+} elseif (isset($_POST['search'])){
+	$search = $_POST['search'];
+}
+
+
 $yesNo = array(
 	0=>"No",
 	1=>"Yes"
@@ -161,6 +169,9 @@ foreach($replacementList as $replacementRow){
 	   			$("#selectID").val(id);
 	   			$("#selectForm").submit();
 	   		});
+
+	   		// Filter the list with the php search value from get/post
+	   		<?php echo (empty($search)) ? '' : 'replacementList.search("'.$search.'");';?>
    		});
    	</script>
 
@@ -194,7 +205,7 @@ foreach($replacementList as $replacementRow){
 		<div id="replacements" style="margin:20px">
 			<div class="navbar navbar-default">
 				<form class="navbar-form" role="form">
-					<input type="text" class="search form-control" placeholder="Search Replacements" style="max-width:20%"/>
+					<input type="text" class="search form-control" placeholder="<?php echo (empty($search)) ? "Search Customers":$search;?>" style="max-width:20%"/>
 					&nbsp;&nbsp;
 					<input data-filter=0 class='filter' type="checkbox" <?php echo ($statusFilter[0]) ? "checked": ""; ?>/> 
 					Needs Approval

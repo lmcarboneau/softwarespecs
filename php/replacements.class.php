@@ -69,6 +69,21 @@ class replacements {
 		return $result;
 	}
 
+	public function getReplacementsForCustomer($id, $num){
+		global $database;
+		$query = "SELECT g.first_name, g.last_name, r.*\n"
+		    . "FROM Replacements r\n"
+		    . "LEFT OUTER JOIN Gardeners g\n"
+		    . "ON r.gardenerID = g.gardenerID\n"
+		    . "WHERE r.customerID = ?\n"
+		    . "ORDER BY r.date_submitted DESC\n"
+		    . "LIMIT ?\n";
+		    
+		$result = $database->query($query, [1=>$id, 2=>$num], 'FETCH_ASSOC_ALL');
+		return $result;
+	}
+
+
 	public function getReplacementCounts(){
 		global $database;
 		$query = "SELECT status, count(*) num FROM Replacements GROUP BY status";
