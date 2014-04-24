@@ -88,7 +88,7 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
                 	categories: [<?php
 		        		 	if (count($monthlyData) > 0){
 								foreach($monthlyData as $data){
-									echo "'".$data['date']."',";
+									echo "'".date("F", strtotime($data['date']))."',";
 								}
 							}
 		        		 	?>]
