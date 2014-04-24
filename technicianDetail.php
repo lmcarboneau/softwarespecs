@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set('America/New_York');
 session_start(); // initialize the session
+session_start(); // initialize the session
 require_once("php/util.class.php");
 if(!util::checkLogged()){
 	$_SESSION = array();
@@ -8,7 +9,6 @@ if(!util::checkLogged()){
 	header('Location: ' . "/login.php", true, 303);
    	die();
 }
-
 require_once("php/database.class.php");
 $database = new database();
 require_once("php/technicians.class.php");

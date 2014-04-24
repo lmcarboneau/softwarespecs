@@ -92,6 +92,16 @@ class customers {
 		return $result;
 	}
 
+	public function getMonthlyData($id, $num){
+		global $database;
+		$query = "SELECT * FROM monthlydata\n"
+				. "WHERE customerID = ?\n"
+				. "ORDER BY date DESC\n"
+				. "LIMIT ?\n";
+		$result = $database->query($query, [1=>$id, 2=>$num], 'FETCH_ASSOC_ALL');
+		return $result;
+	}
+
 
 	// Returns true or false based on a MySQL result table
 	public function successOf($result){
