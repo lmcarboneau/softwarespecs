@@ -184,7 +184,7 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 		        }]
 		    });
 		});
-	</script
+	</script>
   </head>
 
   <body>

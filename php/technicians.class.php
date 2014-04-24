@@ -79,6 +79,22 @@ class technicians {
 		return $result;
 	}
 
+	public function getMonthlyData($id, $num){
+		global $database;
+		$query = "SELECT MONTH(date) month,date,\n" 
+			. "    	SUM(number_of_replacements) number_of_replacements,\n"
+			. "    	SUM(num_plants) num_plants,\n"
+			. "    	SUM(amount_billed) amount_billed,\n"
+			. "    	SUM(cost_of_replacements) cost_of_replacements\n"
+			. "  FROM MonthlyData\n"
+			. "  WHERE gardenerID=?\n"
+			. "  GROUP BY MONTH(date)\n"
+		    . "  ORDER BY MONTH(date) DESC\n"
+		    . "  LIMIT ?\n";
+		$result = $database->query($query, [1=>$id, 2=>$num], 'FETCH_ASSOC_ALL');
+		return $result;
+	}
+
 	public function getTechnician($id){
 		global $database;
 		$query = "SELECT * FROM gardeners WHERE gardenerID = ".$id;
