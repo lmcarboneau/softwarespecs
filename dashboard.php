@@ -151,7 +151,14 @@ $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
 		<div class="col-md-12">
 			<div class="list-group">
 				<a class="list-group-item list-group-item-success"><b>Approved Replacements Map</b></a>
-				<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.325554342321!2d-80.28965199999999!3d26.186086000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d90f4d3bd145b1%3A0xd7b4999fbe8f4e41!2sBob&#39;s+Automotive+Services+Inc!5e0!3m2!1sen!2sus!4v1398106750012" width="100%" height="300" frameborder="0" style="border:0"></iframe>
+				<iframe ]
+				src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.325554342321!2d-80.28965199999999!3d26.186086000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d90f4d3bd145b1%3A0xd7b4999fbe8f4e41!2sBob&#39;s+Automotive+Services+Inc!5e0!3m2!1sen!2sus!4v1398106750012" 
+				width="100%" 
+				height="450" 
+				frameborder="0" 
+				style="border:0">
+				</iframe>
+				
 			</div>
 		</div>	
 			

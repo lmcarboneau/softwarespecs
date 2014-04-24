@@ -92,7 +92,7 @@ $thisTechnician = $technicians->getTechnician($technicianID);
 			  src="sample_tech.jpg">
 			</img>
 			<div class="col-md-6">
-			<p style="float:right;"><a href="customers.php?search='<?php echo $thisTechnician['first_name']." ".$thisTechnician['last_name'];?>'"><button type="button" class="btn btn-success">View Assigned Customers</button></a></p>
+			<p style="float:right;"><a href="customers.php?search=<?php echo urlencode($thisTechnician['first_name']." ".$thisTechnician['last_name']);?>"><button type="button" class="btn btn-success">View Assigned Customers</button></a></p>
 				<!-- PHP GOES HERE - bring up technicians chart pre-sorted by $thisTechnician or $id -->
 			</div>
 

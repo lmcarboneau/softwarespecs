@@ -75,7 +75,8 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
       </div>
 
 	<div class="page-header">  
-	  <p style="float:right;"><a href="#"><button type="button" class="btn btn-success">Edit Customer Info</button></a></p>
+	  <p style="float:right;"><a href="customerForm.php?id=<?php echo $thisCustomer['customerID']?>"><button type="button" class="btn btn-success">Edit Customer Info</button></a></p>
+	  <!-- INSERT PHP HERE -->
 	  <h2><?php echo $thisCustomer['customer_name']?></h2>
 	</div>  
 

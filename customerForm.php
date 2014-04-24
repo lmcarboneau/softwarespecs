@@ -57,7 +57,7 @@ require_once("php/technicians.class.php");
         
 		<ul class="nav nav-justified">
           <li><a href="#">Dashboard</a></li>
-          <li class="active"><a href="#">Customers</a></li>
+          <li class="active"><a href="customers.php">Customers</a></li>
           <li><a href="dashboard.php">Technicians</a></li>
           <li><a href="#">Replacements</a></li>
         </ul>
@@ -69,8 +69,12 @@ require_once("php/technicians.class.php");
 	</div>  
 	<div class="row" >  
 		<?php
-			if (isset($_POST['id'])){
-				echo "Customer id [".$_POST['id']."] was selected.";
+			if (isset($_GET['id'])){
+				$customerID = $_GET['id'];
+				echo "Customer ID: ".$customerID;
+			}else if (isset($_POST['id'])){
+				$customerID = $_POST['id'];
+				echo "Customer ID: ".$customerID;
 			}else{
 				echo "No customer selected to edit.";
 			}
