@@ -22,6 +22,7 @@ $approved = isset($rCounts[1]) ? $rCounts[1] : 0;
 $completed = isset($rCounts[2]) ? $rCounts[2] : 0;
 $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
 
+$mapQuery = "Bob's Auto Repair, Fort Myers, Florida";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,32 +84,36 @@ $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
 				<table class="table table-striped table-hover table-bordered">   
 					<tr>
 						<td>Most Profitable Customer </td>
-						<td>Bob's Automotive </td>
-						<td>$400 </td>
-					</tr>
+						<td><a href="customerDetail.php?id=7">Bob's Auto Repair </a></td>
+						<td>$540 </td>
+					</a>
 					<tr>
 						<td>Least Profitable Customer </td>
-						<td>Furniture by Bill </td>
-						<td>$150 </td>
+						<td><a href="customerDetail.php?id=3">Paul Mitchell The School Fort Myers</a></td>
+						<td>$200 </td>
 					</tr>
 					
 					<tr>
 						<td>Technician with Most Replacements </td>
-						<td>John Smith</td>
-						<td>15 </td>
+						<td><a href="technicianDetail.php?id=3">Drew Walker</a></td>
+						<td>4 </td>
 					</tr>
 					
 					<tr>
 						<td>Technician with Least Replacements </td>
-						<td> Bob Smith </td>
+						<td><a href="technicianDetail.php?id=2">Vincent Lee</a></td>
 						<td>2 </td>
 					</tr>
 					<tr>
 						<td>Technician with Most Points </td>
-						<td> Jeff Smith </td>
-						<td>5 </td>
+						<td><a href="technicianDetail.php?id=1">Ryan Davis</a></td>
+						<td>72 </td>
 					</tr>
-
+					<tr>
+						<td>Technician with Least Points </td>
+						<td><a href="technicianDetail.php?id=3">Drew Walker</a></td>
+						<td>67 </td>
+					</tr>
 					
 				 </table>
 			</div>
@@ -150,14 +155,12 @@ $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
 	</div>
 	<br><br>
 	<div class="row">
-	
-		<div class="col-md-0"></div>
-	
+		
 		<div class="col-md-12">
 			<div class="list-group">
 				<a class="list-group-item list-group-item-success"><b>Approved Replacements Map</b></a>
 				<iframe ]
-				src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3580.325554342321!2d-80.28965199999999!3d26.186086000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d90f4d3bd145b1%3A0xd7b4999fbe8f4e41!2sBob&#39;s+Automotive+Services+Inc!5e0!3m2!1sen!2sus!4v1398106750012" 
+				src="https://www.google.com/maps/embed/v1/place?key=AIzaSyABVQ1AFYdGjKXmHiSsSHhup_Xo5LqM3Gc&q='<?php echo $mapQuery?>'"
 				width="100%" 
 				height="450" 
 				frameborder="0" 
