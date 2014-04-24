@@ -308,25 +308,25 @@ if ($action === "edit"){
 				<input type="radio" name="status" id="optionsRadios2" value="2"
 					<?php echo ($thisReplacement != null && $thisReplacement['status'] == 2) ? "checked" : "";?>
 				>
-				Cancelled
+				Completed
 			  </label>
 			</div>
-			<br>
+			<div class='input-group date datepicker' id="picker2" data-date-format="YYYY-MM-DD">
+                <input type='text' class="form-control" name="date_completed" value="<?php echo ($thisReplacement == null) ? "" : $thisReplacement['date_completed'];?>"/>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+             <br>
 			<div class="radio">
 			  <label>
 				<input type="radio" name="status" id="optionsRadios3" value="3"
 					<?php echo ($thisReplacement != null && $thisReplacement['status'] == 3) ? "checked" : "";?>
 				>
-				Completed
+				Cancelled
 			  </label>
 			</div>
+				
 			
-				<div class='input-group date datepicker' id="picker2" data-date-format="YYYY-MM-DD">
-                    <input type='text' class="form-control" name="date_completed" value="<?php echo ($thisReplacement == null) ? "" : $thisReplacement['date_completed'];?>"/>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-			<br><br>
 			
         </div>
 		
