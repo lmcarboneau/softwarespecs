@@ -265,9 +265,9 @@ if ($action === "edit"){
 					<div class="col-sm-5">
 						<select name="light_level" class="col-sm-5 form-control">
 							<option><?php echo ($thisReplacement != null) ? $thisReplacement['light_level'] : "";?></option>
-							<option>low</option>
-							<option>medium</option>
-							<option>high</option>
+							<option>Low</option>
+							<option>Medium</option>
+							<option>High</option>
 						</select>
 					</div>
 				</div>
