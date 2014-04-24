@@ -77,13 +77,13 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 		            text: ""
 		        },
 		        legend:{
-				     align: 'left',
+				     align: 'center',
 				     verticalAlign: 'top',
-				     floating: true        
+				     floating: false        
 				},
 		        xAxis: {
 		        	labels:{
-		        		enabled:false
+		        		enabled:true
 		        	},
                 	categories: [<?php
 		        		 	if (count($monthlyData) > 0){
@@ -95,7 +95,7 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 	            },
 			    yAxis: [{ // Primary yAxis
 		            labels: {
-		            	enabled:false,
+		            	enabled:true,
 		                format: '{value}$',
 
 		            },
@@ -108,6 +108,7 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 
 		        }, { // Secondary yAxis
 		            gridLineWidth: 0,
+		            floor:0,
 		            title: {
 		            	enabled:false,
 		                text: 'Replacements',
@@ -116,7 +117,7 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 		                }
 		            },
 		            labels: {
-		            	enabled:false,
+		            	enabled:true,
 		                format: '{value}%',
 		                style: {
 		                    color: Highcharts.getOptions().colors[0]
@@ -126,6 +127,7 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 		        }],
 		        series: [{
 		        	name:'Profit',
+		        	lineWidth:2,
 		        	data: [<?php
 		        		 	if (count($monthlyData) > 0){
 								foreach($monthlyData as $data){
@@ -155,6 +157,7 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 		        },
 		        {
 		        	name:'Replacements',
+		        	lineWidth:2,
 		        	data: [<?php
 		        		 	if (count($monthlyData) > 0){
 								foreach($monthlyData as $data){
