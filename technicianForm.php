@@ -63,7 +63,7 @@ if(!util::checkLogged()){
 
 	
 	<div class="page-header">    <!-- MORE PHP GOES HERE. Haven't gotten to it yet. -->
-	  <p style="float:right;"><a href="replacements.php"><button type="button" class="btn btn-success">Save Changes</button></a></p>
+	  <p style="float:right;"><a href="technicians.php"><button type="button" class="btn btn-success">Save Changes</button></a></p>
 	  <h2>Technician Form </h2>  <!-- Should say something like "new tech" or their name if it's an edit -->
 	</div>
 
