@@ -5,7 +5,7 @@ require_once("php/util.class.php");
 if(!util::checkLogged()){
 	$_SESSION = array();
 	session_destroy();
-	header('Location: ' . "/login.html", true, 303);
+	header('Location: ' . "/login.php", true, 303);
    	die();
 }
 
@@ -29,10 +29,12 @@ if (is_null($customerID) || empty($customerID)){
 
 $thisCustomer = $customers->getCustomer($customerID);
 $replacementsList = $replacements->getReplacementsForCustomer($thisCustomer['customerID'], 5);
+$monthlyData = $customers->getMonthlyData($customerID, 5);
 
 // Uncomment this to view raw customer data for debugging
 //echo "<pre>"; print_r($thisCustomer); echo "</pre>";
 //echo "<pre>"; print_r($replacementsList); echo "</pre>";
+echo "<pre>"; print_r($monthlyData); echo "</pre>";
 
 $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one'].",".$thisCustomer['zip'];
 ?>
@@ -174,6 +176,29 @@ $mapQuery = $thisCustomer['customer_name'].",".$thisCustomer['address_line_one']
 						 </td>
 						</tr>
 					<tbody>
+				 </table>
+			</div>
+			<div id="stats-monthly">
+				<table id="monthly-table">   
+					<thead>
+						<tr>
+							<td>Date</td>
+							<td>Profit</td>
+							<td>Replacements</td>
+						</tr>
+					</thead>
+						<?php
+						if (count($monthlyData) > 0){
+							foreach($replacementsList as $replacement){
+								echo "<tr>\n";
+								echo "<td>".$replacement['date_submitted']."</td>\n";
+								echo "<td>".$replacement['first_name']." ".$replacement['last_name']."</td>\n";
+								echo "<td>".$yesNo[$replacement['emergency']]."</td>\n";
+								echo "<td>".$statusString[$replacement['status']]."</td>\n";
+								echo "</tr>";
+							}
+						}
+						?>
 				 </table>
 			</div>
 		

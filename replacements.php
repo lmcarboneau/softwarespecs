@@ -9,7 +9,7 @@ require_once("php/util.class.php");
 if(!util::checkLogged()){
 	$_SESSION = array();
 	session_destroy();
-	header('Location: ' . "/login.html", true, 303);
+	header('Location: ' . "/login.php", true, 303);
    	die();
 }
 
