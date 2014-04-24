@@ -4,6 +4,15 @@ ini_set('display_errors',1);
 ini_set('display_startup_errors',1);
 date_default_timezone_set('America/New_York');
 
+session_start(); // initialize the session
+require_once("php/util.class.php");
+if(!util::checkLogged()){
+	$_SESSION = array();
+	session_destroy();
+	header('Location: ' . "/login.html", true, 303);
+   	die();
+}
+
 require_once("php/database.class.php");
 $database = new database();
 require_once("php/replacements.class.php");
@@ -163,11 +172,12 @@ foreach($replacementList as $replacementRow){
 	
 	<!-- Menu buttons -->
       <div class="masthead">
+        
         <p class="navbar-text navbar-right">
 		<span class="glyphicon glyphicon-user"></span>
-		&nbsp;Admin <br>
-		<button type="button" class="btn btn-xs btn-success pull-right">
-		Log Out</button>
+		&nbsp;<?php echo $_SESSION['displayname'];?><br>
+		<a href="/logout.php" class="btn btn-xs btn-success pull-right">
+		Log Out</a>
 		</p>
 			
 		<h3><img src="img/ipslogosmall.jpg"></h3>
