@@ -36,7 +36,7 @@ class customers {
 	}
 
 
-	public function editCustomer($id, $name, $firstname, $lastname, $address1, $address2, $city, $state, $zip, $phonenumber, $gardenerID, $monthlycharge, $averagehours, $quantityTableID, $active){
+	public function editCustomer($name, $firstname, $lastname, $address1, $address2, $city, $state, $zip, $phonenumber, $gardenerID, $monthlycharge, $averagehours, $quantityTableID, $active, $id){
 		global $database;
 		$query = "UPDATE customers SET customer_name = ?, contact_first_name = ?, contact_last_name = ?, address_line_one = ?, 
 			address_line_two = ?, city = ?, state = ?, zip = ?, gardenerID = ?, monthly_revenue = ?, hours_to_service = ?, quantityTableID = ?, active = ? 
