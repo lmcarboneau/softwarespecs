@@ -10,6 +10,7 @@ $database = new database();
 class technicians {
 
 	public function addTechnician($first_name, $last_name, $hourly_wage){
+		global $database;
 		$query = "INSERT INTO gardeners (first_name, last_name, hourly_wage) 
 			VALUES (?,?,?)";
 
@@ -21,10 +22,11 @@ class technicians {
 		
 
 		$result = $database->query($query, $bind);
-		return $this->successOf($result);
+		return $result;
 	}
 
 	public function editTechnician($first_name, $last_name, $hourly_wage, $gardenerID){
+		global $database;
 		$query = "UPDATE gardeners SET first_name = ?, last_name = ?, hourly_wage = ?
 			WHERE id = ".$gardenerID;
 
@@ -36,7 +38,7 @@ class technicians {
 		
 
 		$result = $database->query($query, $bind);
-		return $this->successOf($result);
+		return $result;
 	}
 
 	public function removeTechnician($id){
