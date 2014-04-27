@@ -14,9 +14,9 @@ require_once('config.class.php');
 /*
  * Write settings to the config
  */
-Config::write('hostname', 'localhost');
+Config::write('hostname', 'us-cdbr-azure-east-a.cloudapp.net');
 Config::write('database', 'ipstest');
-Config::write('username', 'root');
-Config::write('password', 'root');
+Config::write('username', 'b3018fa0e0d448');
+Config::write('password', 'd459720c');
 Config::write('drivers', array(PDO::ATTR_PERSISTENT => true));
 ?>
