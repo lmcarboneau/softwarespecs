@@ -24,8 +24,8 @@ class technicians {
 		return $this->successOf($result);
 	}
 
-	public function editTechnician($first_name, $last_name, $hourly_wage, $gardenerID, ){
-		$query = "UPDATE gardeners SET first_name = ?, last_name = ?, hourly_wage = ?)
+	public function editTechnician($first_name, $last_name, $hourly_wage, $gardenerID){
+		$query = "UPDATE gardeners SET first_name = ?, last_name = ?, hourly_wage = ?
 			WHERE id = ".$gardenerID;
 
 		// We turn the list of parameters into a array starting at index 1
