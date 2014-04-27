@@ -100,6 +100,7 @@ class database {
 
 		/* Execute Query & check for any errors */
 		if(!$this->statement->execute()){
+			echo "<pre>"; print_r($this->statement->errorInfo()[2]); echo "</pre>";
 			return false;
 		}
 		/* Return all content */

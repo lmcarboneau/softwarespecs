@@ -23,7 +23,7 @@ $technicians = new technicians($database);
 $customerList = $customers->getCustomerList();
 $techniciansList = $technicians->getTechnicianList();
 
-echo "<pre>Post Data\n"; print_r($_POST); echo "</pre>";
+//echo "<pre>Post Data\n"; print_r($_POST); echo "</pre>";
 
 
 $id = null;
@@ -57,10 +57,6 @@ if ($submit){
 	$status = $_POST['status'];
 	$date_completed = $_POST['date_completed'];
 
-	if ($status != 2){
-		$date_completed = null;
-	}
-
 	$result = null;
 	if ($action === "new"){
 		$result = $replacements->addReplacement($customerID,
@@ -87,7 +83,7 @@ if ($submit){
 										$_POST['id']);
 	}
 
-	echo "<pre>Result\n"; print_r($result); echo "</pre>";
+	//echo "<pre>Result\n"; print_r($result); echo "</pre>";
 	//header('Location: ' . "/replacements.php", true, 303);
    	die();
 }
