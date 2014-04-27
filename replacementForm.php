@@ -84,7 +84,7 @@ if ($submit){
 	}
 
 	//echo "<pre>Result\n"; print_r($result); echo "</pre>";
-	header('Location: ' . "/replacements.php", true, 303);
+	//header('Location: ' . "/replacements.php", true, 303);
    	die();
 }
 
