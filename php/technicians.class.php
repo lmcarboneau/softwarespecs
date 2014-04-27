@@ -24,7 +24,7 @@ class technicians {
 		return $this->successOf($result);
 	}
 
-	public function editTechnician($gardenerID, $first_name, $last_name, $hourly_wage){
+	public function editTechnician($first_name, $last_name, $hourly_wage, $gardenerID, ){
 		$query = "UPDATE gardeners SET first_name = ?, last_name = ?, hourly_wage = ?)
 			WHERE id = ".$gardenerID;
 
