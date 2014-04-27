@@ -28,8 +28,8 @@ class replacements {
 		$parameters = func_get_args();
 		$bind = array_combine(range(1, count($parameters)), array_values($parameters));
 		
-		echo "<pre>"; print_r($result); echo "</pre>";
 		$result = $database->query($query, $bind);
+		//echo "<pre>"; print_r($result); echo "</pre>";
 		return $result;
 	}
 
