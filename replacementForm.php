@@ -23,7 +23,7 @@ $technicians = new technicians($database);
 $customerList = $customers->getCustomerList();
 $techniciansList = $technicians->getTechnicianList();
 
-//echo "<pre>"; print_r($_POST); echo "</pre>";
+echo "<pre>Post Data\n"; print_r($_POST); echo "</pre>";
 
 
 $id = null;
@@ -57,8 +57,9 @@ if ($submit){
 	$status = $_POST['status'];
 	$date_completed = $_POST['date_completed'];
 
+	$result = null;
 	if ($action === "new"){
-		$replacements->addReplacement($customerID,
+		$result = $replacements->addReplacement($customerID,
 										$gardenerID,
 										$plant_type,
 										$light_level,
@@ -69,7 +70,7 @@ if ($submit){
 										$date_submitted,
 										$date_completed);
 	} else {
-		$replacements->editReplacement($customerID,
+		$result = $replacements->editReplacement($customerID,
 										$gardenerID,
 										$plant_type,
 										$light_level,
@@ -82,6 +83,7 @@ if ($submit){
 										$_POST['id']);
 	}
 
+	echo "<pre>Result\n"; print_r($result); echo "</pre>";
 	header('Location: ' . "/replacements.php", true, 303);
    	die();
 }

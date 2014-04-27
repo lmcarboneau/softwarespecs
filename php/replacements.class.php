@@ -19,8 +19,8 @@ class replacements {
 	public function addReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $status, $date_submitted, $date_completed){
 		global $database;
 		$query = "INSERT INTO replacements (customerID, gardenerID, plantID, light_level, 
-			emergency, location, comments, status, date_submitted, date_completed) 
-			VALUES (?,?,?,?,?,?,?,?,?,?)";
+			emergency, location, comments, status, date_submitted, date_completed, cost) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,'0')";
 
 		// We turn the list of parameters into a array starting at index 1
 		// $database->query will insert these parameters into the '?'s in the query
@@ -36,7 +36,7 @@ class replacements {
 	public function editReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $status, $date_submitted, $date_completed, $replacementID){
 		global $database;
 		$query = "UPDATE replacements SET customerID=?, gardenerID=?, plantID=?, light_level=?,"
-			."emergency=?, location=?, comments=?, status=?, date_submitted=?, date_completed=?"
+			."emergency=?, location=?, comments=?, status=?, date_submitted=?, date_completed=?, cost='0'"
 			."WHERE replacementID = ?";
 
 		// We turn the list of parameters into a array starting at index 1
