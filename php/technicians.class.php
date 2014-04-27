@@ -9,9 +9,9 @@ $database = new database();
  
 class technicians {
 
-	public function addTechnician($gardenerID, $first_name, $last_name, $hourly_wage){
-		$query = "INSERT INTO gardeners (gardenerID, first_name, last_name, hourly_wage) 
-			VALUES (?,?,?,?)";
+	public function addTechnician($first_name, $last_name, $hourly_wage){
+		$query = "INSERT INTO gardeners (first_name, last_name, hourly_wage) 
+			VALUES (?,?,?)";
 
 		// We turn the list of parameters into a array starting at index 1
 		// $database->query will insert these parameters into the '?'s in the query
@@ -25,8 +25,8 @@ class technicians {
 	}
 
 	public function editTechnician($gardenerID, $first_name, $last_name, $hourly_wage){
-		$query = "UPDATE gardeners (gardenerID, first_name, last_name, hourly_wage) 
-			SET (?,?,?,?)
+		$query = "UPDATE gardeners (first_name, last_name, hourly_wage) 
+			SET (?,?,?)
 			WHERE id = ".$gardenerID;
 
 		// We turn the list of parameters into a array starting at index 1

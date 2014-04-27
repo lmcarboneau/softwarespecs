@@ -3,11 +3,73 @@ date_default_timezone_set('America/New_York');
 
 session_start(); // initialize the session
 require_once("php/util.class.php");
+
 if(!util::checkLogged()){
 	$_SESSION = array();
 	session_destroy();
 	header('Location: ' . "/login.php", true, 303);
    	die();
+}
+
+require_once("php/database.class.php");
+$database = new database();
+require_once("php/replacements.class.php");
+$replacements = new replacements($database);
+require_once("php/customers.class.php");
+$customers = new customers($database);
+require_once("php/technicians.class.php");
+$technicians = new technicians($database);
+
+$customerList = $customers->getCustomerList();
+$techniciansList = $technicians->getTechnicianList();
+
+//echo "<pre>"; print_r($_POST); echo "</pre>";
+
+
+$id = null;
+if(isset($_GET['id'])){
+	$id = $_GET['id'];
+} elseif (isset($_POST['id'])){
+	$id = $_POST['id'];
+}
+
+$action = "edit";
+if (is_null($id) || empty($id)){
+	$action = "new";
+}
+
+$submit = null;
+if(isset($_GET['submit'])){
+	$submit = $_GET['submit'];
+} elseif (isset($_POST['submit'])){
+	$submit = $_POST['submit'];
+}
+
+if ($submit){
+	$first_name = $_POST['first_name'];
+	$last_name = $_POST['last_name'];
+	$hourly_wage = $_POST['hourly_wage'];
+
+
+	if ($action === "new"){
+		$technicians->addTechnician($first_name,
+										$last_name,
+										$hourly_wage);
+	} else {
+		$technicians->editTechnician($_POST['id'],
+										$first_name,
+										$last_name,
+										$hourly_wage);
+	}
+
+	header('Location: ' . "/technician.php", true, 303);
+   	die();
+}
+
+$thisTechnician = null;
+if ($action === "edit"){
+	$thisTechnician = $technicians->getTechnician($id);
+	//echo $id."<pre>"; print_r($thisReplacement); echo "</pre>";
 }
 
 // MORE PHP GOES HERE. Haven't gotten to it yet.
@@ -32,8 +94,6 @@ if(!util::checkLogged()){
     <!-- Custom styles for this template -->
     <link href="css/justified-nav.css" rel="stylesheet">  
 	
-    
-
   </head>
 
   <body>
@@ -63,7 +123,7 @@ if(!util::checkLogged()){
 
 	
 	<div class="page-header">    <!-- MORE PHP GOES HERE. Haven't gotten to it yet. -->
-	  <p style="float:right;"><a href="technicians.php"><button type="button" class="btn btn-success">Submit New Technician</button></a></p>
+	  <p style="float:right;"><a href="technicians.php"><button type="submit" class="btn btn-success">Submit New Technician</button></a></p>
 	  <h2>New Technician Form</h2>  <!-- Should say something like "new tech" or their name if it's an edit -->
 	</div>
 
@@ -76,17 +136,25 @@ if(!util::checkLogged()){
 				<div class="form-group">
 					<label class="col-sm-4 control-label">First Name</label>
 					<div class="col-sm-5"> 
-						<input class="form-control">
+						<input class="form-control" name="first_name">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Last Name</label>
 					<div class="col-sm-5"> 
-						<input class="form-control">
+						<input class="form-control" name="last_name">
 					</div>
 				</div>
 				
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Hourly Wage</label>
+					<div class="col-sm-5"> 
+						<input class="form-control" name="hourly_wage">
+					</div>
+				</div>
+				
+				<!-- THESE FIELDS ARE NOT CURRENTLY IN OUR DATABASE
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Address</label>
 					<div class="col-sm-5"> 
@@ -120,7 +188,7 @@ if(!util::checkLogged()){
 					<div class="col-sm-5"> 
 						<input class="form-control">
 					</div>
-				</div>
+				</div> !-->
 				
 				
 			</form>
