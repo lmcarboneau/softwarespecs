@@ -28,7 +28,7 @@ class technicians {
 	public function editTechnician($first_name, $last_name, $hourly_wage, $gardenerID){
 		global $database;
 		$query = "UPDATE gardeners SET first_name = ?, last_name = ?, hourly_wage = ?
-			WHERE id = ".$gardenerID;
+			WHERE gardenerID = ?";
 
 		// We turn the list of parameters into a array starting at index 1
 		// $database->query will insert these parameters into the '?'s in the query
