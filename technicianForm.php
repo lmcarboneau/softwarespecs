@@ -56,10 +56,10 @@ if ($submit){
 										$last_name,
 										$hourly_wage);
 	} else {
-		$technicians->editTechnician($_POST['id'],
-										$first_name,
+		$technicians->editTechnician($first_name,
 										$last_name,
-										$hourly_wage);
+										$hourly_wage
+										$_POST['id']);
 	}
 
 	header('Location: ' . "/technician.php", true, 303);
