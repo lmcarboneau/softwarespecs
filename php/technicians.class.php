@@ -25,8 +25,7 @@ class technicians {
 	}
 
 	public function editTechnician($gardenerID, $first_name, $last_name, $hourly_wage){
-		$query = "UPDATE gardeners (first_name, last_name, hourly_wage) 
-			SET (?,?,?)
+		$query = "UPDATE gardeners SET first_name = ?, last_name = ?, hourly_wage = ?)
 			WHERE id = ".$gardenerID;
 
 		// We turn the list of parameters into a array starting at index 1
