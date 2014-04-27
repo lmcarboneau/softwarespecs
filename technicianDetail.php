@@ -212,7 +212,7 @@ $monthlyData = $technicians->getMonthlyData($technicianID, 5);
       </div>
 
 	<div class="page-header">  
-	  <p style="float:right;"><a href="technicianForm.php"><button type="button" class="btn btn-success">Edit Technician Info</button></a></p>
+	  <p style="float:right;"><a href="technicianForm.php?id=<?php echo $thisTechnician['gardenerID'];?>"><button type="button" class="btn btn-success">Edit Technician Info</button></a></p>
 	  <!-- PHP GOES HERE -->
 	  <h2><?php echo $thisTechnician['first_name']." ".$thisTechnician['last_name'];?></h2>
 	</div>  
