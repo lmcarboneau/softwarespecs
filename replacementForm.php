@@ -130,7 +130,8 @@ if ($action === "edit"){
 	<script language="JavaScript">
 		$(function () {
                 $('.datepicker').datetimepicker({
-                     pickTime: false
+                     pickTime: false,
+                     useStrict: true
                 });
             });
 	</script>
