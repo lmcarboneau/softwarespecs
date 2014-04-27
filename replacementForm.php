@@ -57,6 +57,10 @@ if ($submit){
 	$status = $_POST['status'];
 	$date_completed = $_POST['date_completed'];
 
+	if ($status != 2){
+		$date_completed = 'NULL';
+	}
+
 	$result = null;
 	if ($action === "new"){
 		$result = $replacements->addReplacement($customerID,
