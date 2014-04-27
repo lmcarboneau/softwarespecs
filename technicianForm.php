@@ -23,6 +23,7 @@ $technicians = new technicians($database);
 $customerList = $customers->getCustomerList();
 $techniciansList = $technicians->getTechnicianList();
 
+// Uncomment the line below to show which data is being passed in via form 
 //echo "<pre>"; print_r($_POST); echo "</pre>";
 
 
@@ -58,11 +59,11 @@ if ($submit){
 	} else {
 		$technicians->editTechnician($first_name,
 										$last_name,
-										$hourly_wage
+										$hourly_wage,
 										$_POST['id']);
 	}
 
-	header('Location: ' . "/technician.php", true, 303);
+	header('Location: ' . "/technicians.php", true, 303);
    	die();
 }
 
@@ -122,6 +123,10 @@ if ($action === "edit"){
       </div>
 
 	
+	<form class="form-horizontal" role="form" action="technicianForm.php" method="POST">
+	<input type="hidden" name="id" value="<?php echo $id;?>"/>
+	<input type="hidden" name="action" value="<?php echo $action;?>"/>
+	<input type="hidden" name="submit" value="true"/>
 	<div class="page-header">    <!-- MORE PHP GOES HERE. Haven't gotten to it yet. -->
 	  <p style="float:right;"><a href="technicians.php"><button type="submit" class="btn btn-success">Submit New Technician</button></a></p>
 	  <h2>New Technician Form</h2>  <!-- Should say something like "new tech" or their name if it's an edit -->
@@ -130,9 +135,7 @@ if ($action === "edit"){
 	<!-- Main body, with graphs and such -->
 	<br>
 	<div class="row">
-		<div class="col-lg-6">
-			<form class="form-horizontal" role="form">
-				
+		<div class="col-lg-6">				
 				<div class="form-group">
 					<label class="col-sm-4 control-label">First Name</label>
 					<div class="col-sm-5"> 
@@ -191,7 +194,6 @@ if ($action === "edit"){
 				</div> !-->
 				
 				
-			</form>
 		</div>
 		
 		<div class="col-lg-6">
@@ -215,6 +217,7 @@ if ($action === "edit"){
 		</div>
 		
 	</div>
+	</form>
 	<br><br>
 	
 	
