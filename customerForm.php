@@ -284,6 +284,7 @@ if ($action === "edit"){
 						</div>
 					</div>
 					
+					<!-- These are not in the database or the SRS so we don't need them yet, should be re-enabled for the final version
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Email</label>
 						<div class="col-sm-5"> 
@@ -294,6 +295,7 @@ if ($action === "edit"){
 					<div class="col-md-6 col-md-offset-4">
 						<textarea class="form-control" name="comments" rows="4" placeholder="Comments"></textarea>
 					</div>	
+					--!>
 					
 					
 			</div>
