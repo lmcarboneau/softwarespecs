@@ -130,13 +130,57 @@ if ($action === "edit"){
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/moment.min.js"></script>
 	<script src="js/bootstrap-datetimepicker.min.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/additional-methods.min.js"></script>	
     
 	<script language="JavaScript">
+		// override jquery validate plugin defaults
+		$.validator.setDefaults({
+		    highlight: function(element) {
+		        $(element).closest('.form-group').addClass('has-error');
+		    },
+		    unhighlight: function(element) {
+		        $(element).closest('.form-group').removeClass('has-error');
+		    },
+		    errorElement: 'span',
+		    errorClass: 'help-block',
+		    errorPlacement: function(error, element) {
+		    	if(element.hasClass("statusOption")){
+		    		$(".statusError").append(error);
+		    	} else {
+			        if(element.parent('.input-group').length) {
+			            error.insertAfter(element.parent());
+			        } else {
+			            error.insertAfter(element);
+			        }
+		    	}
+		    }
+		});
+
 		$(function () {
                 $('.datepicker').datetimepicker({
                      pickTime: false,
                      useStrict: true
                 });
+
+                var validator = $("#mainForm").validate();
+
+                // Update validation for datepickers on value change
+                $(".datepicker").on("dp.change",function (e) {
+	               validator.element(e);
+	            });
+
+
+	           $('input[name="status"]').change(
+				    function(){
+				        if ($(this).val()==2) {
+					         $("#completedDate").rules("add", "required dateISO");
+					    } else  {
+					    	$("#completedDate").rules("remove", "required dateISO");
+					    }
+				    }
+				);
+	           $('input[name="status"]').trigger("change");
             });
 	</script>
   </head>
@@ -166,7 +210,7 @@ if ($action === "edit"){
 		
       </div>
 	
-	<form class="form-horizontal" role="form" action="replacementForm.php" method="POST">
+	<form id="mainForm" class="form-horizontal" role="form" action="replacementForm.php" method="POST">
 	<input type="hidden" name="id" value="<?php echo $id;?>"/>
 	<input type="hidden" name="action" value="<?php echo $action;?>"/>
 	<input type="hidden" name="submit" value="true"/>
@@ -187,12 +231,18 @@ if ($action === "edit"){
 			
 			
 				<div class="form-group">
-					<label class="col-sm-4 control-label">Date Requested</label>
+					<label for="date_submitted"class="col-sm-4 control-label">Date Requested</label>
 					<div class="col-sm-5"> 
 						<div class='input-group date datepicker' id="picker1" data-date-format="YYYY-MM-DD">
-		                    <input type='text' class="form-control" name="date_submitted" value="<?php echo ($thisReplacement == null) ? "" : $thisReplacement['date_submitted'];?>"/>
-		                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-		                    </span>
+		                    <input 
+		                    	type='text' 
+		                    	class="form-control" 
+		                    	name="date_submitted" 
+		                    	value="<?php echo ($thisReplacement == null) ? "" : $thisReplacement['date_submitted'];?>"
+		                    	required
+		                    	dateISO="true"
+		                    />
+		                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 		                </div>
 					</div>
 				</div>
@@ -200,8 +250,8 @@ if ($action === "edit"){
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Technician</label>
 					<div class="col-sm-5">
-						<select name="technician" class="col-sm-5 form-control">
-							<option>Select...</option>
+						<select name="technician" class="col-sm-5 form-control" required>
+							<option value="">Select...</option>
 							<?php
 							foreach($techniciansList as $technician){
 								echo "<option value='";
@@ -220,9 +270,8 @@ if ($action === "edit"){
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Account</label>
 					<div class="col-sm-5">
-						<select name="customer" class="col-sm-5 form-control" value="<?php echo ($thisReplacement == null) ? "" : $thisReplacement['customerID'];?>">
-							<option>Select...</option>
-							<option>FGCU</option> <!-- CAN PHP GO HERE? Haven't got a clue. -->
+						<select name="customer" class="col-sm-5 form-control" required>
+							<option value="">Select...</option>
 							<?php 
 							foreach($customerList as $customer){
 								echo "<option value='";
@@ -241,7 +290,7 @@ if ($action === "edit"){
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Emergency</label>
 					<div class="col-sm-5">
-						<select name="emergency" class="col-sm-5 form-control">
+						<select name="emergency" class="col-sm-5 form-control" required>
 							<option value="0" <?php echo ($thisReplacement != null && $thisReplacement['emergency'] == 0) ? "selected='selected'" : "";?>>No</option>
 							<option value="1" <?php echo ($thisReplacement != null && $thisReplacement['emergency'] == 1) ? "selected='selected'" : "";?>>Yes</option>
 						</select>
@@ -260,8 +309,8 @@ if ($action === "edit"){
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Plant Type</label>
 					<div class="col-sm-5">
-						<select name="plant_type" class="col-sm-5 form-control">
-							<option>Select...</option>
+						<select name="plant_type" class="col-sm-5 form-control" required>
+							<option value="">Select...</option>
 							<option value="1" <?php echo ($thisReplacement != null && $thisReplacement['plantID'] == 1) ? "selected='selected'" : "";?>>Standard</option>
 						</select>
 					</div>
@@ -270,7 +319,7 @@ if ($action === "edit"){
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Light Level</label>
 					<div class="col-sm-5">
-						<select name="light_level" class="col-sm-5 form-control">
+						<select name="light_level" class="col-sm-5 form-control" required>
 							<option><?php echo ($thisReplacement != null) ? $thisReplacement['light_level'] : "";?></option>
 							<option>Low</option>
 							<option>Medium</option>
@@ -293,47 +342,47 @@ if ($action === "edit"){
 		<div class="col-lg-2">
 			<h3>Admin</h3>
 			<br>
-			
+			<div class="form-group">
+			<fieldset>
+			<div class="statusError"></div>
 			<div class="radio">
-			  <label>
-				<input type="radio" name="status" id="optionsRadios1" value="0"
-				<?php echo ($thisReplacement != null && $thisReplacement['status'] == 0) ? "checked" : "";?>
-				>
+			  <label for="opitonRadios0">
+				<input class="statusOption input-group" type="radio" name="status" id="optionsRadios0" value="0"
+					<?php echo ($thisReplacement != null && $thisReplacement['status'] == 0) ? "checked" : "";?>
+					required>
 				Needs Approval
-			  </label>
+			</label>  
 			</div>
 			<div class="radio">
-			  <label>
-				<input type="radio" name="status" id="optionsRadios1" value="1"
-				<?php echo ($thisReplacement != null && $thisReplacement['status'] == 1) ? "checked" : "";?>
-				>
+			  <label for="optionRadios1">
+				<input class="statusOption input-group" type="radio" name="status" id="optionsRadios1" value="1"
+					<?php echo ($thisReplacement != null && $thisReplacement['status'] == 1) ? "checked" : "";?>>
 				Approved
 			  </label>
 			</div>
 			<div class="radio">
-			  <label>
-				<input type="radio" name="status" id="optionsRadios2" value="2"
-					<?php echo ($thisReplacement != null && $thisReplacement['status'] == 2) ? "checked" : "";?>
-				>
+			  <label for="optionRadios2">
+				<input class="statusOption input-group" type="radio" name="status" id="optionsRadios2" value="2"
+					<?php echo ($thisReplacement != null && $thisReplacement['status'] == 2) ? "checked" : "";?>>
 				Completed
 			  </label>
 			</div>
 			<div class='input-group date datepicker' id="picker2" data-date-format="YYYY-MM-DD">
-                <input type='text' class="form-control" name="date_completed" value="<?php echo ($thisReplacement == null) ? "" : $thisReplacement['date_completed'];?>"/>
+                <input id="completedDate" type='text' class="form-control" name="date_completed" value="<?php echo ($thisReplacement == null) ? "" : $thisReplacement['date_completed'];?>"/>
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                 </span>
             </div>
              <br>
 			<div class="radio">
-			  <label>
-				<input type="radio" name="status" id="optionsRadios3" value="3"
-					<?php echo ($thisReplacement != null && $thisReplacement['status'] == 3) ? "checked" : "";?>
-				>
+			  <label for="optionRadios3">
+				<input class="statusOption input-group" type="radio" name="status" id="optionsRadios3" value="3"
+					<?php echo ($thisReplacement != null && $thisReplacement['status'] == 3) ? "checked" : "";?>>
 				Cancelled
 			  </label>
 			</div>
-				
-			
+			 <label for="status" class="error" style="display:none;">Please select a status</label>
+			</fieldset>
+			</div>
 			
         </div>
 		
