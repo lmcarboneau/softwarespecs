@@ -57,9 +57,11 @@ if ($submit){
 	$zip = $_POST['zip'];
 	$phonenumber = $_POST['phonenumber'];
 	$gardenerID = $_POST['gardenerID'];
-	$monthly_revenue = $_POST['monthly_revenue'];
+	// HARDCODED
+	$monthly_revenue = 300;
 	$avghours = $_POST['avghours'];
 	$quantityID = $_POST['quantityID'];
+	
 	
 	// ACTIVE IS HARDCODED TRUE
 	$active = $true;
