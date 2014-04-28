@@ -95,6 +95,45 @@ if ($action === "edit"){
     <!-- Custom styles for this template -->
     <link href="css/justified-nav.css" rel="stylesheet">  
 	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/additional-methods.min.js"></script>	
+	<script language="JavaScript">
+		// override jquery validate plugin defaults
+		$.validator.setDefaults({
+		    highlight: function(element) {
+		        $(element).closest('.form-group').addClass('has-error');
+		    },
+		    unhighlight: function(element) {
+		        $(element).closest('.form-group').removeClass('has-error');
+		    },
+		    errorElement: 'span',
+		    errorClass: 'help-block',
+		    errorPlacement: function(error, element) {
+		    	if(element.hasClass("statusOption")){
+		    		$(".statusError").append(error);
+		    	} else {
+			        if(element.parent('.input-group').length) {
+			            error.insertAfter(element.parent());
+			        } else {
+			            error.insertAfter(element);
+			        }
+		    	}
+		    }
+		});
+
+		$(function () {
+                var validator = $("#mainForm").validate({
+				  rules: {
+				    hourly_wage: {
+				      required: true,
+				      integer: true
+				    }
+				  }
+				});
+        });
+	</script>
   </head>
 
   <body>
@@ -123,13 +162,15 @@ if ($action === "edit"){
       </div>
 
 	
-	<form class="form-horizontal" role="form" action="technicianForm.php" method="POST">
+	<form id="mainForm" class="form-horizontal" role="form" action="technicianForm.php" method="POST">
 	<input type="hidden" name="id" value="<?php echo $id;?>"/>
 	<input type="hidden" name="action" value="<?php echo $action;?>"/>
 	<input type="hidden" name="submit" value="true"/>
 	<div class="page-header">    <!-- MORE PHP GOES HERE. Haven't gotten to it yet. -->
-	  <p style="float:right;"><a href="technicians.php"><button type="submit" class="btn btn-success">Submit New Technician</button></a></p>
-	  <h2>New Technician Form</h2>  <!-- Should say something like "new tech" or their name if it's an edit -->
+	  <p style="float:right;"><button type="submit" class="btn btn-success">
+	  <?php echo ($action === "new") ? "Submit New Technician" : "Save Changes"?>
+	  </button></p>
+	  <h2><?php echo ($action === "new") ? "New Technician" : "Edit Technician"?></h2>
 	</div>
 
 	<!-- Main body, with graphs and such -->
@@ -139,21 +180,38 @@ if ($action === "edit"){
 				<div class="form-group">
 					<label class="col-sm-4 control-label">First Name</label>
 					<div class="col-sm-5"> 
-						<input class="form-control" name="first_name">
+						<input 
+							type="text"
+							class="form-control" 
+							name="first_name" 
+							value="<?php echo ($thisTechnician != null) ? $thisTechnician['first_name'] : "";?>"
+							required>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Last Name</label>
 					<div class="col-sm-5"> 
-						<input class="form-control" name="last_name">
+						<input 
+							type="text"
+							class="form-control" 
+							name="last_name" 
+							value="<?php echo ($thisTechnician != null) ? $thisTechnician['last_name'] : "";?>"
+							required>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Hourly Wage</label>
-					<div class="col-sm-5"> 
-						<input class="form-control" name="hourly_wage">
+					<div class="col-sm-5">
+						<div class="input-group"> 
+						<span class="input-group-addon">$</span>
+						<input 
+							type="text"
+							class="form-control" 
+							name="hourly_wage" 
+							value="<?php echo ($thisTechnician != null) ? $thisTechnician['hourly_wage'] : "";?>">						<span class="input-group-addon">.00</span>
+						</div>
 					</div>
 				</div>
 				

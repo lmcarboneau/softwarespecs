@@ -219,7 +219,7 @@ if ($action === "edit"){
 	  <p style="float:right;"><button type="submit" class="btn btn-success">
 	  <?php echo ($action === "new") ? "Submit New Replacement" : "Save Changes"?>
 	  </button></p>
-	  <h2><?php echo ($action === "new") ? "New " : "Edit "?>Replacement Form </h2>
+	  <h2><?php echo ($action === "new") ? "New Replacement" : "Edit Replacement"?></h2>
 	</div>
 
 	<!-- Main body, with graphs and such -->
