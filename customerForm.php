@@ -130,12 +130,50 @@ if ($action === "edit"){
     <link href="css/justified-nav.css" rel="stylesheet">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-	<script src="js/List.js"></script>
 
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/moment.min.js"></script>
+	<script src="js/bootstrap-datetimepicker.min.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/additional-methods.min.js"></script>	
+    
 	<script language="JavaScript">
+		// override jquery validate plugin defaults
+		$.validator.setDefaults({
+		    highlight: function(element) {
+		        $(element).closest('.form-group').addClass('has-error');
+		    },
+		    unhighlight: function(element) {
+		        $(element).closest('.form-group').removeClass('has-error');
+		    },
+		    errorElement: 'span',
+		    errorClass: 'help-block',
+		    errorPlacement: function(error, element) {
+		    	if(element.hasClass("statusOption")){
+		    		$(".statusError").append(error);
+		    	} else {
+			        if(element.parent('.input-group').length) {
+			            error.insertAfter(element.parent());
+			        } else {
+			            error.insertAfter(element);
+			        }
+		    	}
+		    }
+		});
 
-   	</script>
-
+		$(function () {
+                var validator = $("#mainForm").validate({
+                	rules:{
+                		zip:{
+                			zipcodeUS: true
+                		},
+                		phonenumber:{
+                			phoneUS: true
+                		}
+                	}
+                });
+        });
+  	</script>
   </head>
 
   <body>
@@ -163,42 +201,25 @@ if ($action === "edit"){
 		
       </div>
 	  
-	  	<form class="form-horizontal" role="form" action="customerForm.php" method="POST">
+	  	<form id="mainForm" class="form-horizontal" role="form" action="customerForm.php" method="POST">
 		<input type="hidden" name="id" value="<?php echo $id;?>"/>
 		<input type="hidden" name="action" value="<?php echo $action;?>"/>
 		<input type="hidden" name="submit" value="true"/>
 
-    <div class="page-header">    <!-- MORE PHP GOES HERE. Haven't gotten to it yet. -->
-	  <p style="float:right;"><a href="customers.php"><button type="submit" class="btn btn-success">Submit New Customer</button></a></p>
-	  <h2>New Customer Form </h2>  <!-- Should say something like "new customer" or their name if it's an edit -->
-	  <!-- also, most of this probably shouldn't show if the PHP throws the "no customer selected" thing -->
-	</div> 
-	<div class="row" >  
-		
-		<?php 
-			/* if (isset($_GET['id'])){
-				$customerID = $_GET['id'];
-				echo "Customer ID: ".$customerID;
-			}else if (isset($_POST['id'])){
-				$customerID = $_POST['id'];
-				echo "Customer ID: ".$customerID;
-			}else{
-				echo "No customer selected to edit.";
-			} */
-			
-			// commented because I can't see what I'm doing when it's complaining. And what I'm doing shouldn't 
-			// display if the php is complaining anyway.
-		// ?> 
-	
-	<!-- Main body, with graphs and such -->
-	
-		<div class="col-lg-6">
+    <div class="page-header">    <!-- MORE PHP GOES HERE. Havent gotten to it yet. -->
+	  <p style="float:right;"><button type="submit" class="btn btn-success">
+	  <?php echo ($action === "new") ? "Submit New Customer" : "Save Changes"?>
+	  </button></p>
+	  <h2><?php echo ($action === "new") ? "New Customer" : "Edit Customer"?></h2>
+	</div>
 
-					
+
+	<div class="row" >  
+		<div class="col-lg-6">
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Customer Name</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="name">
+							<input class="form-control" name="name" required>
 						</div>
 					</div>
 					
@@ -206,8 +227,8 @@ if ($action === "edit"){
 						<label class="col-sm-4 control-label">Technician</label>
 						<!-- PHP GOES HERE -->
 						<div class="col-sm-5">
-							<select class="col-sm-5 form-control" name = "gardenerID">
-								<option>Select...</option>
+							<select class="col-sm-5 form-control" name = "gardenerID" required>
+								<option value="">Select...</option>
 								<?php
 								foreach($techniciansList as $technician){
 									echo "<option value='";
@@ -226,7 +247,7 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Address</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="address1">
+							<input class="form-control" name="address1" required>
 						</div>
 						<div class="col-sm-5 col-sm-offset-4"> 
 							<input class="form-control" name="address2">
@@ -236,15 +257,15 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">City</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="city">
+							<input class="form-control" name="city" required>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">State</label>
 						<div class="col-sm-5">
-							<select class="col-sm-5 form-control" name = "state">
-								<option>Select...</option>
+							<select class="col-sm-5 form-control" name = "state" required>
+								<option value="">Select...</option>
 								<option>Florida</option>
 								<option>Other</option>
 							</select>
@@ -254,7 +275,7 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Zip</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="zip">
+							<input class="form-control" name="zip" required>
 						</div>
 					</div>
 					
@@ -266,21 +287,21 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Contact First Name</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="first_name">
+							<input class="form-control" name="first_name" required>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Contact Last Name</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="last_name">
+							<input class="form-control" name="last_name" required>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Phone</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="phonenumber" placeholder="(555) 555-5555">
+							<input class="form-control" name="phonenumber" placeholder="(555) 555-5555" required>
 						</div>
 					</div>
 					
