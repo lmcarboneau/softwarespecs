@@ -49,17 +49,15 @@ if(isset($_GET['submit'])){
 if ($submit){
 	$first_name = $_POST['first_name'];
 	$last_name = $_POST['last_name'];
-	$hourly_wage = $_POST['hourly_wage'];
+	//$hourly_wage = $_POST['hourly_wage'];
 
 
 	if ($action === "new"){
 		$technicians->addTechnician($first_name,
-										$last_name,
-										$hourly_wage);
+										$last_name);
 	} else {
 		$technicians->editTechnician($first_name,
 										$last_name,
-										$hourly_wage,
 										$_POST['id']);
 	}
 
@@ -124,14 +122,7 @@ if ($action === "edit"){
 		});
 
 		$(function () {
-                var validator = $("#mainForm").validate({
-				  rules: {
-				    hourly_wage: {
-				      required: true,
-				      integer: true
-				    }
-				  }
-				});
+                var validator = $("#mainForm").validate();
         });
 	</script>
   </head>
@@ -201,6 +192,7 @@ if ($action === "edit"){
 					</div>
 				</div>
 				
+				<!-- THESE FIELDS ARE NOT CURRENTLY IN OUR DATABASE
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Hourly Wage</label>
 					<div class="col-sm-5">
@@ -210,12 +202,14 @@ if ($action === "edit"){
 							type="text"
 							class="form-control" 
 							name="hourly_wage" 
-							value="<?php echo ($thisTechnician != null) ? $thisTechnician['hourly_wage'] : "";?>">						<span class="input-group-addon">.00</span>
+							value="<?php echo ($thisTechnician != null) ? $thisTechnician['hourly_wage'] : "";?>"
+							required integer>						
+							<span class="input-group-addon">.00</span>
 						</div>
 					</div>
 				</div>
 				
-				<!-- THESE FIELDS ARE NOT CURRENTLY IN OUR DATABASE
+				
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Address</label>
 					<div class="col-sm-5"> 
