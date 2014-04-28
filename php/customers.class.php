@@ -39,13 +39,13 @@ class customers {
 	public function editCustomer($name, $firstname, $lastname, $address1, $address2, $city, $state, $zip, $phonenumber, $gardenerID, $monthlycharge, $averagehours, $quantityTableID, $active, $id){
 		global $database;
 		$query = "UPDATE customers SET customer_name = ?, contact_first_name = ?, contact_last_name = ?, address_line_one = ?, 
-			address_line_two = ?, city = ?, state = ?, zip = ?, gardenerID = ?, monthly_revenue = ?, hours_to_service = ?, quantityTableID = ?, active = ? 
-			WHERE id = ".$id;
+			address_line_two = ?, city = ?, state = ?, zip = ?, phonenumber = ?, gardenerID = ?, monthly_revenue = ?, hours_to_service = ?, quantityTableID = ?, active = ? 
+			WHERE customerID = ?";
 
 		$parameters = func_get_args();
 		$bind = array_combine(range(1, count($parameters)), array_values($parameters));
 		
-		$result = $database->query($query);
+		$result = $database->query($query, $bind);
 		return $this->successOf($result);
 	}
 
