@@ -162,7 +162,7 @@ if ($action === "edit"){
 		
       </div>
 	  
-	  	<form class="form-horizontal" role="form">
+	  	<form class="form-horizontal" role="form" action="customerForm.php" method="POST">
 		<input type="hidden" name="id" value="<?php echo $id;?>"/>
 		<input type="hidden" name="action" value="<?php echo $action;?>"/>
 		<input type="hidden" name="submit" value="true"/>
