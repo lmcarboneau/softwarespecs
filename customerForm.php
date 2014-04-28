@@ -1,5 +1,3 @@
-
-
 <?php
 date_default_timezone_set('America/New_York');
 
@@ -201,7 +199,7 @@ if ($action === "edit"){
 						<label class="col-sm-4 control-label">Technician</label>
 						<!-- PHP GOES HERE -->
 						<div class="col-sm-5">
-							<select class="col-sm-5 form-control">
+							<select class="col-sm-5 form-control" name = "tech_name">
 								<option>Select...</option>
 								<option>Bill</option>
 								<option>Jeff</option>
@@ -212,10 +210,10 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Address</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="address">
+							<input class="form-control" name="address1">
 						</div>
 						<div class="col-sm-5 col-sm-offset-4"> 
-							<input class="form-control">
+							<input class="form-control" name="address2">
 						</div>
 					</div>
 					
@@ -229,7 +227,7 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">State</label>
 						<div class="col-sm-5">
-							<select class="col-sm-5 form-control">
+							<select class="col-sm-5 form-control" name = "state">
 								<option>Select...</option>
 								<option>Florida</option>
 								<option>Other</option>
@@ -254,7 +252,7 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Contact Name</label>
 						<div class="col-sm-5"> 
-							<input class="form-control">
+							<input class="form-control" name = "full_name">
 						</div>
 					</div>
 					
@@ -262,19 +260,19 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Phone</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" placeholder="(555) 555-5555">
+							<input class="form-control" name = "phonenumber" placeholder="(555) 555-5555">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Email</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" placeholder="name@example.com">
+							<input class="form-control" name = "email" placeholder="name@example.com">
 						</div>
 					</div>
 					
 					<div class="col-md-6 col-md-offset-4">
-						<textarea class="form-control" rows="4" placeholder="Comments"></textarea>
+						<textarea class="form-control" name = "comments" rows="4" placeholder="Comments"></textarea>
 					</div>	
 					
 					
