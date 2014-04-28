@@ -101,6 +101,77 @@ class customers {
 		return $result;
 	}
 
+	public function getMostEfficient(){
+		global $database;
+		$customerList = $this->getCustomerData();
+
+		if (isset($customerList[0])){
+			$maxPoints = $rating = $this->getRating($customerList[0]);;
+			$customer = $customerList[0];
+		} else {
+			return false;
+		}
+
+		foreach($customerList as $customerRow){
+			$rating = $this->getRating($customerRow);
+			$customerRow['rating'] = $rating;
+			
+			if ($rating > $maxPoints){
+				$maxPoints = $rating;
+				$customer = $customerRow;
+				$customer['rating'] = $rating;
+			}
+
+		}
+		return $customer;
+	}
+
+	public function getLeastEfficient(){
+		global $database;
+		$customerList = $this->getCustomerData();
+		
+		if (isset($customerList[0])){
+			$minPoints = $rating = $this->getRating($customerList[0]);;
+			$customer = $customerList[0];
+		} else {
+			return false;
+		}
+
+		foreach($customerList as $customerRow){
+			$rating = $this->getRating($customerRow);
+			$customerRow['rating'] = $rating;
+
+			if ($rating < $minPoints){
+				$minPoints = $rating;
+				$customer = $customerRow;
+			}
+
+		}
+		return $customer;
+	}
+
+	public function getRating($customerRow){
+		$profit = 0;
+			if ($customerRow['amount_billed'] > 0){
+				if ($customerRow['cost_of_replacements'] > 0){
+					$profit = ($customerRow['amount_billed'] - $customerRow['cost_of_replacements']);
+				} else {
+					$profit = $customerRow['amount_billed'];
+				}
+			}
+
+			$replacements = 0;
+			if ($customerRow['number_of_replacements'] > 0 && $customerRow['num_plants'] > 0){
+				$replacements = $customerRow['number_of_replacements'] / $customerRow['num_plants'] * 100;
+				$replacements = round($replacements);
+			}
+
+			$rating = 0;
+			if ($profit!=0){
+				$rating = ($replacements > 0) ? log($profit/($replacements/6))*10 : log($profit)*10;
+			}
+		return $rating;
+	}
 
 	// Returns true or false based on a MySQL result table
 	public function successOf($result){

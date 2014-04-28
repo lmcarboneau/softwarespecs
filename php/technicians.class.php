@@ -103,5 +103,78 @@ class technicians {
 		return $result;
 	}
 
+	public function getMostEfficient(){
+		global $database;
+		$technicianList = $this->getTechnicianData();
+
+		if (isset($technicianList[0])){
+			$maxPoints = $rating = $this->getRating($technicianList[0]);;
+			$technician = $technicianList[0];
+			$technician['rating'] = $rating;
+		} else {
+			return false;
+		}
+
+		foreach($technicianList as $technicianRow){
+			$rating = $this->getRating($technicianRow);
+			$technicianRow['rating'] = $rating;
+
+			if ($rating > $maxPoints){
+				$maxPoints = $rating;
+				$technician = $technicianRow;
+			}
+
+		}
+		return $technician;
+	}
+
+	public function getLeastEfficient(){
+		global $database;
+		$technicianList = $this->getTechnicianData();
+
+		if (isset($technicianList[0])){
+			$maxPoints = $rating = $this->getRating($technicianList[0]);;
+			$technician = $technicianList[0];
+			$technician['rating'] = $rating;
+		} else {
+			return false;
+		}
+
+		foreach($technicianList as $technicianRow){
+			$rating = $this->getRating($technicianRow);
+			$technicianRow['rating'] = $rating;
+
+			if ($rating < $maxPoints){
+				$maxPoints = $rating;
+				$technician = $technicianRow;
+				$technician['rating'] = $rating;
+			}
+
+		}
+		return $technician;
+	}
+
+	public function getRating($technicianRow){
+		$profit = 0;
+			if ($technicianRow['amount_billed'] > 0){
+				if ($technicianRow['cost_of_replacements'] > 0){
+					$profit = ($technicianRow['amount_billed'] - $technicianRow['cost_of_replacements']);
+				} else {
+					$profit = $technicianRow['amount_billed'];
+				}
+			}
+
+			$replacements = 0;
+			if ($technicianRow['number_of_replacements'] > 0 && $technicianRow['num_plants'] > 0){
+				$replacements = $technicianRow['number_of_replacements'] / $technicianRow['num_plants'] * 100;
+				$replacements = round($replacements);
+			}
+
+			$rating = 0;
+			if ($profit!=0){
+				$rating = ($replacements > 0) ? log($profit/($replacements/6))*10 : log($profit)*10;
+			}
+		return $rating;
+	}
 }
 ?>

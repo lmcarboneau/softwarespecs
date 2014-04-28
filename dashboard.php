@@ -14,6 +14,10 @@ require_once("php/database.class.php");
 $database = new database();
 require_once("php/replacements.class.php");
 $replacements = new replacements($database);
+require_once("php/technicians.class.php");
+$technicians = new technicians($database);
+require_once("php/customers.class.php");
+$customers = new customers($database);
 
 $rCounts = $replacements->getReplacementCounts();
 
@@ -21,6 +25,17 @@ $needsApproval = isset($rCounts[0]) ? $rCounts[0] : 0;
 $approved = isset($rCounts[1]) ? $rCounts[1] : 0;
 $completed = isset($rCounts[2]) ? $rCounts[2] : 0;
 $cancelled = isset($rCounts[3]) ? $rCounts[3] : 0;
+
+$month = date('F');
+
+$mostEfficientCustomer = $customers->getMostEfficient();
+$leastEfficientCustomer = $customers->getLeastEfficient();
+
+$mostEfficientTechnician = $technicians->getMostEfficient();
+$leastEfficientTechnician = $technicians->getLeastEfficient();
+
+//echo "<pre>"; print_r($mostEfficientTechnician); echo "</pre>";
+
 
 $mapQuery = "Bob's Auto Repair, Fort Myers, Florida";
 ?>
@@ -80,40 +95,30 @@ $mapQuery = "Bob's Auto Repair, Fort Myers, Florida";
 		
 		<div class="col-md-8">
 			<div class="list-group">
-				<a class="list-group-item list-group-item-success"><b>Statistics</b></a>
+				<a class="list-group-item list-group-item-success"><b><?php echo $month?> Statistics</b></a>
 				<table class="table table-striped table-hover table-bordered">   
 					<tr>
-						<td>Most Profitable Customer </td>
-						<td><a href="customerDetail.php?id=7">Bob's Auto Repair </a></td>
-						<td>$540 </td>
-					</a>
-					<tr>
-						<td>Least Profitable Customer </td>
-						<td><a href="customerDetail.php?id=3">Paul Mitchell The School Fort Myers</a></td>
-						<td>$200 </td>
-					</tr>
-					
-					<tr>
-						<td>Technician with Most Replacements </td>
-						<td><a href="technicianDetail.php?id=3">Drew Walker</a></td>
-						<td>4 </td>
-					</tr>
-					
-					<tr>
-						<td>Technician with Least Replacements </td>
-						<td><a href="technicianDetail.php?id=2">Vincent Lee</a></td>
-						<td>2 </td>
+						<td>Most Efficient Customer</td>
+						<td><a href="customerDetail.php?id=<?php echo $mostEfficientCustomer['customerID'];?>"><?php echo $mostEfficientCustomer['customer_name'];?></a></td>
+						<td align="right"><?php echo floor($mostEfficientCustomer['rating']);?> Points</td>
 					</tr>
 					<tr>
-						<td>Technician with Most Points </td>
-						<td><a href="technicianDetail.php?id=1">Ryan Davis</a></td>
-						<td>72 </td>
+						<td>Least Efficient Customer</td>
+						<td><a href="customerDetail.php?id=<?php echo $leastEfficientCustomer['customerID'];?>"><?php echo $leastEfficientCustomer['customer_name'];?></a></td>
+						<td align="right"><?php echo floor($leastEfficientCustomer['rating']);?> Points</td>
 					</tr>
 					<tr>
-						<td>Technician with Least Points </td>
-						<td><a href="technicianDetail.php?id=3">Drew Walker</a></td>
-						<td>67 </td>
+						<td>Most Efficient Technician</td>
+						<td><a href="technicianDetail.php?id=<?php echo $mostEfficientTechnician['gardenerID'];?>"><?php echo $mostEfficientTechnician['first_name']." ".$mostEfficientTechnician['last_name'];?></a></td>
+						<td align="right"><?php echo floor($mostEfficientTechnician['rating']);?> Points</td>
 					</tr>
+					<tr>
+						<td>Least Efficient Technician</td>
+						<td><a href="technicianDetail.php?id=<?php echo $leastEfficientCustomer['gardenerID'];?>"><?php echo $leastEfficientTechnician['first_name']." ".$leastEfficientTechnician['last_name'];?></a></td>
+						<td align="right"><?php echo floor($leastEfficientTechnician['rating']);?> Points</td>
+					</tr>
+
+
 					
 				 </table>
 			</div>
