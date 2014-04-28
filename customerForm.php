@@ -219,7 +219,9 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Customer Name</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="name" required>
+							<input class="form-control" name="name" 
+								value="<?php echo ($thisCustomer != null) ? $thisCustomer['customer_name'] : "";?>"
+								required >
 						</div>
 					</div>
 					
@@ -247,17 +249,23 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Address</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="address1" required>
+							<input class="form-control" name="address1"
+								value="<?php echo ($thisCustomer != null) ? $thisCustomer['address_line_one'] : "";?>"
+								required>
 						</div>
 						<div class="col-sm-5 col-sm-offset-4"> 
-							<input class="form-control" name="address2">
+							<input class="form-control" name="address2"
+								value="<?php echo ($thisCustomer != null) ? $thisCustomer['address_line_two'] : "";?>"
+								required >
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">City</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="city" required>
+							<input class="form-control" name="city"
+								value="<?php echo ($thisCustomer != null) ? $thisCustomer['city'] : "";?>"
+								required>
 						</div>
 					</div>
 					
@@ -265,7 +273,7 @@ if ($action === "edit"){
 						<label class="col-sm-4 control-label">State</label>
 						<div class="col-sm-5">
 							<select class="col-sm-5 form-control" name = "state" required>
-								<option value="">Select...</option>
+								<option><?php echo ($thisCustomer != null) ? $thisCustomer['state'] : "";?></option>
 								<option>Florida</option>
 								<option>Other</option>
 							</select>
@@ -275,7 +283,9 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Zip</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="zip" required>
+							<input class="form-control" name="zip" 
+								value="<?php echo ($thisCustomer != null) ? $thisCustomer['zip'] : "";?>"
+								required>
 						</div>
 					</div>
 					
@@ -287,21 +297,27 @@ if ($action === "edit"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Contact First Name</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="first_name" required>
+							<input class="form-control" name="first_name" 
+								value="<?php echo ($thisCustomer != null) ? $thisCustomer['contact_first_name'] : "";?>"
+								required>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Contact Last Name</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="last_name" required>
+							<input class="form-control" name="last_name"
+								value="<?php echo ($thisCustomer != null) ? $thisCustomer['contact_last_name'] : "";?>"
+								required>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Phone</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name="phonenumber" placeholder="(555) 555-5555" required>
+							<input class="form-control" name="phonenumber" placeholder="(555) 555-5555" 
+								value="<?php echo ($thisCustomer != null) ? $thisCustomer['phonenumber'] : "";?>"
+								required>
 						</div>
 					</div>
 					
