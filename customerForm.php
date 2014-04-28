@@ -56,14 +56,12 @@ if ($submit){
 	$state = $_POST['state'];
 	$zip = $_POST['zip'];
 	$phonenumber = $_POST['phonenumber'];
-	$gardenerID = $_POST['gardnerID'];
+	$gardenerID = $_POST['gardenerID'];
 	$monthly_revenue = $_POST['monthly_revenue'];
 	$avghours = $_POST['avghours'];
 	$quantityID = $_POST['quantityID'];
 	$active = $_POST['active'];
-
-
-
+	
 	if ($action === "new"){
 		$customers->addCustomer($name,
 									$first_name,
@@ -199,10 +197,19 @@ if ($action === "edit"){
 						<label class="col-sm-4 control-label">Technician</label>
 						<!-- PHP GOES HERE -->
 						<div class="col-sm-5">
-							<select class="col-sm-5 form-control" name = "tech_name">
+							<select class="col-sm-5 form-control" name = "gardenerID">
 								<option>Select...</option>
-								<option>Bill</option>
-								<option>Jeff</option>
+								<?php
+								foreach($techniciansList as $technician){
+									echo "<option value='";
+									echo $technician['gardenerID'];
+									echo "'";
+									echo ($thisReplacement != null && $thisReplacement['gardenerID'] == $technician['gardenerID']) ? "selected='selected'" : "";
+									echo ">";
+									echo $technician['first_name']." ".$technician['last_name'];
+									echo "</option>\n";
+								}
+								?>
 							</select>
 						</div>
 					</div>
@@ -250,12 +257,18 @@ if ($action === "edit"){
 				<form class="form-horizontal" role="form">
 					
 					<div class="form-group">
-						<label class="col-sm-4 control-label">Contact Name</label>
+						<label class="col-sm-4 control-label">Contact First Name</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name = "full_name">
+							<input class="form-control" name = "first_name">
 						</div>
 					</div>
 					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Contact Last Name</label>
+						<div class="col-sm-5"> 
+							<input class="form-control" name = "last_name">
+						</div>
+					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Phone</label>
