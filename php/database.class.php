@@ -61,6 +61,11 @@ class database {
 			die();
 		}
 	}
+
+	public function __destruct(){
+		$this->pdo = null;
+		$this->statement = null;
+	}
 	
 	/**
 	 * Database Query

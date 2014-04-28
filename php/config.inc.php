@@ -18,5 +18,5 @@ Config::write('hostname', 'us-cdbr-azure-east-a.cloudapp.net');
 Config::write('database', 'ipstest');
 Config::write('username', 'b3018fa0e0d448');
 Config::write('password', 'd459720c');
-Config::write('drivers', array(PDO::ATTR_PERSISTENT => true));
+Config::write('drivers', array(PDO::ATTR_PERSISTENT => false));
 ?>
