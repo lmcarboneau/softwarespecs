@@ -92,7 +92,7 @@ if ($submit){
 									$avghours,
 									$quantityID,
 									$active,
-									$_POST['id');
+									$_POST['id']);
 	}
 
 	header('Location: ' . "/customers.php", true, 303);
