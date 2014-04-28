@@ -327,14 +327,18 @@ if ($action === "edit"){
 						</select>
 					</div>
 				</div>
-				<br>
 				
-				<div class="col-lg-8">
-					<textarea name="comments" class="form-control" rows="3" placeholder="Comments">
-						<?php echo ($thisReplacement != null) ? $thisReplacement['comments'] : "";?>
-					</textarea>
-				</div>	
-				
+				<div class="form-group">
+					<div class="row">
+						<label class="col-sm-3 control-label">Comments</label>
+					</div>
+					<div class="row">
+						<div class="col-sm-1"></div>
+						<div class="col-sm-7">
+							<textarea name="comments" class="form-control" rows="3"><?php echo ($thisReplacement != null) ? $thisReplacement['comments'] : "";?></textarea>
+						</div>
+					</div>
+				</div>
 			<br><br>
 		</div>
 		
