@@ -255,8 +255,7 @@ if ($action === "edit"){
 						</div>
 						<div class="col-sm-5 col-sm-offset-4"> 
 							<input class="form-control" name="address2"
-								value="<?php echo ($thisCustomer != null) ? $thisCustomer['address_line_two'] : "";?>"
-								required >
+								value="<?php echo ($thisCustomer != null) ? $thisCustomer['address_line_two'] : "";?>">
 						</div>
 					</div>
 					
