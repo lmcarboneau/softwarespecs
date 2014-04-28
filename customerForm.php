@@ -161,6 +161,11 @@ if ($action === "edit"){
         </ul>
 		
       </div>
+	  
+	  	<form class="form-horizontal" role="form">
+		<input type="hidden" name="id" value="<?php echo $id;?>"/>
+		<input type="hidden" name="action" value="<?php echo $action;?>"/>
+		<input type="hidden" name="submit" value="true"/>
 
     <div class="page-header">    <!-- MORE PHP GOES HERE. Haven't gotten to it yet. -->
 	  <p style="float:right;"><a href="customers.php"><button type="submit" class="btn btn-success">Submit New Customer</button></a></p>
@@ -187,7 +192,7 @@ if ($action === "edit"){
 	<!-- Main body, with graphs and such -->
 	
 		<div class="col-lg-6">
-				<form class="form-horizontal" role="form">
+
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Customer Name</label>
