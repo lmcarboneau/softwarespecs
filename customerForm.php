@@ -61,9 +61,10 @@ if ($submit){
 	$monthly_revenue = 300;
 	// HARDCODED
 	$avghours = 3;
-	$quantityID = $_POST['quantityID'];
+	// HARDCODED
+	$quantityID = 0;
 	// ACTIVE IS HARDCODED TRUE
-	$active = $true;
+	$active = true;
 	
 	if ($action === "new"){
 		$customers->addCustomer($name,
@@ -258,51 +259,48 @@ if ($action === "edit"){
 					</div>
 					
 					
-				</form>
 			</div>
 			
 			<div class="col-lg-6">
-				<form class="form-horizontal" role="form">
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Contact First Name</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name = "first_name">
+							<input class="form-control" name="first_name">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Contact Last Name</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name = "last_name">
+							<input class="form-control" name="last_name">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Phone</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name = "phonenumber" placeholder="(555) 555-5555">
+							<input class="form-control" name="phonenumber" placeholder="(555) 555-5555">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Email</label>
 						<div class="col-sm-5"> 
-							<input class="form-control" name = "email" placeholder="name@example.com">
+							<input class="form-control" name="email" placeholder="name@example.com">
 						</div>
 					</div>
 					
 					<div class="col-md-6 col-md-offset-4">
-						<textarea class="form-control" name = "comments" rows="4" placeholder="Comments"></textarea>
+						<textarea class="form-control" name="comments" rows="4" placeholder="Comments"></textarea>
 					</div>	
 					
 					
-				</form>
 			</div>
 			
 	
 	</div> <!-- ends panel 'row' div -->
-
+	</form>
 
 	  <!-- Site footer -->
       <div class="footer">
