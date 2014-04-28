@@ -16,7 +16,7 @@ class replacements {
 		$database = $db;
 	}
 
-	public function addReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $status, $date_submitted, $date_completed){
+	public function addReplacement($customerID, $gardenerID, $plantID, $light_level, $emergency, $location, $comments, $status, $date_submitted, $date_completed = null){
 		global $database;
 		$query = "INSERT INTO replacements (customerID, gardenerID, plantID, light_level, 
 			emergency, location, comments, status, date_submitted, date_completed, cost) 

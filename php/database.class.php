@@ -91,6 +91,9 @@ class database {
 				} else {
 					$param = FALSE;
 				}
+				if ($value === 'NULL'){
+					$value = null;
+				}
 				/* Bid value */
 				if($param) {
 					$this->statement->bindValue($select, $value, $param);
