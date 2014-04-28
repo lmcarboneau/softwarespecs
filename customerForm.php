@@ -60,7 +60,9 @@ if ($submit){
 	$monthly_revenue = $_POST['monthly_revenue'];
 	$avghours = $_POST['avghours'];
 	$quantityID = $_POST['quantityID'];
-	$active = $_POST['active'];
+	
+	// ACTIVE IS HARDCODED TRUE
+	$active = $true;
 	
 	if ($action === "new"){
 		$customers->addCustomer($name,
