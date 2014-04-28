@@ -59,10 +59,9 @@ if ($submit){
 	$gardenerID = $_POST['gardenerID'];
 	// HARDCODED
 	$monthly_revenue = 300;
-	$avghours = $_POST['avghours'];
+	// HARDCODED
+	$avghours = 3;
 	$quantityID = $_POST['quantityID'];
-	
-	
 	// ACTIVE IS HARDCODED TRUE
 	$active = $true;
 	
