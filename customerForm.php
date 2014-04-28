@@ -204,7 +204,7 @@ if ($action === "edit"){
 									echo "<option value='";
 									echo $technician['gardenerID'];
 									echo "'";
-									echo ($thisReplacement != null && $thisReplacement['gardenerID'] == $technician['gardenerID']) ? "selected='selected'" : "";
+									echo ($thisCustomer != null && $thisCustomer['gardenerID'] == $technician['gardenerID']) ? "selected='selected'" : "";
 									echo ">";
 									echo $technician['first_name']." ".$technician['last_name'];
 									echo "</option>\n";
